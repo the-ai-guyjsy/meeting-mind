@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeetingMind — Enterprise Meeting Intelligence</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%234f46e5' rx='20' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white'>M</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232563eb' rx='20' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white'>M</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,17 +29,17 @@
             --gray-800: #1e293b;
             --gray-900: #0f172a;
             
-            /* Primary - Vibrant Indigo */
-            --primary-50: #eef2ff;
-            --primary-100: #e0e7ff;
-            --primary-200: #c7d2fe;
-            --primary-300: #a5b4fc;
-            --primary-400: #818cf8;
-            --primary-500: #6366f1;
-            --primary-600: #4f46e5;
-            --primary-700: #4338ca;
-            --primary-800: #3730a3;
-            --primary-900: #312e81;
+            /* Primary - Professional Blue */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
             
             /* Accent - Electric Cyan */
             --accent-400: #22d3ee;
@@ -63,20 +63,20 @@
             --error-600: #dc2626;
             
             /* Gradients */
-            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --gradient-primary: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
             --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
             --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
             --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
             --gradient-pink: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
             --gradient-dark: linear-gradient(135deg, #1e293b 0%, #334155 100%);
             
-            /* Speaker Colors - More Vibrant */
-            --speaker-1: #6366f1;
+            /* Speaker Colors - Vibrant & Distinct */
+            --speaker-1: #2563eb;
             --speaker-2: #10b981;
             --speaker-3: #f59e0b;
             --speaker-4: #ec4899;
             --speaker-5: #06b6d4;
-            --speaker-6: #8b5cf6;
+            --speaker-6: #f97316;
             
             /* Shadows */
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
@@ -463,6 +463,111 @@
         .attendee-chip-remove:hover {
             background: var(--error-100);
             color: var(--error-500);
+        }
+
+        /* Employee Selection Grid */
+        .employee-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            max-height: 280px;
+            overflow-y: auto;
+            padding: 0.25rem;
+        }
+
+        .employee-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .employee-item:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-300);
+        }
+
+        .employee-item.selected {
+            background: var(--primary-50);
+            border-color: var(--primary-500);
+        }
+
+        .employee-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray-300);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .employee-item.selected .employee-checkbox {
+            background: var(--primary-500);
+            border-color: var(--primary-500);
+        }
+
+        .employee-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .employee-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .employee-item.selected .employee-name {
+            color: var(--primary-700);
+        }
+
+        .employee-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .employee-action-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .employee-action-btn.add-all {
+            background: var(--primary-100);
+            color: var(--primary-700);
+        }
+
+        .employee-action-btn.add-all:hover {
+            background: var(--primary-200);
+        }
+
+        .employee-action-btn.remove-all {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .employee-action-btn.remove-all:hover {
+            background: var(--gray-200);
         }
 
         .btn {
@@ -1087,7 +1192,7 @@
             justify-content: center;
         }
 
-        .quick-action-icon.purple {
+        .quick-action-icon.blue {
             background: var(--primary-100);
             color: var(--primary-600);
         }
@@ -2294,20 +2399,31 @@
                         <div class="step-dot"></div>
                     </div>
                     <h2 class="onboarding-title">Who's attending?</h2>
-                    <p class="onboarding-subtitle">Add participants to track who said what</p>
+                    <p class="onboarding-subtitle">Select participants to track who said what</p>
                     
                     <div class="form-group">
                         <label class="form-label">Your Name</label>
-                        <input type="text" class="form-input" id="setupUserName" placeholder="Enter your name...">
+                        <input type="text" class="form-input" id="setupUserName" placeholder="Enter your name..." value="Ciaran">
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Other Attendees</label>
-                        <div class="attendee-input-row">
-                            <input type="text" class="form-input" id="attendeeInput" placeholder="Enter name...">
-                            <button class="btn btn-secondary" onclick="addAttendee()">Add</button>
+                        <label class="form-label">Team Members</label>
+                        <div class="employee-actions">
+                            <button class="employee-action-btn add-all" onclick="selectAllEmployees()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;">
+                                    <polyline points="9 11 12 14 22 4"/>
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                </svg>
+                                Add All
+                            </button>
+                            <button class="employee-action-btn remove-all" onclick="removeAllEmployees()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: -2px; margin-right: 4px;">
+                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                                Remove All
+                            </button>
                         </div>
-                        <div class="attendee-chips" id="attendeeChips"></div>
+                        <div class="employee-grid" id="employeeGrid"></div>
                     </div>
                     
                     <div class="btn-group">
@@ -2623,7 +2739,7 @@
                             <div class="card-body">
                                 <div class="quick-actions">
                                     <div class="quick-action" onclick="switchView('meeting')">
-                                        <div class="quick-action-icon purple">
+                                        <div class="quick-action-icon blue">
                                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <polygon points="5 3 19 12 5 21 5 3"/>
                                             </svg>
@@ -2934,6 +3050,7 @@
             transcript: '',
             entries: [],
             speakers: [],
+            selectedEmployees: [],
             currentSpeaker: 0,
             highlights: [],
             actions: [],
@@ -2945,6 +3062,24 @@
             meetingType: 'general',
             userName: ''
         };
+
+        // Predefined employees
+        const employees = [
+            { name: 'Ciaran', color: '1' },
+            { name: 'Aura', color: '2' },
+            { name: 'Eduardo', color: '3' },
+            { name: 'Toby', color: '4' },
+            { name: 'Kelly', color: '5' },
+            { name: 'Jason', color: '6' },
+            { name: 'Nelson', color: '1' },
+            { name: 'Lee', color: '2' },
+            { name: 'Richard', color: '3' },
+            { name: 'Melissa', color: '4' },
+            { name: 'Amanda', color: '5' },
+            { name: 'Clare', color: '6' },
+            { name: 'Alex', color: '1' },
+            { name: 'James', color: '2' }
+        ];
 
         // Speaker colors
         const speakerColors = ['1', '2', '3', '4', '5', '6'];
@@ -2968,52 +3103,68 @@
             document.querySelector(`.onboarding-step[data-step="${state.step}"]`).classList.add('active');
         }
 
-        function addAttendee() {
-            const input = document.getElementById('attendeeInput');
-            const name = input.value.trim();
-            if (!name || state.speakers.some(s => s.name === name)) return;
-            
-            state.speakers.push({
-                name: name,
-                color: speakerColors[state.speakers.length % speakerColors.length]
-            });
-            renderAttendeeChips();
-            input.value = '';
-            input.focus();
+        // Employee selection functions
+        function renderEmployeeGrid() {
+            const grid = document.getElementById('employeeGrid');
+            grid.innerHTML = employees.map((emp, i) => {
+                const isSelected = state.selectedEmployees.includes(emp.name);
+                return `
+                    <div class="employee-item ${isSelected ? 'selected' : ''}" onclick="toggleEmployee('${emp.name}')">
+                        <div class="employee-checkbox">
+                            ${isSelected ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+                        </div>
+                        <div class="employee-avatar" style="background: var(--speaker-${emp.color})">${emp.name.charAt(0)}</div>
+                        <span class="employee-name">${emp.name}</span>
+                    </div>
+                `;
+            }).join('');
         }
 
-        function removeAttendee(index) {
-            state.speakers.splice(index, 1);
-            renderAttendeeChips();
+        function toggleEmployee(name) {
+            const index = state.selectedEmployees.indexOf(name);
+            if (index === -1) {
+                state.selectedEmployees.push(name);
+            } else {
+                state.selectedEmployees.splice(index, 1);
+            }
+            renderEmployeeGrid();
         }
 
-        function renderAttendeeChips() {
-            const container = document.getElementById('attendeeChips');
-            container.innerHTML = state.speakers.map((s, i) => `
-                <div class="attendee-chip">
-                    <div class="attendee-chip-avatar" style="background: var(--speaker-${s.color})">${s.name.charAt(0).toUpperCase()}</div>
-                    ${escapeHtml(s.name)}
-                    <span class="attendee-chip-remove" onclick="removeAttendee(${i})">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                        </svg>
-                    </span>
-                </div>
-            `).join('');
+        function selectAllEmployees() {
+            state.selectedEmployees = employees.map(e => e.name);
+            renderEmployeeGrid();
+        }
+
+        function removeAllEmployees() {
+            state.selectedEmployees = [];
+            renderEmployeeGrid();
         }
 
         function startMeeting() {
             state.meetingTitle = document.getElementById('setupTitle').value || 'Untitled Meeting';
             state.meetingType = document.getElementById('setupType').value;
-            state.userName = document.getElementById('setupUserName').value || 'You';
+            state.userName = document.getElementById('setupUserName').value || 'Ciaran';
             
-            // Add user as first speaker
-            if (!state.speakers.some(s => s.name === state.userName)) {
-                state.speakers.unshift({
-                    name: state.userName,
-                    color: speakerColors[0]
-                });
+            // Build speakers list from selected employees
+            state.speakers = [];
+            
+            // Add user first if not already in selected employees
+            const userEmployee = employees.find(e => e.name === state.userName);
+            if (userEmployee) {
+                state.speakers.push({ name: state.userName, color: userEmployee.color });
+            } else {
+                state.speakers.push({ name: state.userName, color: '1' });
             }
+            
+            // Add selected employees (excluding the user to avoid duplicates)
+            state.selectedEmployees.forEach(name => {
+                if (name !== state.userName) {
+                    const emp = employees.find(e => e.name === name);
+                    if (emp) {
+                        state.speakers.push({ name: emp.name, color: emp.color });
+                    }
+                }
+            });
             
             // Update UI
             document.getElementById('userName').textContent = state.userName;
@@ -3574,9 +3725,9 @@ Generate HTML using: minutes-section, minutes-section-header, minutes-item topic
         // INIT
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('attendeeInput').addEventListener('keypress', e => {
-                if (e.key === 'Enter') addAttendee();
-            });
+            // Render employee selection grid
+            renderEmployeeGrid();
+            
             document.getElementById('chatInput').addEventListener('keypress', e => {
                 if (e.key === 'Enter') sendChat();
             });
