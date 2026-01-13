@@ -1479,6 +1479,7 @@
             white-space: nowrap;
             transition: all var(--transition-fast);
             flex-shrink: 0;
+            position: relative;
         }
 
         .speaker-btn:hover {
@@ -1496,6 +1497,29 @@
         .speaker-btn[data-color="4"].active { border-color: var(--speaker-4); color: var(--speaker-4); }
         .speaker-btn[data-color="5"].active { border-color: var(--speaker-5); color: var(--speaker-5); }
         .speaker-btn[data-color="6"].active { border-color: var(--speaker-6); color: var(--speaker-6); }
+
+        .speaker-key {
+            position: absolute;
+            top: -6px;
+            right: -4px;
+            width: 14px;
+            height: 14px;
+            background: var(--gray-700);
+            color: var(--white);
+            font-size: 0.5rem;
+            font-weight: 700;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .speaker-bar:hover .speaker-key,
+        .speaker-bar.show-keys .speaker-key {
+            opacity: 1;
+        }
 
         .speaker-avatar {
             width: 16px;
@@ -1527,6 +1551,96 @@
             border-color: var(--primary-400);
             color: var(--primary-600);
             background: var(--primary-50);
+        }
+
+        /* Speaker Controls */
+        .speaker-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            padding-left: 0.5rem;
+            border-left: 1px solid var(--gray-200);
+            margin-left: 0.25rem;
+        }
+
+        .auto-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .auto-toggle:hover {
+            background: var(--gray-200);
+        }
+
+        .auto-toggle.active {
+            background: var(--success-100);
+        }
+
+        .auto-toggle-switch {
+            width: 28px;
+            height: 16px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            position: relative;
+            transition: all var(--transition-fast);
+        }
+
+        .auto-toggle.active .auto-toggle-switch {
+            background: var(--success-500);
+        }
+
+        .auto-toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .auto-toggle.active .auto-toggle-switch::after {
+            left: 14px;
+        }
+
+        .auto-toggle-label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .auto-toggle.active .auto-toggle-label {
+            color: var(--success-700);
+        }
+
+        .keyboard-hint {
+            font-size: 0.5625rem;
+            color: var(--gray-400);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .keyboard-hint kbd {
+            padding: 0.125rem 0.25rem;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            border-radius: 3px;
+            font-family: inherit;
+            font-size: 0.5rem;
+            font-weight: 600;
         }
 
         /* Tabs */
@@ -2888,9 +3002,19 @@
                         </div>
                         
                         <!-- Speaker Bar -->
-                        <div class="speaker-bar">
+                        <div class="speaker-bar" id="speakerBar">
                             <span class="speaker-label">Speaking:</span>
                             <div class="speaker-buttons" id="speakerButtons"></div>
+                            <div class="speaker-controls">
+                                <div class="auto-toggle" id="autoToggle" onclick="toggleAutoAlternate()" title="Auto-switch speakers after each pause">
+                                    <div class="auto-toggle-switch"></div>
+                                    <span class="auto-toggle-label">Auto</span>
+                                </div>
+                                <div class="keyboard-hint">
+                                    <kbd>1-9</kbd> switch
+                                    <kbd>Space</kbd> toggle
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Tabs -->
@@ -3095,6 +3219,7 @@
             speakers: [],
             selectedEmployees: [],
             currentSpeaker: 0,
+            autoAlternate: false,
             highlights: [],
             actions: [],
             minutes: null,
@@ -3209,6 +3334,14 @@
                 }
             });
             
+            // Auto-enable auto-alternate for 1:1 meetings or 2 speakers
+            if (state.meetingType === '1on1' || state.speakers.length === 2) {
+                state.autoAlternate = true;
+                setTimeout(() => {
+                    document.getElementById('autoToggle').classList.add('active');
+                }, 100);
+            }
+            
             // Update UI
             document.getElementById('userName').textContent = state.userName;
             document.getElementById('userAvatar').textContent = state.userName.charAt(0).toUpperCase();
@@ -3224,7 +3357,12 @@
             // Update stats
             updateDashboardStats();
             
-            showToast('Meeting ready! Click record to start.', 'success');
+            // Show appropriate message
+            if (state.autoAlternate) {
+                showToast('Meeting ready! Auto-alternate enabled for quick switching.', 'success');
+            } else {
+                showToast('Meeting ready! Press 1-9 to switch speakers.', 'success');
+            }
             switchView('meeting');
         }
 
@@ -3263,24 +3401,47 @@
             const container = document.getElementById('speakerButtons');
             container.innerHTML = state.speakers.map((s, i) => `
                 <button class="speaker-btn ${i === state.currentSpeaker ? 'active' : ''}" data-color="${s.color}" onclick="setSpeaker(${i})">
+                    <span class="speaker-key">${i + 1}</span>
                     <div class="speaker-avatar" data-color="${s.color}">${s.name.charAt(0).toUpperCase()}</div>
                     ${escapeHtml(s.name)}
                 </button>
             `).join('') + `
                 <button class="speaker-btn add-speaker-btn" onclick="addSpeakerDuringMeeting()">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                     </svg>
-                    Add
                 </button>
             `;
         }
 
         function setSpeaker(index) {
+            if (index < 0 || index >= state.speakers.length) return;
             state.currentSpeaker = index;
             document.querySelectorAll('.speaker-btn').forEach((btn, i) => {
                 btn.classList.toggle('active', i === index);
             });
+        }
+
+        function toggleSpeaker() {
+            // Toggle between speakers (cycles through all, or ping-pongs for 2)
+            const next = (state.currentSpeaker + 1) % state.speakers.length;
+            setSpeaker(next);
+            if (state.isRecording) {
+                const speaker = state.speakers[next];
+                showToast(`Switched to ${speaker.name}`, 'success');
+            }
+        }
+
+        function toggleAutoAlternate() {
+            state.autoAlternate = !state.autoAlternate;
+            const toggle = document.getElementById('autoToggle');
+            toggle.classList.toggle('active', state.autoAlternate);
+            
+            if (state.autoAlternate) {
+                showToast('Auto-alternate ON — speakers switch after each pause', 'success');
+            } else {
+                showToast('Auto-alternate OFF — manual switching', 'success');
+            }
         }
 
         function addSpeakerDuringMeeting() {
@@ -3292,6 +3453,38 @@
                 });
                 renderSpeakerButtons();
                 showToast(`Added ${name.trim()}`, 'success');
+            }
+        }
+
+        // Keyboard shortcuts
+        function handleKeyboardShortcuts(e) {
+            // Don't trigger if typing in an input
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+                return;
+            }
+            
+            // Number keys 1-9 to switch speakers
+            if (e.key >= '1' && e.key <= '9') {
+                const index = parseInt(e.key) - 1;
+                if (index < state.speakers.length) {
+                    setSpeaker(index);
+                    if (state.isRecording) {
+                        showToast(`Switched to ${state.speakers[index].name}`, 'success');
+                    }
+                }
+                e.preventDefault();
+            }
+            
+            // Spacebar to toggle speakers (when recording)
+            if (e.code === 'Space' && state.isRecording) {
+                toggleSpeaker();
+                e.preventDefault();
+            }
+            
+            // 'A' key to toggle auto-alternate
+            if (e.key.toLowerCase() === 'a' && !e.ctrlKey && !e.metaKey) {
+                toggleAutoAlternate();
+                e.preventDefault();
             }
         }
 
@@ -3409,6 +3602,12 @@
             renderEntry(entry);
             
             document.getElementById('generateBtn').disabled = state.transcript.length < 50;
+            
+            // Auto-alternate: switch to next speaker after each entry
+            if (state.autoAlternate && state.speakers.length > 1) {
+                const next = (state.currentSpeaker + 1) % state.speakers.length;
+                setSpeaker(next);
+            }
         }
 
         function renderEntry(entry) {
@@ -3770,6 +3969,9 @@ Generate HTML using: minutes-section, minutes-section-header, minutes-item topic
         document.addEventListener('DOMContentLoaded', () => {
             // Render employee selection grid
             renderEmployeeGrid();
+            
+            // Keyboard shortcuts for speaker switching
+            document.addEventListener('keydown', handleKeyboardShortcuts);
             
             document.getElementById('chatInput').addEventListener('keypress', e => {
                 if (e.key === 'Enter') sendChat();
