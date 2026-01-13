@@ -479,8 +479,8 @@
         .employee-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.625rem 0.875rem;
+            gap: 0.625rem;
+            padding: 0.5rem 0.75rem;
             background: var(--gray-50);
             border: 2px solid var(--gray-200);
             border-radius: var(--radius-lg);
@@ -499,8 +499,8 @@
         }
 
         .employee-checkbox {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border: 2px solid var(--gray-300);
             border-radius: 4px;
             display: flex;
@@ -516,21 +516,21 @@
         }
 
         .employee-avatar {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.6875rem;
             font-weight: 700;
             color: var(--white);
             flex-shrink: 0;
         }
 
         .employee-name {
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.8125rem;
+            font-weight: 600;
             color: var(--gray-700);
         }
 
@@ -1611,6 +1611,18 @@
 
         .auto-toggle.active .auto-toggle-switch::after {
             left: 14px;
+        }
+
+        .auto-toggle.accent-toggle.active {
+            background: var(--primary-100);
+        }
+
+        .auto-toggle.accent-toggle.active .auto-toggle-switch {
+            background: var(--primary-500);
+        }
+
+        .auto-toggle.accent-toggle.active .auto-toggle-label {
+            color: var(--primary-700);
         }
 
         .auto-toggle-label {
@@ -3010,6 +3022,10 @@
                                     <div class="auto-toggle-switch"></div>
                                     <span class="auto-toggle-label">Auto</span>
                                 </div>
+                                <div class="auto-toggle accent-toggle" id="accentToggle" onclick="toggleAccentMode()" title="Enhanced recognition for accented English">
+                                    <div class="auto-toggle-switch"></div>
+                                    <span class="auto-toggle-label">Accent</span>
+                                </div>
                                 <div class="keyboard-hint">
                                     <kbd>1-9</kbd> switch
                                     <kbd>Space</kbd> toggle
@@ -3220,6 +3236,7 @@
             selectedEmployees: [],
             currentSpeaker: 0,
             autoAlternate: false,
+            accentMode: false,
             highlights: [],
             actions: [],
             minutes: null,
@@ -3228,25 +3245,39 @@
             timerInterval: null,
             meetingTitle: '',
             meetingType: 'general',
-            userName: ''
+            userName: '',
+            defaultLang: 'en-GB'
         };
 
-        // Predefined employees
+        // Supported languages
+        const languages = [
+            { code: 'en-GB', name: 'English (UK)', flag: '🇬🇧' },
+            { code: 'en-US', name: 'English (US)', flag: '🇺🇸' },
+            { code: 'pt-PT', name: 'Português (PT)', flag: '🇵🇹' },
+            { code: 'pt-BR', name: 'Português (BR)', flag: '🇧🇷' },
+            { code: 'ro-RO', name: 'Română', flag: '🇷🇴' },
+            { code: 'pl-PL', name: 'Polski', flag: '🇵🇱' },
+            { code: 'es-ES', name: 'Español', flag: '🇪🇸' },
+            { code: 'fr-FR', name: 'Français', flag: '🇫🇷' },
+            { code: 'de-DE', name: 'Deutsch', flag: '🇩🇪' }
+        ];
+
+        // Predefined employees with default languages
         const employees = [
-            { name: 'Ciaran', color: '1' },
-            { name: 'Aura', color: '2' },
-            { name: 'Eduardo', color: '3' },
-            { name: 'Toby', color: '4' },
-            { name: 'Kelly', color: '5' },
-            { name: 'Jason', color: '6' },
-            { name: 'Nelson', color: '1' },
-            { name: 'Lee', color: '2' },
-            { name: 'Richard', color: '3' },
-            { name: 'Melissa', color: '4' },
-            { name: 'Amanda', color: '5' },
-            { name: 'Clare', color: '6' },
-            { name: 'Alex', color: '1' },
-            { name: 'James', color: '2' }
+            { name: 'Ciaran', color: '1', lang: 'en-GB' },
+            { name: 'Aura', color: '2', lang: 'ro-RO' },
+            { name: 'Eduardo', color: '3', lang: 'pt-PT' },
+            { name: 'Toby', color: '4', lang: 'en-GB' },
+            { name: 'Kelly', color: '5', lang: 'en-GB' },
+            { name: 'Jason', color: '6', lang: 'en-GB' },
+            { name: 'Nelson', color: '1', lang: 'pt-PT' },
+            { name: 'Lee', color: '2', lang: 'en-GB' },
+            { name: 'Richard', color: '3', lang: 'en-GB' },
+            { name: 'Melissa', color: '4', lang: 'en-GB' },
+            { name: 'Amanda', color: '5', lang: 'en-GB' },
+            { name: 'Clare', color: '6', lang: 'en-GB' },
+            { name: 'Alex', color: '1', lang: 'ro-RO' },
+            { name: 'James', color: '2', lang: 'en-GB' }
         ];
 
         // Speaker colors
@@ -3279,7 +3310,7 @@
                 return `
                     <div class="employee-item ${isSelected ? 'selected' : ''}" onclick="toggleEmployee('${emp.name}')">
                         <div class="employee-checkbox">
-                            ${isSelected ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+                            ${isSelected ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
                         </div>
                         <div class="employee-avatar" style="background: var(--speaker-${emp.color})">${emp.name.charAt(0)}</div>
                         <span class="employee-name">${emp.name}</span>
@@ -3313,15 +3344,19 @@
             state.meetingType = document.getElementById('setupType').value;
             state.userName = document.getElementById('setupUserName').value || 'Ciaran';
             
-            // Build speakers list from selected employees
+            // Build speakers list from selected employees with language info
             state.speakers = [];
             
             // Add user first if not already in selected employees
             const userEmployee = employees.find(e => e.name === state.userName);
             if (userEmployee) {
-                state.speakers.push({ name: state.userName, color: userEmployee.color });
+                state.speakers.push({ 
+                    name: state.userName, 
+                    color: userEmployee.color,
+                    lang: userEmployee.lang || 'en-GB'
+                });
             } else {
-                state.speakers.push({ name: state.userName, color: '1' });
+                state.speakers.push({ name: state.userName, color: '1', lang: 'en-GB' });
             }
             
             // Add selected employees (excluding the user to avoid duplicates)
@@ -3329,7 +3364,11 @@
                 if (name !== state.userName) {
                     const emp = employees.find(e => e.name === name);
                     if (emp) {
-                        state.speakers.push({ name: emp.name, color: emp.color });
+                    state.speakers.push({ 
+                        name: emp.name, 
+                        color: emp.color,
+                        lang: emp.lang || 'en-GB'
+                    });
                     }
                 }
             });
@@ -3399,13 +3438,14 @@
         // ============================================
         function renderSpeakerButtons() {
             const container = document.getElementById('speakerButtons');
-            container.innerHTML = state.speakers.map((s, i) => `
+            container.innerHTML = state.speakers.map((s, i) => {
+                return `
                 <button class="speaker-btn ${i === state.currentSpeaker ? 'active' : ''}" data-color="${s.color}" onclick="setSpeaker(${i})">
                     <span class="speaker-key">${i + 1}</span>
                     <div class="speaker-avatar" data-color="${s.color}">${s.name.charAt(0).toUpperCase()}</div>
                     ${escapeHtml(s.name)}
                 </button>
-            `).join('') + `
+            `}).join('') + `
                 <button class="speaker-btn add-speaker-btn" onclick="addSpeakerDuringMeeting()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -3428,7 +3468,7 @@
             setSpeaker(next);
             if (state.isRecording) {
                 const speaker = state.speakers[next];
-                showToast(`Switched to ${speaker.name}`, 'success');
+                showToast(`→ ${speaker.name}`, 'success');
             }
         }
 
@@ -3444,12 +3484,32 @@
             }
         }
 
+        function toggleAccentMode() {
+            state.accentMode = !state.accentMode;
+            const toggle = document.getElementById('accentToggle');
+            toggle.classList.toggle('active', state.accentMode);
+            
+            if (state.accentMode) {
+                showToast('Accent Mode ON — enhanced recognition for accented speech', 'success');
+            } else {
+                showToast('Accent Mode OFF — standard recognition', 'success');
+            }
+            
+            // Reinitialize speech with new settings if currently recording
+            if (state.isRecording) {
+                try { state.recognition.stop(); } catch(e) {}
+                initSpeech();
+                try { state.recognition.start(); } catch(e) {}
+            }
+        }
+
         function addSpeakerDuringMeeting() {
             const name = prompt('Enter speaker name:');
             if (name && name.trim()) {
                 state.speakers.push({
                     name: name.trim(),
-                    color: speakerColors[state.speakers.length % speakerColors.length]
+                    color: speakerColors[state.speakers.length % speakerColors.length],
+                    lang: 'en-GB'
                 });
                 renderSpeakerButtons();
                 showToast(`Added ${name.trim()}`, 'success');
@@ -3469,7 +3529,7 @@
                 if (index < state.speakers.length) {
                     setSpeaker(index);
                     if (state.isRecording) {
-                        showToast(`Switched to ${state.speakers[index].name}`, 'success');
+                        showToast(`→ ${state.speakers[index].name}`, 'success');
                     }
                 }
                 e.preventDefault();
@@ -3502,12 +3562,40 @@
             state.recognition.continuous = true;
             state.recognition.interimResults = true;
             state.recognition.lang = 'en-GB';
+            
+            // Accent mode: get multiple alternatives for better accuracy
+            if (state.accentMode) {
+                state.recognition.maxAlternatives = 3;
+            } else {
+                state.recognition.maxAlternatives = 1;
+            }
 
             state.recognition.onresult = (e) => {
                 let interim = '', final = '';
                 for (let i = e.resultIndex; i < e.results.length; i++) {
-                    if (e.results[i].isFinal) final += e.results[i][0].transcript;
-                    else interim += e.results[i][0].transcript;
+                    if (e.results[i].isFinal) {
+                        // In accent mode, pick the best alternative based on confidence
+                        if (state.accentMode && e.results[i].length > 1) {
+                            let bestTranscript = e.results[i][0].transcript;
+                            let bestConfidence = e.results[i][0].confidence;
+                            
+                            for (let j = 1; j < e.results[i].length; j++) {
+                                // Prefer longer transcripts with reasonable confidence
+                                // as accented speech often gets truncated
+                                const alt = e.results[i][j];
+                                if (alt.confidence > bestConfidence * 0.8 && 
+                                    alt.transcript.length > bestTranscript.length) {
+                                    bestTranscript = alt.transcript;
+                                    bestConfidence = alt.confidence;
+                                }
+                            }
+                            final += bestTranscript;
+                        } else {
+                            final += e.results[i][0].transcript;
+                        }
+                    } else {
+                        interim += e.results[i][0].transcript;
+                    }
                 }
                 if (final.trim()) addEntry(final.trim());
                 updateInterim(interim);
@@ -3546,7 +3634,12 @@
             startTimer();
             
             document.getElementById('transcriptEmpty').style.display = 'none';
-            showToast('Recording started', 'success');
+            
+            if (state.accentMode) {
+                showToast('Recording started (Accent Mode)', 'success');
+            } else {
+                showToast('Recording started', 'success');
+            }
         }
 
         function stopRecording() {
