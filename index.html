@@ -100,7 +100,7 @@
             --radius-full: 9999px;
             
             /* Sidebar */
-            --sidebar-width: 220px;
+            --sidebar-width: 240px;
             --sidebar-collapsed: 72px;
         }
 
@@ -652,21 +652,21 @@
         }
 
         .sidebar-header {
-            padding: 1rem;
+            padding: 1.25rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .sidebar-logo {
             display: flex;
             align-items: center;
-            gap: 0.625rem;
+            gap: 0.75rem;
         }
 
         .sidebar-logo-icon {
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             background: var(--gradient-primary);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -674,39 +674,39 @@
         }
 
         .sidebar-logo-text {
-            font-size: 1.0625rem;
+            font-size: 1.1875rem;
             font-weight: 700;
             color: var(--white);
         }
 
         .sidebar-nav {
             flex: 1;
-            padding: 0.75rem 0.5rem;
+            padding: 1rem 0.75rem;
             overflow-y: auto;
         }
 
         .nav-section {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .nav-section-title {
-            font-size: 0.625rem;
+            font-size: 0.6875rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--gray-500);
-            padding: 0.375rem 0.625rem;
+            padding: 0.5rem 0.75rem;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 0.625rem;
-            padding: 0.5rem 0.75rem;
-            margin-bottom: 0.125rem;
-            border-radius: var(--radius-md);
+            gap: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            margin-bottom: 0.25rem;
+            border-radius: var(--radius-lg);
             color: var(--gray-400);
-            font-size: 0.8125rem;
+            font-size: 0.9375rem;
             font-weight: 500;
             transition: all var(--transition-fast);
             cursor: pointer;
@@ -723,17 +723,17 @@
         }
 
         .nav-item-icon {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
         }
 
         .nav-item-badge {
             margin-left: auto;
-            padding: 0.0625rem 0.375rem;
+            padding: 0.125rem 0.5rem;
             background: var(--primary-500);
             color: var(--white);
-            font-size: 0.5625rem;
+            font-size: 0.625rem;
             font-weight: 700;
             border-radius: var(--radius-full);
         }
@@ -795,13 +795,13 @@
 
         /* Header */
         .header {
-            height: 52px;
+            height: 60px;
             background: var(--white);
             border-bottom: 1px solid var(--gray-200);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 1.25rem;
+            padding: 0 1.5rem;
             position: sticky;
             top: 0;
             z-index: 50;
@@ -810,11 +810,11 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
         .page-title {
-            font-size: 1rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: var(--gray-900);
         }
@@ -822,15 +822,15 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
         }
 
         .header-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.375rem;
-            padding: 0.375rem 0.75rem;
-            font-size: 0.75rem;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             color: var(--gray-600);
             background: var(--white);
@@ -852,13 +852,13 @@
 
         .header-btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
 
         /* Content */
         .content {
             flex: 1;
-            padding: 1.25rem;
+            padding: 1.5rem;
         }
 
         /* ============================================
@@ -1279,8 +1279,8 @@
            ============================================ */
         .meeting-view {
             display: flex;
-            height: calc(100vh - 52px);
-            margin: -1.25rem;
+            height: calc(100vh - 60px);
+            margin: -1.5rem;
             overflow: hidden;
         }
 
@@ -1294,29 +1294,29 @@
             overflow: hidden;
         }
 
-        /* Recording Bar */
+        /* Recording Bar - TV friendly */
         .recording-bar {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.875rem 1.25rem;
+            gap: 1.5rem;
+            padding: 1rem 1.5rem;
             background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
             border-bottom: 1px solid var(--gray-200);
             flex-shrink: 0;
         }
 
         .record-btn {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: var(--radius-full);
             background: var(--white);
-            border: 2px solid var(--gray-300);
+            border: 3px solid var(--gray-300);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all var(--transition-base);
             flex-shrink: 0;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
 
         .record-btn:hover {
@@ -1325,8 +1325,8 @@
         }
 
         .record-btn-inner {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             background: var(--error-500);
             border-radius: var(--radius-full);
             transition: all var(--transition-base);
@@ -1338,15 +1338,15 @@
         }
 
         .record-btn.recording .record-btn-inner {
-            border-radius: 3px;
-            width: 14px;
-            height: 14px;
+            border-radius: 4px;
+            width: 18px;
+            height: 18px;
         }
 
         @keyframes pulse-ring {
-            0% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(239, 68, 68, 0.4); }
-            70% { box-shadow: var(--shadow-sm), 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% { box-shadow: var(--shadow-md), 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: var(--shadow-md), 0 0 0 12px rgba(239, 68, 68, 0); }
+            100% { box-shadow: var(--shadow-md), 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
         .recording-info {
@@ -1355,13 +1355,13 @@
         }
 
         .recording-status {
-            font-size: 0.6875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--gray-500);
             margin-bottom: 0.125rem;
             display: flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
@@ -1371,8 +1371,8 @@
         }
 
         .recording-status .live-dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: var(--error-500);
             border-radius: var(--radius-full);
             animation: blink 1s infinite;
@@ -1384,7 +1384,7 @@
         }
 
         .recording-timer {
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--gray-900);
             font-variant-numeric: tabular-nums;
@@ -1393,16 +1393,16 @@
 
         .recording-actions {
             display: flex;
-            gap: 0.375rem;
+            gap: 0.5rem;
             flex-shrink: 0;
         }
 
         .action-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.375rem;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.75rem;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             color: var(--gray-600);
             background: var(--white);
@@ -1430,12 +1430,12 @@
             color: var(--success-600);
         }
 
-        /* Speaker Bar - Compact & Scrollable */
+        /* Speaker Bar - TV friendly */
         .speaker-bar {
             display: flex;
             align-items: center;
-            gap: 0.625rem;
-            padding: 0.5rem 1.25rem;
+            gap: 1rem;
+            padding: 0.75rem 1.5rem;
             background: var(--white);
             border-bottom: 1px solid var(--gray-200);
             flex-shrink: 0;
@@ -1443,7 +1443,7 @@
         }
 
         .speaker-label {
-            font-size: 0.6875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--gray-500);
             white-space: nowrap;
@@ -1454,10 +1454,10 @@
 
         .speaker-buttons {
             display: flex;
-            gap: 0.25rem;
+            gap: 0.5rem;
             flex: 1;
             overflow-x: auto;
-            padding: 0.125rem 0;
+            padding: 0.25rem 0;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -1469,12 +1469,12 @@
         .speaker-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
-            padding: 0.25rem 0.5rem;
-            font-size: 0.6875rem;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             background: var(--gray-100);
-            border: 1.5px solid transparent;
+            border: 2px solid transparent;
             border-radius: var(--radius-full);
             white-space: nowrap;
             transition: all var(--transition-fast);
@@ -1502,13 +1502,13 @@
             position: absolute;
             top: -6px;
             right: -4px;
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             background: var(--gray-700);
             color: var(--white);
-            font-size: 0.5rem;
+            font-size: 0.5625rem;
             font-weight: 700;
-            border-radius: 3px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1522,13 +1522,13 @@
         }
 
         .speaker-avatar {
-            width: 16px;
-            height: 16px;
+            width: 22px;
+            height: 22px;
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.5rem;
+            font-size: 0.625rem;
             font-weight: 700;
             color: var(--white);
         }
@@ -1541,10 +1541,10 @@
         .speaker-avatar[data-color="6"] { background: var(--speaker-6); }
 
         .add-speaker-btn {
-            border: 1.5px dashed var(--gray-300);
+            border: 2px dashed var(--gray-300);
             background: transparent;
             color: var(--gray-500);
-            padding: 0.25rem 0.375rem;
+            padding: 0.375rem 0.5rem;
         }
 
         .add-speaker-btn:hover {
@@ -1557,18 +1557,18 @@
         .speaker-controls {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             flex-shrink: 0;
-            padding-left: 0.5rem;
+            padding-left: 0.75rem;
             border-left: 1px solid var(--gray-200);
-            margin-left: 0.25rem;
+            margin-left: 0.5rem;
         }
 
         .auto-toggle {
             display: flex;
             align-items: center;
-            gap: 0.375rem;
-            padding: 0.25rem 0.5rem;
+            gap: 0.5rem;
+            padding: 0.375rem 0.625rem;
             background: var(--gray-100);
             border-radius: var(--radius-full);
             cursor: pointer;
@@ -1584,8 +1584,8 @@
         }
 
         .auto-toggle-switch {
-            width: 28px;
-            height: 16px;
+            width: 32px;
+            height: 18px;
             background: var(--gray-300);
             border-radius: var(--radius-full);
             position: relative;
@@ -1601,8 +1601,8 @@
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             background: var(--white);
             border-radius: var(--radius-full);
             transition: all var(--transition-fast);
@@ -1610,7 +1610,7 @@
         }
 
         .auto-toggle.active .auto-toggle-switch::after {
-            left: 14px;
+            left: 16px;
         }
 
         .auto-toggle.accent-toggle.active {
@@ -1626,7 +1626,7 @@
         }
 
         .auto-toggle-label {
-            font-size: 0.625rem;
+            font-size: 0.6875rem;
             font-weight: 600;
             color: var(--gray-600);
             text-transform: uppercase;
@@ -1638,35 +1638,35 @@
         }
 
         .keyboard-hint {
-            font-size: 0.5625rem;
+            font-size: 0.625rem;
             color: var(--gray-400);
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.375rem;
         }
 
         .keyboard-hint kbd {
-            padding: 0.125rem 0.25rem;
+            padding: 0.125rem 0.375rem;
             background: var(--gray-100);
             border: 1px solid var(--gray-300);
-            border-radius: 3px;
+            border-radius: 4px;
             font-family: inherit;
-            font-size: 0.5rem;
+            font-size: 0.5625rem;
             font-weight: 600;
         }
 
         /* Tabs */
         .meeting-tabs {
             display: flex;
-            padding: 0 1.25rem;
+            padding: 0 1.5rem;
             background: var(--white);
             border-bottom: 1px solid var(--gray-200);
             flex-shrink: 0;
         }
 
         .meeting-tab {
-            padding: 0.625rem 0.875rem;
-            font-size: 0.8125rem;
+            padding: 0.875rem 1.25rem;
+            font-size: 0.9375rem;
             font-weight: 600;
             color: var(--gray-500);
             border-bottom: 2px solid transparent;
@@ -1674,7 +1674,7 @@
             transition: all var(--transition-fast);
             display: flex;
             align-items: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
         }
 
         .meeting-tab:hover {
@@ -1690,14 +1690,14 @@
         .meeting-content {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem 1.25rem;
+            padding: 1.5rem 2rem;
         }
 
         .notes-editor {
             min-height: 200px;
             outline: none;
-            font-size: 0.9375rem;
-            line-height: 1.7;
+            font-size: 1.0625rem;
+            line-height: 1.8;
             color: var(--gray-800);
         }
 
@@ -1719,46 +1719,46 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2.5rem 1.5rem;
+            padding: 4rem 2rem;
             text-align: center;
         }
 
         .empty-icon {
-            width: 56px;
-            height: 56px;
+            width: 72px;
+            height: 72px;
             background: var(--gray-100);
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--gray-400);
-            margin-bottom: 0.875rem;
+            margin-bottom: 1rem;
         }
 
         .empty-title {
-            font-size: 0.9375rem;
+            font-size: 1.125rem;
             font-weight: 700;
             color: var(--gray-900);
-            margin-bottom: 0.375rem;
+            margin-bottom: 0.5rem;
         }
 
         .empty-text {
-            font-size: 0.8125rem;
+            font-size: 0.9375rem;
             color: var(--gray-500);
-            max-width: 260px;
+            max-width: 320px;
         }
 
         .transcript-list {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.5rem;
         }
 
         .transcript-entry {
             display: flex;
-            gap: 0.625rem;
-            padding: 0.5rem 0.625rem;
-            border-radius: var(--radius-md);
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius-lg);
             transition: background var(--transition-fast);
         }
 
@@ -1768,26 +1768,26 @@
 
         .transcript-entry.highlighted {
             background: var(--warning-50);
-            border-left: 2px solid var(--warning-500);
+            border-left: 3px solid var(--warning-500);
         }
 
         .transcript-time {
-            font-size: 0.625rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             font-variant-numeric: tabular-nums;
             color: var(--gray-400);
-            min-width: 36px;
-            padding-top: 2px;
+            min-width: 50px;
+            padding-top: 4px;
         }
 
         .transcript-avatar {
-            width: 24px;
-            height: 24px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.625rem;
+            font-size: 0.875rem;
             font-weight: 700;
             color: var(--white);
             flex-shrink: 0;
@@ -1799,14 +1799,14 @@
         }
 
         .transcript-speaker {
-            font-size: 0.6875rem;
+            font-size: 0.875rem;
             font-weight: 700;
-            margin-bottom: 0.125rem;
+            margin-bottom: 0.25rem;
         }
 
         .transcript-text {
-            font-size: 0.8125rem;
-            line-height: 1.45;
+            font-size: 1rem;
+            line-height: 1.6;
             color: var(--gray-700);
         }
 
@@ -1817,7 +1817,7 @@
 
         .transcript-actions {
             display: flex;
-            gap: 0.125rem;
+            gap: 0.25rem;
             opacity: 0;
             transition: opacity var(--transition-fast);
         }
@@ -1827,8 +1827,8 @@
         }
 
         .transcript-action {
-            width: 22px;
-            height: 22px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1848,8 +1848,8 @@
 
         /* Right Panel */
         .meeting-panel {
-            width: 300px;
-            min-width: 300px;
+            width: 340px;
+            min-width: 340px;
             display: flex;
             flex-direction: column;
             background: var(--gray-50);
@@ -1858,8 +1858,8 @@
 
         .panel-tabs {
             display: flex;
-            padding: 0.75rem;
-            gap: 0.375rem;
+            padding: 0.875rem 1rem;
+            gap: 0.5rem;
             background: var(--white);
             border-bottom: 1px solid var(--gray-200);
             flex-shrink: 0;
@@ -1867,8 +1867,8 @@
 
         .panel-tab {
             flex: 1;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.8125rem;
             font-weight: 600;
             color: var(--gray-500);
             background: var(--gray-100);
@@ -1908,14 +1908,14 @@
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 0.75rem;
+            padding: 1rem;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 0.875rem;
         }
 
         .chat-message {
-            max-width: 92%;
+            max-width: 90%;
             animation: msgIn 0.3s ease;
         }
 
@@ -1933,9 +1933,9 @@
         }
 
         .chat-bubble {
-            padding: 0.625rem 0.875rem;
-            font-size: 0.8125rem;
-            line-height: 1.45;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
             border-radius: var(--radius-lg);
         }
 
@@ -1953,18 +1953,18 @@
         }
 
         .chat-suggestions {
-            padding: 0.5rem 0.75rem;
+            padding: 0.625rem 1rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.375rem;
+            gap: 0.5rem;
             background: var(--white);
             border-top: 1px solid var(--gray-200);
             flex-shrink: 0;
         }
 
         .chat-suggestion {
-            padding: 0.375rem 0.625rem;
-            font-size: 0.6875rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--gray-600);
             background: var(--gray-50);
@@ -1980,7 +1980,7 @@
         }
 
         .chat-input-area {
-            padding: 0.75rem;
+            padding: 1rem;
             background: var(--white);
             border-top: 1px solid var(--gray-200);
             flex-shrink: 0;
@@ -1988,11 +1988,11 @@
 
         .chat-input-wrapper {
             display: flex;
-            gap: 0.375rem;
+            gap: 0.5rem;
             background: var(--gray-50);
-            border: 1.5px solid var(--gray-200);
+            border: 2px solid var(--gray-200);
             border-radius: var(--radius-lg);
-            padding: 0.375rem;
+            padding: 0.5rem;
             transition: all var(--transition-fast);
         }
 
@@ -2004,8 +2004,8 @@
 
         .chat-input {
             flex: 1;
-            padding: 0.375rem 0.5rem;
-            font-size: 0.8125rem;
+            padding: 0.5rem;
+            font-size: 0.875rem;
             background: transparent;
             color: var(--gray-900);
             min-width: 0;
@@ -2016,8 +2016,8 @@
         }
 
         .chat-send {
-            width: 32px;
-            height: 32px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2042,7 +2042,7 @@
         .minutes-content {
             flex: 1;
             overflow-y: auto;
-            padding: 0.875rem;
+            padding: 1rem;
         }
 
         .minutes-empty {
@@ -2050,36 +2050,36 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             flex: 1;
         }
 
         .minutes-section {
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .minutes-section-header {
             display: flex;
             align-items: center;
-            gap: 0.375rem;
-            font-size: 0.6875rem;
+            gap: 0.5rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--gray-500);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.625rem;
         }
 
         .minutes-item {
-            padding: 0.625rem 0.75rem;
+            padding: 0.75rem 1rem;
             background: var(--white);
             border: 1px solid var(--gray-200);
             border-radius: var(--radius-md);
-            font-size: 0.8125rem;
+            font-size: 0.875rem;
             line-height: 1.5;
             color: var(--gray-700);
-            margin-bottom: 0.375rem;
+            margin-bottom: 0.5rem;
             border-left: 3px solid transparent;
         }
 
@@ -2091,16 +2091,17 @@
             display: inline-flex;
             align-items: center;
             gap: 0.25rem;
-            padding: 0.125rem 0.375rem;
+            padding: 0.125rem 0.5rem;
             background: var(--warning-100);
             border-radius: var(--radius-sm);
-            font-size: 0.6875rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--warning-600);
+            margin-left: 0.5rem;
         }
 
         .generate-bar {
-            padding: 0.75rem;
+            padding: 1rem;
             background: var(--white);
             border-top: 1px solid var(--gray-200);
             flex-shrink: 0;
@@ -2108,23 +2109,23 @@
 
         .generate-btn {
             width: 100%;
-            padding: 0.625rem 0.875rem;
-            font-size: 0.8125rem;
+            padding: 0.875rem 1rem;
+            font-size: 0.9375rem;
             font-weight: 700;
             background: var(--gradient-primary);
             color: var(--white);
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.375rem;
+            gap: 0.5rem;
             transition: all var(--transition-fast);
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
         }
 
         .generate-btn:hover:not(:disabled) {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .generate-btn:disabled {
@@ -2338,6 +2339,34 @@
         }
 
         /* Responsive */
+        @media (min-width: 1600px) {
+            /* TV / Large screens */
+            .meeting-panel {
+                width: 380px;
+                min-width: 380px;
+            }
+            .transcript-text {
+                font-size: 1.125rem;
+            }
+            .transcript-avatar {
+                width: 42px;
+                height: 42px;
+                font-size: 1rem;
+            }
+            .recording-timer {
+                font-size: 2.5rem;
+            }
+            .speaker-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9375rem;
+            }
+            .speaker-avatar {
+                width: 26px;
+                height: 26px;
+                font-size: 0.75rem;
+            }
+        }
+
         @media (max-width: 1280px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -2346,8 +2375,8 @@
                 grid-template-columns: 1fr;
             }
             .meeting-panel {
-                width: 280px;
-                min-width: 280px;
+                width: 300px;
+                min-width: 300px;
             }
         }
 
@@ -2379,6 +2408,9 @@
                 justify-content: center;
             }
             .header-right {
+                display: none;
+            }
+            .speaker-controls {
                 display: none;
             }
         }
@@ -3565,34 +3597,40 @@
             
             // Accent mode: get multiple alternatives for better accuracy
             if (state.accentMode) {
-                state.recognition.maxAlternatives = 3;
+                state.recognition.maxAlternatives = 5;
             } else {
-                state.recognition.maxAlternatives = 1;
+                state.recognition.maxAlternatives = 3;
             }
 
             state.recognition.onresult = (e) => {
                 let interim = '', final = '';
                 for (let i = e.resultIndex; i < e.results.length; i++) {
                     if (e.results[i].isFinal) {
-                        // In accent mode, pick the best alternative based on confidence
-                        if (state.accentMode && e.results[i].length > 1) {
-                            let bestTranscript = e.results[i][0].transcript;
-                            let bestConfidence = e.results[i][0].confidence;
+                        // Pick the best alternative based on confidence and length
+                        let bestTranscript = e.results[i][0].transcript;
+                        let bestScore = e.results[i][0].confidence;
+                        
+                        // Check all alternatives
+                        for (let j = 1; j < e.results[i].length; j++) {
+                            const alt = e.results[i][j];
+                            // In accent mode, prefer longer complete sentences
+                            // Standard mode prefers highest confidence
+                            let score = alt.confidence;
+                            if (state.accentMode) {
+                                // Boost score for longer transcripts (accents often get truncated)
+                                const lengthBonus = alt.transcript.length / bestTranscript.length;
+                                score = alt.confidence * (0.7 + 0.3 * Math.min(lengthBonus, 1.5));
+                            }
                             
-                            for (let j = 1; j < e.results[i].length; j++) {
-                                // Prefer longer transcripts with reasonable confidence
-                                // as accented speech often gets truncated
-                                const alt = e.results[i][j];
-                                if (alt.confidence > bestConfidence * 0.8 && 
-                                    alt.transcript.length > bestTranscript.length) {
+                            if (score > bestScore * 0.85) {
+                                // Accept if within 15% of best score and longer
+                                if (alt.transcript.length >= bestTranscript.length) {
                                     bestTranscript = alt.transcript;
-                                    bestConfidence = alt.confidence;
+                                    bestScore = score;
                                 }
                             }
-                            final += bestTranscript;
-                        } else {
-                            final += e.results[i][0].transcript;
                         }
+                        final += bestTranscript;
                     } else {
                         interim += e.results[i][0].transcript;
                     }
@@ -3604,12 +3642,20 @@
             state.recognition.onerror = (e) => {
                 if (e.error !== 'no-speech' && e.error !== 'aborted') {
                     console.error('Speech error:', e.error);
+                    if (e.error === 'network') {
+                        showToast('Network error - check internet connection', 'error');
+                    }
                 }
             };
 
             state.recognition.onend = () => {
                 if (state.isRecording) {
-                    try { state.recognition.start(); } catch(e) {}
+                    // Brief delay before restart to avoid rapid cycling
+                    setTimeout(() => {
+                        if (state.isRecording) {
+                            try { state.recognition.start(); } catch(e) {}
+                        }
+                    }, 100);
                 }
             };
         }
@@ -3803,43 +3849,70 @@
             sendBtn.disabled = true;
             const typingId = addTyping();
 
-            try {
-                const res = await fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 1000,
-                        messages: [{
-                            role: 'user',
-                            content: `You are an AI meeting assistant. Answer concisely.
-
-Meeting: ${state.meetingTitle}
-Type: ${state.meetingType}
-Attendees: ${state.speakers.map(s => s.name).join(', ')}
-
-Transcript:
-${state.transcript || '(No transcript yet)'}
-
-Notes:
-${document.getElementById('notesEditor').innerText || '(No notes)'}
-
-Question: ${msg}`
-                        }]
-                    })
-                });
-
-                const data = await res.json();
-                removeTyping(typingId);
-                
-                if (data.content?.[0]?.text) {
-                    addChat(data.content[0].text, 'assistant');
+            // Simulate processing time
+            await new Promise(r => setTimeout(r, 800 + Math.random() * 700));
+            
+            removeTyping(typingId);
+            
+            // Smart local responses based on question type
+            const lowerMsg = msg.toLowerCase();
+            let response = '';
+            
+            const speakerNames = state.speakers.map(s => s.name);
+            const entryCount = state.entries.length;
+            const duration = document.getElementById('recordingTimer')?.textContent || '00:00:00';
+            
+            if (lowerMsg.includes('decision') || lowerMsg.includes('decided')) {
+                const decisions = state.entries.filter(e => 
+                    e.text.toLowerCase().includes('agree') || 
+                    e.text.toLowerCase().includes('let\'s') ||
+                    e.text.toLowerCase().includes('will') ||
+                    e.text.toLowerCase().includes('going to')
+                );
+                if (decisions.length > 0) {
+                    response = `Based on the transcript, here are potential decisions:\n\n${decisions.slice(0, 3).map((d, i) => `${i+1}. ${d.speaker.name}: "${d.text}"`).join('\n\n')}`;
+                } else {
+                    response = 'No clear decisions identified yet. Continue the meeting and I\'ll track key decisions as they\'re made.';
                 }
-            } catch (e) {
-                removeTyping(typingId);
-                addChat('Could not connect to AI.', 'assistant');
+            } else if (lowerMsg.includes('action') || lowerMsg.includes('todo') || lowerMsg.includes('task')) {
+                const actions = state.entries.filter(e => 
+                    e.text.toLowerCase().includes('will') || 
+                    e.text.toLowerCase().includes('need to') ||
+                    e.text.toLowerCase().includes('should') ||
+                    e.text.toLowerCase().includes('going to')
+                );
+                if (actions.length > 0) {
+                    response = `Potential action items identified:\n\n${actions.slice(0, 4).map((a, i) => `• ${a.speaker.name}: ${a.text}`).join('\n')}`;
+                } else {
+                    response = 'No clear action items identified yet. I\'ll flag them when someone commits to a task.';
+                }
+            } else if (lowerMsg.includes('summary') || lowerMsg.includes('summarize') || lowerMsg.includes('overview')) {
+                if (entryCount > 0) {
+                    const topics = [...new Set(state.entries.map(e => e.speaker.name))];
+                    response = `Meeting Summary:\n\n📋 ${state.meetingTitle}\n⏱️ Duration: ${duration}\n👥 Participants: ${speakerNames.join(', ')}\n💬 ${entryCount} exchanges recorded\n\nKey discussion points were raised by ${topics.join(' and ')}.`;
+                } else {
+                    response = 'No transcript recorded yet. Start recording to capture the meeting discussion.';
+                }
+            } else if (lowerMsg.includes('who') && lowerMsg.includes('said')) {
+                response = `Speakers in this meeting: ${speakerNames.join(', ')}.\n\nEach speaker\'s contributions are color-coded in the transcript.`;
+            } else if (lowerMsg.includes('key point') || lowerMsg.includes('highlight') || lowerMsg.includes('important')) {
+                const highlighted = state.entries.filter(e => e.highlighted);
+                if (highlighted.length > 0) {
+                    response = `Highlighted key points:\n\n${highlighted.map((h, i) => `⭐ ${h.speaker.name}: "${h.text}"`).join('\n\n')}`;
+                } else {
+                    response = 'No highlights marked yet. Click the star icon on important transcript entries to highlight them.';
+                }
+            } else {
+                // Default helpful response
+                const suggestions = [
+                    'Try asking about "main decisions" or "action items"',
+                    'Ask for a "summary" of the meeting so far',
+                    'Ask "what are the key points?"'
+                ];
+                response = `I'm analysing this ${state.meetingType} meeting with ${speakerNames.length} participants.\n\n${entryCount > 0 ? `So far there have been ${entryCount} exchanges.` : 'Recording hasn\'t started yet.'}\n\n💡 ${suggestions[Math.floor(Math.random() * suggestions.length)]}`;
             }
-
+            
+            addChat(response, 'assistant');
             sendBtn.disabled = false;
         }
 
@@ -3873,62 +3946,149 @@ Question: ${msg}`
         // MINUTES
         // ============================================
         async function generateMinutes() {
-            if (state.transcript.length < 50) return showToast('Need more transcript', 'error');
+            if (state.entries.length < 2) return showToast('Need more transcript content', 'error');
 
             const btn = document.getElementById('generateBtn');
             btn.disabled = true;
             btn.innerHTML = '<div class="spinner"></div> Generating...';
 
-            const prompts = {
-                general: 'Generate comprehensive minutes: overview, key points, decisions, action items.',
-                standup: 'Generate standup notes: done, planned, blockers.',
-                operations: 'Generate operations review: metrics, issues, actions.',
-                '1on1': 'Generate 1:1 notes: topics, feedback, goals, actions.',
-                client: 'Generate client notes: requirements, decisions, deliverables.',
-                interview: 'Generate interview notes: strengths, concerns, recommendation.',
-                brainstorm: 'Generate brainstorm notes: ideas, top concepts, next steps.',
-                training: 'Generate training notes: topics covered, Q&A, follow-ups.'
-            };
+            // Simulate processing time
+            await new Promise(r => setTimeout(r, 1500 + Math.random() * 1000));
 
-            try {
-                const res = await fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 2000,
-                        messages: [{
-                            role: 'user',
-                            content: `${prompts[state.meetingType]}
-
-Meeting: ${state.meetingTitle}
-Date: ${new Date().toLocaleDateString()}
-Attendees: ${state.speakers.map(s => s.name).join(', ')}
-Type: ${state.meetingType}
-
-Transcript:
-${state.transcript}
-
-Notes:
-${document.getElementById('notesEditor').innerText || 'None'}
-
-Generate HTML using: minutes-section, minutes-section-header, minutes-item topic/decision/action, minutes-owner.`
-                        }]
-                    })
-                });
-
-                const data = await res.json();
-                if (data.content?.[0]?.text) {
-                    state.minutes = data.content[0].text;
-                    document.getElementById('minutesContent').innerHTML = state.minutes;
-                    document.getElementById('minutesContent').style.display = 'block';
-                    document.getElementById('minutesEmpty').style.display = 'none';
-                    switchPanel('minutes');
-                    showToast('Minutes generated!', 'success');
-                }
-            } catch (e) {
-                showToast('Failed to generate minutes', 'error');
+            const speakerNames = state.speakers.map(s => s.name);
+            const date = new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const duration = document.getElementById('recordingTimer')?.textContent || '00:00:00';
+            const notes = document.getElementById('notesEditor').innerText || '';
+            
+            // Analyze transcript for key content
+            const decisions = state.entries.filter(e => 
+                e.text.toLowerCase().includes('agree') || 
+                e.text.toLowerCase().includes('let\'s') ||
+                e.text.toLowerCase().includes('decided') ||
+                e.text.toLowerCase().includes('will do')
+            );
+            
+            const actions = state.entries.filter(e => 
+                e.text.toLowerCase().includes('will') || 
+                e.text.toLowerCase().includes('need to') ||
+                e.text.toLowerCase().includes('going to') ||
+                e.text.toLowerCase().includes('action')
+            );
+            
+            const questions = state.entries.filter(e => e.text.includes('?'));
+            const highlighted = state.entries.filter(e => e.highlighted);
+            
+            // Build minutes HTML
+            let minutesHTML = `
+                <div class="minutes-header" style="margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--gray-200);">
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--gray-900); margin-bottom: 0.5rem;">${escapeHtml(state.meetingTitle)}</h3>
+                    <div style="font-size: 0.875rem; color: var(--gray-500);">
+                        📅 ${date} &nbsp;•&nbsp; ⏱️ ${duration} &nbsp;•&nbsp; 👥 ${speakerNames.join(', ')}
+                    </div>
+                </div>
+            `;
+            
+            // Key Discussion Points (from highlighted or first few entries)
+            const keyPoints = highlighted.length > 0 ? highlighted : state.entries.slice(0, Math.min(5, state.entries.length));
+            if (keyPoints.length > 0) {
+                minutesHTML += `
+                    <div class="minutes-section">
+                        <div class="minutes-section-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            Key Discussion Points
+                        </div>
+                        ${keyPoints.map(e => `<div class="minutes-item topic">${escapeHtml(e.speaker.name)}: ${escapeHtml(e.text)}</div>`).join('')}
+                    </div>
+                `;
             }
+            
+            // Decisions
+            if (decisions.length > 0) {
+                minutesHTML += `
+                    <div class="minutes-section">
+                        <div class="minutes-section-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            Decisions Made
+                        </div>
+                        ${decisions.slice(0, 5).map(e => `<div class="minutes-item decision">${escapeHtml(e.text)}</div>`).join('')}
+                    </div>
+                `;
+            }
+            
+            // Action Items
+            if (actions.length > 0) {
+                minutesHTML += `
+                    <div class="minutes-section">
+                        <div class="minutes-section-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                            Action Items
+                        </div>
+                        ${actions.slice(0, 5).map(e => `
+                            <div class="minutes-item action">
+                                ${escapeHtml(e.text)}
+                                <span class="minutes-owner">@${escapeHtml(e.speaker.name)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            // Questions Raised (if any)
+            if (questions.length > 0) {
+                minutesHTML += `
+                    <div class="minutes-section">
+                        <div class="minutes-section-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            Questions Raised
+                        </div>
+                        ${questions.slice(0, 4).map(e => `<div class="minutes-item topic">${escapeHtml(e.speaker.name)}: ${escapeHtml(e.text)}</div>`).join('')}
+                    </div>
+                `;
+            }
+            
+            // Notes (if any)
+            if (notes.trim()) {
+                minutesHTML += `
+                    <div class="minutes-section">
+                        <div class="minutes-section-header">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                            Additional Notes
+                        </div>
+                        <div class="minutes-item topic">${escapeHtml(notes).replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+            }
+            
+            // Summary stats
+            minutesHTML += `
+                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gray-200); font-size: 0.75rem; color: var(--gray-400);">
+                    Generated by MeetingMind • ${state.entries.length} exchanges recorded • ${decisions.length} decisions • ${actions.length} action items
+                </div>
+            `;
+            
+            state.minutes = minutesHTML;
+            document.getElementById('minutesContent').innerHTML = state.minutes;
+            document.getElementById('minutesContent').style.display = 'block';
+            document.getElementById('minutesEmpty').style.display = 'none';
+            switchPanel('minutes');
+            showToast('Minutes generated!', 'success');
 
             btn.disabled = false;
             btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Generate Minutes';
