@@ -1,0 +1,3590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetingMind — Enterprise Meeting Intelligence</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%234f46e5' rx='20' width='100' height='100'/><text x='50' y='70' font-size='60' text-anchor='middle' fill='white'>M</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES - VIBRANT ENTERPRISE
+           ============================================ */
+        :root {
+            /* Core */
+            --white: #ffffff;
+            --black: #000000;
+            
+            /* Neutral Scale */
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            
+            /* Primary - Vibrant Indigo */
+            --primary-50: #eef2ff;
+            --primary-100: #e0e7ff;
+            --primary-200: #c7d2fe;
+            --primary-300: #a5b4fc;
+            --primary-400: #818cf8;
+            --primary-500: #6366f1;
+            --primary-600: #4f46e5;
+            --primary-700: #4338ca;
+            --primary-800: #3730a3;
+            --primary-900: #312e81;
+            
+            /* Accent - Electric Cyan */
+            --accent-400: #22d3ee;
+            --accent-500: #06b6d4;
+            --accent-600: #0891b2;
+            
+            /* Semantic */
+            --success-50: #ecfdf5;
+            --success-100: #d1fae5;
+            --success-500: #10b981;
+            --success-600: #059669;
+            
+            --warning-50: #fffbeb;
+            --warning-100: #fef3c7;
+            --warning-500: #f59e0b;
+            --warning-600: #d97706;
+            
+            --error-50: #fef2f2;
+            --error-100: #fee2e2;
+            --error-500: #ef4444;
+            --error-600: #dc2626;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            --gradient-pink: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+            --gradient-dark: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            
+            /* Speaker Colors - More Vibrant */
+            --speaker-1: #6366f1;
+            --speaker-2: #10b981;
+            --speaker-3: #f59e0b;
+            --speaker-4: #ec4899;
+            --speaker-5: #06b6d4;
+            --speaker-6: #8b5cf6;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
+            --shadow-glow-accent: 0 0 30px rgba(6, 182, 212, 0.2);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --radius-full: 9999px;
+            
+            /* Sidebar */
+            --sidebar-width: 260px;
+            --sidebar-collapsed: 72px;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        input, textarea, select {
+            font-family: inherit;
+            border: none;
+            outline: none;
+        }
+
+        /* ============================================
+           SCROLLBAR
+           ============================================ */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
+        }
+
+        /* ============================================
+           ONBOARDING
+           ============================================ */
+        .onboarding {
+            position: fixed;
+            inset: 0;
+            background: var(--white);
+            z-index: 1000;
+            display: flex;
+            transition: opacity var(--transition-slow), visibility var(--transition-slow);
+        }
+
+        .onboarding.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .onboarding-left {
+            width: 45%;
+            background: var(--gradient-primary);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .onboarding-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        .onboarding-brand {
+            position: relative;
+            z-index: 1;
+        }
+
+        .onboarding-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .onboarding-logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .onboarding-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .onboarding-tagline {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .onboarding-tagline span {
+            background: linear-gradient(90deg, #22d3ee, #a5f3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .onboarding-desc {
+            font-size: 1.125rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 400px;
+        }
+
+        .onboarding-features {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .onboarding-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9375rem;
+        }
+
+        .onboarding-feature-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.15);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .onboarding-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .onboarding-form-container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .onboarding-step {
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        .onboarding-step.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-200);
+            transition: all var(--transition-base);
+        }
+
+        .step-dot.active {
+            width: 32px;
+            background: var(--gradient-primary);
+        }
+
+        .step-dot.completed {
+            background: var(--success-500);
+        }
+
+        .onboarding-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .onboarding-subtitle {
+            font-size: 1rem;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            color: var(--gray-900);
+            transition: all var(--transition-fast);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 4px var(--primary-100);
+        }
+
+        .form-input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 3rem;
+        }
+
+        .quick-titles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .quick-title {
+            padding: 0.5rem 0.875rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-fast);
+        }
+
+        .quick-title:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-300);
+            color: var(--primary-700);
+        }
+
+        .attendee-input-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .attendee-input-row .form-input {
+            flex: 1;
+        }
+
+        .attendee-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .attendee-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.875rem;
+            background: var(--primary-50);
+            border: 1px solid var(--primary-200);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--primary-700);
+        }
+
+        .attendee-chip-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .attendee-chip-remove {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-full);
+            color: var(--primary-400);
+            transition: all var(--transition-fast);
+        }
+
+        .attendee-chip-remove:hover {
+            background: var(--error-100);
+            color: var(--error-500);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md), var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg), 0 0 50px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--gray-700);
+            border: 2px solid var(--gray-200);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-group .btn {
+            flex: 1;
+        }
+
+        /* ============================================
+           MAIN APP LAYOUT
+           ============================================ */
+        .app {
+            display: flex;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity var(--transition-slow);
+        }
+
+        .app.visible {
+            opacity: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--gray-900);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .sidebar-logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0.75rem;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-500);
+            padding: 0.5rem 0.75rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.25rem;
+            border-radius: var(--radius-lg);
+            color: var(--gray-400);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+        }
+
+        .nav-item.active {
+            background: var(--primary-600);
+            color: var(--white);
+        }
+
+        .nav-item-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .nav-item-badge {
+            margin-left: auto;
+            padding: 0.125rem 0.5rem;
+            background: var(--primary-500);
+            color: var(--white);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            border-radius: var(--radius-full);
+        }
+
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .user-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--radius-lg);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--white);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--gray-400);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            height: 64px;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .header-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .header-btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+        }
+
+        .header-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 1.5rem;
+        }
+
+        /* ============================================
+           DASHBOARD VIEW
+           ============================================ */
+        .view {
+            display: none;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
+            transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-card.gradient-1 {
+            background: var(--gradient-primary);
+            border: none;
+        }
+
+        .stat-card.gradient-2 {
+            background: var(--gradient-accent);
+            border: none;
+        }
+
+        .stat-card.gradient-3 {
+            background: var(--gradient-success);
+            border: none;
+        }
+
+        .stat-card.gradient-4 {
+            background: var(--gradient-warm);
+            border: none;
+        }
+
+        .stat-card.gradient-1,
+        .stat-card.gradient-2,
+        .stat-card.gradient-3,
+        .stat-card.gradient-4 {
+            color: var(--white);
+        }
+
+        .stat-card.gradient-1 .stat-label,
+        .stat-card.gradient-2 .stat-label,
+        .stat-card.gradient-3 .stat-label,
+        .stat-card.gradient-4 .stat-label {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-600);
+        }
+
+        .stat-card.gradient-1 .stat-icon,
+        .stat-card.gradient-2 .stat-icon,
+        .stat-card.gradient-3 .stat-icon,
+        .stat-card.gradient-4 .stat-icon {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-full);
+        }
+
+        .stat-trend.up {
+            background: var(--success-100);
+            color: var(--success-600);
+        }
+
+        .stat-trend.down {
+            background: var(--error-100);
+            color: var(--error-600);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Chart Placeholder */
+        .chart-container {
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-bars {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.75rem;
+            padding-bottom: 1rem;
+        }
+
+        .chart-bar-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-bar {
+            width: 100%;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            transition: height var(--transition-slow);
+        }
+
+        .chart-bar.primary {
+            background: var(--gradient-primary);
+        }
+
+        .chart-bar.accent {
+            background: var(--gradient-accent);
+        }
+
+        .chart-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-weight: 500;
+        }
+
+        .chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: var(--radius-full);
+        }
+
+        .legend-dot.primary {
+            background: var(--primary-500);
+        }
+
+        .legend-dot.accent {
+            background: var(--accent-500);
+        }
+
+        /* Recent Meetings */
+        .meeting-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meeting-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--gray-100);
+            transition: background var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .meeting-item:last-child {
+            border-bottom: none;
+        }
+
+        .meeting-item:hover {
+            background: var(--gray-50);
+        }
+
+        .meeting-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .meeting-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .meeting-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.125rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .meeting-meta {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .meeting-duration {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            white-space: nowrap;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .quick-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .quick-action:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-300);
+        }
+
+        .quick-action-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-action-icon.purple {
+            background: var(--primary-100);
+            color: var(--primary-600);
+        }
+
+        .quick-action-icon.cyan {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-600);
+        }
+
+        .quick-action-icon.green {
+            background: var(--success-100);
+            color: var(--success-600);
+        }
+
+        .quick-action-icon.orange {
+            background: var(--warning-100);
+            color: var(--warning-600);
+        }
+
+        .quick-action-text {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            text-align: center;
+        }
+
+        /* Filters */
+        .filters-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .filter-select {
+            padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary-500);
+            outline: none;
+        }
+
+        .filter-input {
+            padding: 0.5rem 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            width: 140px;
+        }
+
+        .filter-input:focus {
+            border-color: var(--primary-500);
+            outline: none;
+        }
+
+        /* ============================================
+           MEETING VIEW
+           ============================================ */
+        .meeting-view {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 0;
+            height: calc(100vh - 64px);
+            margin: -1.5rem;
+        }
+
+        .meeting-main {
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--gray-200);
+            background: var(--white);
+        }
+
+        /* Recording Bar */
+        .recording-bar {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 100%);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .record-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-full);
+            background: var(--white);
+            border: 3px solid var(--gray-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-base);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .record-btn:hover {
+            border-color: var(--error-500);
+            transform: scale(1.05);
+        }
+
+        .record-btn-inner {
+            width: 24px;
+            height: 24px;
+            background: var(--error-500);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-base);
+        }
+
+        .record-btn.recording {
+            border-color: var(--error-500);
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        .record-btn.recording .record-btn-inner {
+            border-radius: 4px;
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: var(--shadow-md), 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: var(--shadow-md), 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: var(--shadow-md), 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .recording-info {
+            flex: 1;
+        }
+
+        .recording-status {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .recording-status.active {
+            color: var(--error-500);
+        }
+
+        .recording-status .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--error-500);
+            border-radius: var(--radius-full);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .recording-timer {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+        }
+
+        .recording-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .action-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+            color: var(--gray-900);
+        }
+
+        .action-btn.highlight-btn:hover {
+            background: var(--warning-50);
+            border-color: var(--warning-500);
+            color: var(--warning-600);
+        }
+
+        .action-btn.action-item-btn:hover {
+            background: var(--success-50);
+            border-color: var(--success-500);
+            color: var(--success-600);
+        }
+
+        /* Speaker Bar */
+        .speaker-bar {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .speaker-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            white-space: nowrap;
+        }
+
+        .speaker-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            overflow-x: auto;
+            padding: 0.25rem 0;
+        }
+
+        .speaker-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            background: var(--gray-100);
+            border: 2px solid transparent;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+            transition: all var(--transition-fast);
+        }
+
+        .speaker-btn:hover {
+            background: var(--gray-200);
+        }
+
+        .speaker-btn.active {
+            background: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .speaker-btn[data-color="1"].active { border-color: var(--speaker-1); color: var(--speaker-1); }
+        .speaker-btn[data-color="2"].active { border-color: var(--speaker-2); color: var(--speaker-2); }
+        .speaker-btn[data-color="3"].active { border-color: var(--speaker-3); color: var(--speaker-3); }
+        .speaker-btn[data-color="4"].active { border-color: var(--speaker-4); color: var(--speaker-4); }
+        .speaker-btn[data-color="5"].active { border-color: var(--speaker-5); color: var(--speaker-5); }
+        .speaker-btn[data-color="6"].active { border-color: var(--speaker-6); color: var(--speaker-6); }
+
+        .speaker-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.625rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .speaker-avatar[data-color="1"] { background: var(--speaker-1); }
+        .speaker-avatar[data-color="2"] { background: var(--speaker-2); }
+        .speaker-avatar[data-color="3"] { background: var(--speaker-3); }
+        .speaker-avatar[data-color="4"] { background: var(--speaker-4); }
+        .speaker-avatar[data-color="5"] { background: var(--speaker-5); }
+        .speaker-avatar[data-color="6"] { background: var(--speaker-6); }
+
+        .add-speaker-btn {
+            border: 2px dashed var(--gray-300);
+            background: transparent;
+            color: var(--gray-500);
+        }
+
+        .add-speaker-btn:hover {
+            border-color: var(--primary-400);
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+
+        /* Tabs */
+        .meeting-tabs {
+            display: flex;
+            padding: 0 1.5rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .meeting-tab {
+            padding: 1rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meeting-tab:hover {
+            color: var(--gray-700);
+        }
+
+        .meeting-tab.active {
+            color: var(--primary-600);
+            border-bottom-color: var(--primary-600);
+        }
+
+        /* Content Area */
+        .meeting-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .notes-editor {
+            min-height: 300px;
+            outline: none;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--gray-800);
+        }
+
+        .notes-editor:empty::before {
+            content: attr(data-placeholder);
+            color: var(--gray-400);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .transcript-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            font-size: 0.9375rem;
+            color: var(--gray-500);
+            max-width: 320px;
+        }
+
+        .transcript-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .transcript-entry {
+            display: flex;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            border-radius: var(--radius-lg);
+            transition: background var(--transition-fast);
+        }
+
+        .transcript-entry:hover {
+            background: var(--gray-50);
+        }
+
+        .transcript-entry.highlighted {
+            background: var(--warning-50);
+            border-left: 3px solid var(--warning-500);
+        }
+
+        .transcript-time {
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            color: var(--gray-400);
+            min-width: 50px;
+            padding-top: 3px;
+        }
+
+        .transcript-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .transcript-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .transcript-speaker {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .transcript-text {
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            color: var(--gray-700);
+        }
+
+        .transcript-text .interim {
+            color: var(--gray-400);
+            font-style: italic;
+        }
+
+        .transcript-actions {
+            display: flex;
+            gap: 0.25rem;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .transcript-entry:hover .transcript-actions {
+            opacity: 1;
+        }
+
+        .transcript-action {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            color: var(--gray-400);
+            transition: all var(--transition-fast);
+        }
+
+        .transcript-action:hover {
+            background: var(--gray-200);
+            color: var(--gray-700);
+        }
+
+        .transcript-action.active {
+            color: var(--warning-500);
+        }
+
+        /* Right Panel */
+        .meeting-panel {
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+
+        .panel-tabs {
+            display: flex;
+            padding: 1rem;
+            gap: 0.5rem;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .panel-tab {
+            flex: 1;
+            padding: 0.625rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+            text-align: center;
+            transition: all var(--transition-fast);
+        }
+
+        .panel-tab:hover {
+            color: var(--gray-700);
+        }
+
+        .panel-tab.active {
+            background: var(--white);
+            color: var(--gray-900);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-section {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .panel-section.active {
+            display: flex;
+        }
+
+        /* Chat */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-message {
+            max-width: 90%;
+            animation: msgIn 0.3s ease;
+        }
+
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.assistant {
+            align-self: flex-start;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+        }
+
+        .chat-bubble {
+            padding: 0.875rem 1rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: var(--radius-xl);
+        }
+
+        .chat-message.assistant .chat-bubble {
+            background: var(--white);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-message.user .chat-bubble {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-suggestions {
+            padding: 0.75rem 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .chat-suggestion {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-fast);
+        }
+
+        .chat-suggestion:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-300);
+            color: var(--primary-700);
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .chat-input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            padding: 0.5rem;
+            transition: all var(--transition-fast);
+        }
+
+        .chat-input-wrapper:focus-within {
+            border-color: var(--primary-500);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--primary-100);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            background: transparent;
+            color: var(--gray-900);
+        }
+
+        .chat-input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .chat-send {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+
+        .chat-send:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Minutes */
+        .minutes-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.25rem;
+        }
+
+        .minutes-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+            flex: 1;
+        }
+
+        .minutes-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .minutes-section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+        }
+
+        .minutes-item {
+            padding: 0.875rem 1rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            border-left: 3px solid transparent;
+        }
+
+        .minutes-item.topic { border-left-color: var(--primary-500); }
+        .minutes-item.decision { border-left-color: var(--success-500); }
+        .minutes-item.action { border-left-color: var(--warning-500); }
+
+        .minutes-owner {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.125rem 0.5rem;
+            background: var(--warning-100);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--warning-600);
+        }
+
+        .generate-bar {
+            padding: 1rem;
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-md);
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+        }
+
+        .generate-btn:disabled {
+            background: var(--gray-300);
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        /* Export Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            width: 90%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: scale(0.95);
+            transition: transform var(--transition-base);
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .modal-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            color: var(--gray-500);
+            transition: all var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .export-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .export-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .export-option:hover {
+            border-color: var(--primary-400);
+            background: var(--primary-50);
+        }
+
+        .export-option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .export-option-icon.pdf {
+            background: var(--error-100);
+            color: var(--error-500);
+        }
+
+        .export-option-icon.email {
+            background: var(--primary-100);
+            color: var(--primary-600);
+        }
+
+        .export-option-icon.print {
+            background: var(--gray-200);
+            color: var(--gray-600);
+        }
+
+        .export-option-icon.copy {
+            background: var(--success-100);
+            color: var(--success-600);
+        }
+
+        .export-option-info {
+            flex: 1;
+        }
+
+        .export-option-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.125rem;
+        }
+
+        .export-option-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 0.875rem 1.5rem;
+            background: var(--gray-900);
+            color: var(--white);
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            z-index: 300;
+            opacity: 0;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--success-500);
+        }
+
+        .toast.error {
+            background: var(--error-500);
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: var(--radius-full);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar, .meeting-panel, .recording-bar, .speaker-bar, .meeting-tabs, .header {
+                display: none !important;
+            }
+            .main {
+                margin-left: 0 !important;
+            }
+            .meeting-view {
+                display: block !important;
+            }
+            .meeting-main {
+                border: none !important;
+            }
+            .content {
+                padding: 0 !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1280px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+            .main {
+                margin-left: 0;
+            }
+            .meeting-view {
+                grid-template-columns: 1fr;
+            }
+            .meeting-panel {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .onboarding-left {
+                display: none;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Export Modal -->
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Export Minutes</h3>
+                <button class="modal-close" onclick="closeExportModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-option" onclick="exportPDF()">
+                        <div class="export-option-icon pdf">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                            </svg>
+                        </div>
+                        <div class="export-option-info">
+                            <div class="export-option-title">Save as PDF</div>
+                            <div class="export-option-desc">Download meeting minutes as PDF document</div>
+                        </div>
+                    </div>
+                    <div class="export-option" onclick="exportEmail()">
+                        <div class="export-option-icon email">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div class="export-option-info">
+                            <div class="export-option-title">Email Minutes</div>
+                            <div class="export-option-desc">Send meeting minutes via email</div>
+                        </div>
+                    </div>
+                    <div class="export-option" onclick="exportPrint()">
+                        <div class="export-option-icon print">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 6 2 18 2 18 9"/>
+                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                                <rect x="6" y="14" width="12" height="8"/>
+                            </svg>
+                        </div>
+                        <div class="export-option-info">
+                            <div class="export-option-title">Print</div>
+                            <div class="export-option-desc">Print meeting minutes directly</div>
+                        </div>
+                    </div>
+                    <div class="export-option" onclick="exportCopy()">
+                        <div class="export-option-icon copy">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </div>
+                        <div class="export-option-info">
+                            <div class="export-option-title">Copy to Clipboard</div>
+                            <div class="export-option-desc">Copy as formatted text</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding -->
+    <div class="onboarding" id="onboarding">
+        <div class="onboarding-left">
+            <div class="onboarding-brand">
+                <div class="onboarding-logo">
+                    <div class="onboarding-logo-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <span class="onboarding-logo-text">MeetingMind</span>
+                </div>
+                <h1 class="onboarding-tagline">Capture what matters,<br><span>not everything.</span></h1>
+                <p class="onboarding-desc">Enterprise-grade meeting intelligence that turns conversations into actionable insights.</p>
+                
+                <div class="onboarding-features">
+                    <div class="onboarding-feature">
+                        <div class="onboarding-feature-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                            </svg>
+                        </div>
+                        Real-time transcription with speaker tracking
+                    </div>
+                    <div class="onboarding-feature">
+                        <div class="onboarding-feature-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        AI assistant to query your meetings
+                    </div>
+                    <div class="onboarding-feature">
+                        <div class="onboarding-feature-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6"/>
+                            </svg>
+                        </div>
+                        Smart minutes with decisions & action items
+                    </div>
+                    <div class="onboarding-feature">
+                        <div class="onboarding-feature-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="9" y1="21" x2="9" y2="9"/>
+                            </svg>
+                        </div>
+                        Dashboard analytics & reporting
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="onboarding-right">
+            <div class="onboarding-form-container">
+                <!-- Step 1 -->
+                <div class="onboarding-step active" data-step="1">
+                    <div class="step-indicator">
+                        <div class="step-dot active"></div>
+                        <div class="step-dot"></div>
+                        <div class="step-dot"></div>
+                    </div>
+                    <h2 class="onboarding-title">Let's get started</h2>
+                    <p class="onboarding-subtitle">Set up your meeting in seconds</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Meeting Title</label>
+                        <input type="text" class="form-input" id="setupTitle" placeholder="Enter meeting title...">
+                        <div class="quick-titles">
+                            <button class="quick-title" onclick="setQuickTitle('Daily Operations')">Daily Operations</button>
+                            <button class="quick-title" onclick="setQuickTitle('Team Standup')">Team Standup</button>
+                            <button class="quick-title" onclick="setQuickTitle('Weekly Review')">Weekly Review</button>
+                            <button class="quick-title" onclick="setQuickTitle('Client Call')">Client Call</button>
+                            <button class="quick-title" onclick="setQuickTitle('Project Planning')">Project Planning</button>
+                            <button class="quick-title" onclick="setQuickTitle('1:1 Meeting')">1:1 Meeting</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Meeting Type</label>
+                        <select class="form-input form-select" id="setupType">
+                            <option value="general">General Meeting</option>
+                            <option value="standup">Daily Standup</option>
+                            <option value="operations">Operations Review</option>
+                            <option value="1on1">1:1 Meeting</option>
+                            <option value="client">Client Call</option>
+                            <option value="interview">Interview</option>
+                            <option value="brainstorm">Brainstorming</option>
+                            <option value="training">Training Session</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-lg" onclick="nextStep()">
+                            Continue
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="onboarding-step" data-step="2">
+                    <div class="step-indicator">
+                        <div class="step-dot completed"></div>
+                        <div class="step-dot active"></div>
+                        <div class="step-dot"></div>
+                    </div>
+                    <h2 class="onboarding-title">Who's attending?</h2>
+                    <p class="onboarding-subtitle">Add participants to track who said what</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" class="form-input" id="setupUserName" placeholder="Enter your name...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Other Attendees</label>
+                        <div class="attendee-input-row">
+                            <input type="text" class="form-input" id="attendeeInput" placeholder="Enter name...">
+                            <button class="btn btn-secondary" onclick="addAttendee()">Add</button>
+                        </div>
+                        <div class="attendee-chips" id="attendeeChips"></div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn btn-primary btn-lg" onclick="nextStep()">
+                            Continue
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="onboarding-step" data-step="3">
+                    <div class="step-indicator">
+                        <div class="step-dot completed"></div>
+                        <div class="step-dot completed"></div>
+                        <div class="step-dot active"></div>
+                    </div>
+                    <h2 class="onboarding-title">You're all set!</h2>
+                    <p class="onboarding-subtitle">Here's how to get the most out of MeetingMind</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0;">
+                        <div style="display: flex; gap: 1rem; padding: 1rem; background: var(--primary-50); border-radius: var(--radius-lg); border: 1px solid var(--primary-200);">
+                            <div style="width: 32px; height: 32px; background: var(--primary-100); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--primary-600); flex-shrink: 0;">1</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--gray-900); margin-bottom: 0.25rem;">Click Record to Start</div>
+                                <div style="font-size: 0.875rem; color: var(--gray-600);">Press the red button to begin capturing audio</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; padding: 1rem; background: var(--success-50); border-radius: var(--radius-lg); border: 1px solid var(--success-100);">
+                            <div style="width: 32px; height: 32px; background: var(--success-100); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--success-600); flex-shrink: 0;">2</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--gray-900); margin-bottom: 0.25rem;">Switch Speakers</div>
+                                <div style="font-size: 0.875rem; color: var(--gray-600);">Tap speaker buttons when someone new starts talking</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; padding: 1rem; background: var(--warning-50); border-radius: var(--radius-lg); border: 1px solid var(--warning-100);">
+                            <div style="width: 32px; height: 32px; background: var(--warning-100); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--warning-600); flex-shrink: 0;">3</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--gray-900); margin-bottom: 0.25rem;">Generate Minutes</div>
+                                <div style="font-size: 0.875rem; color: var(--gray-600);">AI creates structured notes with action items</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                        <button class="btn btn-primary btn-lg" onclick="startMeeting()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="5 3 19 12 5 21 5 3"/>
+                            </svg>
+                            Start Meeting
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app" id="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="sidebar-logo-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <span class="sidebar-logo-text">MeetingMind</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <div class="nav-item active" data-view="dashboard" onclick="switchView('dashboard')">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                        Dashboard
+                    </div>
+                    <div class="nav-item" data-view="meeting" onclick="switchView('meeting')">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                            <line x1="12" y1="19" x2="12" y2="23"/>
+                            <line x1="8" y1="23" x2="16" y2="23"/>
+                        </svg>
+                        Current Meeting
+                        <span class="nav-item-badge">LIVE</span>
+                    </div>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Workspace</div>
+                    <div class="nav-item" data-view="history" onclick="switchView('history')">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        Meeting History
+                    </div>
+                    <div class="nav-item" data-view="reports" onclick="switchView('reports')">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        Reports
+                    </div>
+                    <div class="nav-item" data-view="actions" onclick="switchView('actions')">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 11 12 14 22 4"/>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                        Action Items
+                    </div>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <div class="nav-item">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                        Preferences
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">User</div>
+                        <div class="user-role">Enterprise</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Dashboard View -->
+            <div class="view active" id="dashboardView">
+                <header class="header">
+                    <div class="header-left">
+                        <h1 class="page-title">Dashboard</h1>
+                    </div>
+                    <div class="header-right">
+                        <button class="header-btn" onclick="openExportModal()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export
+                        </button>
+                        <button class="header-btn header-btn-primary" onclick="switchView('meeting')">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            New Meeting
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="content">
+                    <!-- Filters -->
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <span class="filter-label">Period:</span>
+                            <select class="filter-select" id="filterPeriod">
+                                <option value="7">Last 7 days</option>
+                                <option value="30" selected>Last 30 days</option>
+                                <option value="90">Last 90 days</option>
+                                <option value="365">Last year</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <span class="filter-label">Type:</span>
+                            <select class="filter-select" id="filterType">
+                                <option value="all">All Types</option>
+                                <option value="general">General</option>
+                                <option value="standup">Standup</option>
+                                <option value="operations">Operations</option>
+                                <option value="client">Client</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card gradient-1">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="statMeetings">0</div>
+                            <div class="stat-label">Total Meetings</div>
+                        </div>
+                        <div class="stat-card gradient-2">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="statHours">0h</div>
+                            <div class="stat-label">Total Time</div>
+                        </div>
+                        <div class="stat-card gradient-3">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 11 12 14 22 4"/>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="statActions">0</div>
+                            <div class="stat-label">Action Items</div>
+                        </div>
+                        <div class="stat-card gradient-4">
+                            <div class="stat-header">
+                                <div class="stat-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="statAttendees">0</div>
+                            <div class="stat-label">Avg Attendees</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Grid -->
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Meeting Activity</h3>
+                                <div class="card-actions">
+                                    <button class="header-btn" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;">Weekly</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <div class="chart-bars">
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar primary" style="height: 60%;"></div>
+                                            <span class="chart-label">Mon</span>
+                                        </div>
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar primary" style="height: 85%;"></div>
+                                            <span class="chart-label">Tue</span>
+                                        </div>
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar primary" style="height: 45%;"></div>
+                                            <span class="chart-label">Wed</span>
+                                        </div>
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar primary" style="height: 95%;"></div>
+                                            <span class="chart-label">Thu</span>
+                                        </div>
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar primary" style="height: 70%;"></div>
+                                            <span class="chart-label">Fri</span>
+                                        </div>
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar accent" style="height: 25%;"></div>
+                                            <span class="chart-label">Sat</span>
+                                        </div>
+                                        <div class="chart-bar-group">
+                                            <div class="chart-bar accent" style="height: 15%;"></div>
+                                            <span class="chart-label">Sun</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-legend">
+                                        <div class="legend-item">
+                                            <div class="legend-dot primary"></div>
+                                            <span>Weekday</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-dot accent"></div>
+                                            <span>Weekend</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Quick Actions</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="quick-actions">
+                                    <div class="quick-action" onclick="switchView('meeting')">
+                                        <div class="quick-action-icon purple">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polygon points="5 3 19 12 5 21 5 3"/>
+                                            </svg>
+                                        </div>
+                                        <span class="quick-action-text">Start Meeting</span>
+                                    </div>
+                                    <div class="quick-action" onclick="switchView('history')">
+                                        <div class="quick-action-icon cyan">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <circle cx="11" cy="11" r="8"/>
+                                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                            </svg>
+                                        </div>
+                                        <span class="quick-action-text">Search Meetings</span>
+                                    </div>
+                                    <div class="quick-action" onclick="switchView('reports')">
+                                        <div class="quick-action-icon green">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                                <path d="M14 2v6h6"/>
+                                            </svg>
+                                        </div>
+                                        <span class="quick-action-text">Generate Report</span>
+                                    </div>
+                                    <div class="quick-action" onclick="switchView('actions')">
+                                        <div class="quick-action-icon orange">
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="9 11 12 14 22 4"/>
+                                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                            </svg>
+                                        </div>
+                                        <span class="quick-action-text">View Actions</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Meetings -->
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Meetings</h3>
+                            <button class="header-btn" onclick="switchView('history')">View All</button>
+                        </div>
+                        <div class="meeting-list" id="recentMeetingsList">
+                            <div class="meeting-item">
+                                <div class="meeting-icon" style="background: var(--gradient-primary);">DO</div>
+                                <div class="meeting-info">
+                                    <div class="meeting-title">Daily Operations</div>
+                                    <div class="meeting-meta">Today, 9:00 AM • 5 attendees</div>
+                                </div>
+                                <div class="meeting-duration">45 min</div>
+                            </div>
+                            <div class="meeting-item">
+                                <div class="meeting-icon" style="background: var(--gradient-accent);">TS</div>
+                                <div class="meeting-info">
+                                    <div class="meeting-title">Team Standup</div>
+                                    <div class="meeting-meta">Yesterday, 10:00 AM • 8 attendees</div>
+                                </div>
+                                <div class="meeting-duration">15 min</div>
+                            </div>
+                            <div class="meeting-item">
+                                <div class="meeting-icon" style="background: var(--gradient-success);">CC</div>
+                                <div class="meeting-info">
+                                    <div class="meeting-title">Client Call - ABC Corp</div>
+                                    <div class="meeting-meta">Jan 10, 2:00 PM • 3 attendees</div>
+                                </div>
+                                <div class="meeting-duration">1h 20min</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Meeting View -->
+            <div class="view" id="meetingView">
+                <div class="meeting-view">
+                    <div class="meeting-main">
+                        <!-- Recording Bar -->
+                        <div class="recording-bar">
+                            <button class="record-btn" id="recordBtn" onclick="toggleRecording()">
+                                <div class="record-btn-inner"></div>
+                            </button>
+                            <div class="recording-info">
+                                <div class="recording-status" id="recordingStatus">Ready to record</div>
+                                <div class="recording-timer" id="recordingTimer">00:00:00</div>
+                            </div>
+                            <div class="recording-actions">
+                                <button class="action-btn highlight-btn" onclick="addHighlight()">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                    </svg>
+                                    Highlight
+                                </button>
+                                <button class="action-btn action-item-btn" onclick="markAction()">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 11 12 14 22 4"/>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                                    </svg>
+                                    Action Item
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Speaker Bar -->
+                        <div class="speaker-bar">
+                            <span class="speaker-label">Speaking:</span>
+                            <div class="speaker-buttons" id="speakerButtons"></div>
+                        </div>
+                        
+                        <!-- Tabs -->
+                        <div class="meeting-tabs">
+                            <button class="meeting-tab active" data-tab="notes" onclick="switchMeetingTab('notes')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                </svg>
+                                Notes
+                            </button>
+                            <button class="meeting-tab" data-tab="transcript" onclick="switchMeetingTab('transcript')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                                </svg>
+                                Transcript
+                            </button>
+                        </div>
+                        
+                        <!-- Content -->
+                        <div class="meeting-content">
+                            <div class="tab-content active" id="notesTab">
+                                <div class="notes-editor" id="notesEditor" contenteditable="true" data-placeholder="Start taking notes... Your notes will be combined with the transcript for intelligent AI-generated minutes."></div>
+                            </div>
+                            <div class="tab-content" id="transcriptTab">
+                                <div class="transcript-empty" id="transcriptEmpty">
+                                    <div class="empty-icon">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                            <line x1="12" y1="19" x2="12" y2="23"/>
+                                        </svg>
+                                    </div>
+                                    <div class="empty-title">Ready to transcribe</div>
+                                    <div class="empty-text">Click the record button to start capturing the conversation. Use speaker buttons to tag who's talking.</div>
+                                </div>
+                                <div class="transcript-list" id="transcriptList"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Panel -->
+                    <div class="meeting-panel">
+                        <div class="panel-tabs">
+                            <button class="panel-tab active" data-panel="chat" onclick="switchPanel('chat')">AI Assistant</button>
+                            <button class="panel-tab" data-panel="minutes" onclick="switchPanel('minutes')">Minutes</button>
+                        </div>
+                        
+                        <div class="panel-content">
+                            <!-- Chat -->
+                            <div class="panel-section active" id="chatPanel">
+                                <div class="chat-messages" id="chatMessages">
+                                    <div class="chat-message assistant">
+                                        <div class="chat-bubble">👋 Hi! I'm your AI meeting assistant. Start recording and I'll help you with questions, summaries, and insights.</div>
+                                    </div>
+                                </div>
+                                <div class="chat-suggestions">
+                                    <button class="chat-suggestion" onclick="askQuestion('What are the main decisions?')">Main decisions</button>
+                                    <button class="chat-suggestion" onclick="askQuestion('List action items')">Action items</button>
+                                    <button class="chat-suggestion" onclick="askQuestion('Summarize key points')">Key points</button>
+                                </div>
+                                <div class="chat-input-area">
+                                    <div class="chat-input-wrapper">
+                                        <input type="text" class="chat-input" id="chatInput" placeholder="Ask about this meeting...">
+                                        <button class="chat-send" id="chatSend" onclick="sendChat()">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Minutes -->
+                            <div class="panel-section" id="minutesPanel">
+                                <div class="minutes-empty" id="minutesEmpty">
+                                    <div class="empty-icon">
+                                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                            <path d="M14 2v6h6"/>
+                                            <line x1="16" y1="13" x2="8" y2="13"/>
+                                            <line x1="16" y1="17" x2="8" y2="17"/>
+                                        </svg>
+                                    </div>
+                                    <div class="empty-title">No minutes yet</div>
+                                    <div class="empty-text">Click "Generate Minutes" after recording to create AI-powered meeting notes.</div>
+                                </div>
+                                <div class="minutes-content" id="minutesContent" style="display: none;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="generate-bar">
+                            <button class="generate-btn" id="generateBtn" onclick="generateMinutes()" disabled>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                                </svg>
+                                Generate Minutes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- History View -->
+            <div class="view" id="historyView">
+                <header class="header">
+                    <div class="header-left">
+                        <h1 class="page-title">Meeting History</h1>
+                    </div>
+                    <div class="header-right">
+                        <input type="text" class="filter-input" placeholder="Search meetings..." style="width: 200px;">
+                        <select class="filter-select">
+                            <option value="all">All Types</option>
+                            <option value="general">General</option>
+                            <option value="standup">Standup</option>
+                        </select>
+                    </div>
+                </header>
+                <div class="content">
+                    <div class="card">
+                        <div class="meeting-list" id="historyList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reports View -->
+            <div class="view" id="reportsView">
+                <header class="header">
+                    <div class="header-left">
+                        <h1 class="page-title">Reports</h1>
+                    </div>
+                    <div class="header-right">
+                        <select class="filter-select">
+                            <option value="weekly">Weekly Report</option>
+                            <option value="monthly">Monthly Report</option>
+                            <option value="quarterly">Quarterly Report</option>
+                        </select>
+                        <button class="header-btn header-btn-primary" onclick="generateReport()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <path d="M14 2v6h6"/>
+                            </svg>
+                            Generate Report
+                        </button>
+                    </div>
+                </header>
+                <div class="content">
+                    <div class="card">
+                        <div class="card-body" style="text-align: center; padding: 4rem;">
+                            <div class="empty-icon" style="margin: 0 auto 1rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="20" x2="18" y2="10"/>
+                                    <line x1="12" y1="20" x2="12" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="14"/>
+                                </svg>
+                            </div>
+                            <div class="empty-title">Generate a Report</div>
+                            <div class="empty-text">Select a report type and date range, then click Generate Report to create comprehensive meeting analytics.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions View -->
+            <div class="view" id="actionsView">
+                <header class="header">
+                    <div class="header-left">
+                        <h1 class="page-title">Action Items</h1>
+                    </div>
+                    <div class="header-right">
+                        <select class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                </header>
+                <div class="content">
+                    <div class="card">
+                        <div class="card-body" id="actionsList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ============================================
+        // STATE
+        // ============================================
+        const state = {
+            step: 1,
+            isRecording: false,
+            startTime: null,
+            transcript: '',
+            entries: [],
+            speakers: [],
+            currentSpeaker: 0,
+            highlights: [],
+            actions: [],
+            minutes: null,
+            meetings: [],
+            recognition: null,
+            timerInterval: null,
+            meetingTitle: '',
+            meetingType: 'general',
+            userName: ''
+        };
+
+        // Speaker colors
+        const speakerColors = ['1', '2', '3', '4', '5', '6'];
+
+        // ============================================
+        // ONBOARDING
+        // ============================================
+        function setQuickTitle(title) {
+            document.getElementById('setupTitle').value = title;
+        }
+
+        function nextStep() {
+            document.querySelector(`.onboarding-step[data-step="${state.step}"]`).classList.remove('active');
+            state.step++;
+            document.querySelector(`.onboarding-step[data-step="${state.step}"]`).classList.add('active');
+        }
+
+        function prevStep() {
+            document.querySelector(`.onboarding-step[data-step="${state.step}"]`).classList.remove('active');
+            state.step--;
+            document.querySelector(`.onboarding-step[data-step="${state.step}"]`).classList.add('active');
+        }
+
+        function addAttendee() {
+            const input = document.getElementById('attendeeInput');
+            const name = input.value.trim();
+            if (!name || state.speakers.some(s => s.name === name)) return;
+            
+            state.speakers.push({
+                name: name,
+                color: speakerColors[state.speakers.length % speakerColors.length]
+            });
+            renderAttendeeChips();
+            input.value = '';
+            input.focus();
+        }
+
+        function removeAttendee(index) {
+            state.speakers.splice(index, 1);
+            renderAttendeeChips();
+        }
+
+        function renderAttendeeChips() {
+            const container = document.getElementById('attendeeChips');
+            container.innerHTML = state.speakers.map((s, i) => `
+                <div class="attendee-chip">
+                    <div class="attendee-chip-avatar" style="background: var(--speaker-${s.color})">${s.name.charAt(0).toUpperCase()}</div>
+                    ${escapeHtml(s.name)}
+                    <span class="attendee-chip-remove" onclick="removeAttendee(${i})">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function startMeeting() {
+            state.meetingTitle = document.getElementById('setupTitle').value || 'Untitled Meeting';
+            state.meetingType = document.getElementById('setupType').value;
+            state.userName = document.getElementById('setupUserName').value || 'You';
+            
+            // Add user as first speaker
+            if (!state.speakers.some(s => s.name === state.userName)) {
+                state.speakers.unshift({
+                    name: state.userName,
+                    color: speakerColors[0]
+                });
+            }
+            
+            // Update UI
+            document.getElementById('userName').textContent = state.userName;
+            document.getElementById('userAvatar').textContent = state.userName.charAt(0).toUpperCase();
+            renderSpeakerButtons();
+            
+            // Hide onboarding
+            document.getElementById('onboarding').classList.add('hidden');
+            document.getElementById('app').classList.add('visible');
+            
+            // Init speech
+            initSpeech();
+            
+            // Update stats
+            updateDashboardStats();
+            
+            showToast('Meeting ready! Click record to start.', 'success');
+            switchView('meeting');
+        }
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        function switchView(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(view + 'View').classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navItem = document.querySelector(`.nav-item[data-view="${view}"]`);
+            if (navItem) navItem.classList.add('active');
+        }
+
+        function switchMeetingTab(tab) {
+            document.querySelectorAll('.meeting-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.meeting-tab[data-tab="${tab}"]`).classList.add('active');
+            
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tab + 'Tab').classList.add('active');
+        }
+
+        function switchPanel(panel) {
+            document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.panel-tab[data-panel="${panel}"]`).classList.add('active');
+            
+            document.querySelectorAll('.panel-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(panel + 'Panel').classList.add('active');
+        }
+
+        // ============================================
+        // SPEAKERS
+        // ============================================
+        function renderSpeakerButtons() {
+            const container = document.getElementById('speakerButtons');
+            container.innerHTML = state.speakers.map((s, i) => `
+                <button class="speaker-btn ${i === state.currentSpeaker ? 'active' : ''}" data-color="${s.color}" onclick="setSpeaker(${i})">
+                    <div class="speaker-avatar" data-color="${s.color}">${s.name.charAt(0).toUpperCase()}</div>
+                    ${escapeHtml(s.name)}
+                </button>
+            `).join('') + `
+                <button class="speaker-btn add-speaker-btn" onclick="addSpeakerDuringMeeting()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                    Add
+                </button>
+            `;
+        }
+
+        function setSpeaker(index) {
+            state.currentSpeaker = index;
+            document.querySelectorAll('.speaker-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
+            });
+        }
+
+        function addSpeakerDuringMeeting() {
+            const name = prompt('Enter speaker name:');
+            if (name && name.trim()) {
+                state.speakers.push({
+                    name: name.trim(),
+                    color: speakerColors[state.speakers.length % speakerColors.length]
+                });
+                renderSpeakerButtons();
+                showToast(`Added ${name.trim()}`, 'success');
+            }
+        }
+
+        // ============================================
+        // SPEECH RECOGNITION
+        // ============================================
+        function initSpeech() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                showToast('Speech recognition not supported. Try Chrome.', 'error');
+                return;
+            }
+
+            state.recognition = new SpeechRecognition();
+            state.recognition.continuous = true;
+            state.recognition.interimResults = true;
+            state.recognition.lang = 'en-GB';
+
+            state.recognition.onresult = (e) => {
+                let interim = '', final = '';
+                for (let i = e.resultIndex; i < e.results.length; i++) {
+                    if (e.results[i].isFinal) final += e.results[i][0].transcript;
+                    else interim += e.results[i][0].transcript;
+                }
+                if (final.trim()) addEntry(final.trim());
+                updateInterim(interim);
+            };
+
+            state.recognition.onerror = (e) => {
+                if (e.error !== 'no-speech' && e.error !== 'aborted') {
+                    console.error('Speech error:', e.error);
+                }
+            };
+
+            state.recognition.onend = () => {
+                if (state.isRecording) {
+                    try { state.recognition.start(); } catch(e) {}
+                }
+            };
+        }
+
+        function toggleRecording() {
+            if (state.isRecording) stopRecording();
+            else startRecording();
+        }
+
+        function startRecording() {
+            if (!state.recognition) initSpeech();
+            if (!state.recognition) return;
+
+            state.isRecording = true;
+            state.startTime = Date.now();
+
+            document.getElementById('recordBtn').classList.add('recording');
+            document.getElementById('recordingStatus').innerHTML = '<span class="live-dot"></span> Recording';
+            document.getElementById('recordingStatus').classList.add('active');
+
+            try { state.recognition.start(); } catch(e) {}
+            startTimer();
+            
+            document.getElementById('transcriptEmpty').style.display = 'none';
+            showToast('Recording started', 'success');
+        }
+
+        function stopRecording() {
+            state.isRecording = false;
+
+            document.getElementById('recordBtn').classList.remove('recording');
+            document.getElementById('recordingStatus').textContent = 'Recording stopped';
+            document.getElementById('recordingStatus').classList.remove('active');
+
+            try { state.recognition.stop(); } catch(e) {}
+            stopTimer();
+            removeInterim();
+
+            // Save meeting
+            saveMeeting();
+            showToast('Recording stopped', 'success');
+        }
+
+        function startTimer() {
+            state.timerInterval = setInterval(() => {
+                const s = Math.floor((Date.now() - state.startTime) / 1000);
+                const h = Math.floor(s / 3600).toString().padStart(2, '0');
+                const m = Math.floor((s % 3600) / 60).toString().padStart(2, '0');
+                const sec = (s % 60).toString().padStart(2, '0');
+                document.getElementById('recordingTimer').textContent = `${h}:${m}:${sec}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(state.timerInterval);
+        }
+
+        function formatTime(ms) {
+            const s = Math.floor(ms / 1000);
+            return `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`;
+        }
+
+        // ============================================
+        // TRANSCRIPT
+        // ============================================
+        function addEntry(text) {
+            const speaker = state.speakers[state.currentSpeaker] || { name: 'Speaker', color: '1' };
+            const entry = {
+                id: Date.now(),
+                time: formatTime(Date.now() - state.startTime),
+                speaker: speaker,
+                text: text,
+                highlighted: false
+            };
+
+            state.entries.push(entry);
+            state.transcript += `${speaker.name}: ${text}\n`;
+            renderEntry(entry);
+            
+            document.getElementById('generateBtn').disabled = state.transcript.length < 50;
+        }
+
+        function renderEntry(entry) {
+            const list = document.getElementById('transcriptList');
+            const el = document.createElement('div');
+            el.className = `transcript-entry${entry.highlighted ? ' highlighted' : ''}`;
+            el.dataset.id = entry.id;
+            el.innerHTML = `
+                <div class="transcript-time">${entry.time}</div>
+                <div class="transcript-avatar" style="background: var(--speaker-${entry.speaker.color})">${entry.speaker.name.charAt(0).toUpperCase()}</div>
+                <div class="transcript-body">
+                    <div class="transcript-speaker" style="color: var(--speaker-${entry.speaker.color})">${escapeHtml(entry.speaker.name)}</div>
+                    <div class="transcript-text">${escapeHtml(entry.text)}</div>
+                </div>
+                <div class="transcript-actions">
+                    <button class="transcript-action ${entry.highlighted ? 'active' : ''}" onclick="toggleHighlight(${entry.id})">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="${entry.highlighted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            list.appendChild(el);
+            list.scrollTop = list.scrollHeight;
+        }
+
+        function updateInterim(text) {
+            removeInterim();
+            if (!text.trim()) return;
+            
+            const speaker = state.speakers[state.currentSpeaker] || { name: 'Speaker', color: '1' };
+            const list = document.getElementById('transcriptList');
+            const el = document.createElement('div');
+            el.className = 'transcript-entry';
+            el.id = 'interim';
+            el.innerHTML = `
+                <div class="transcript-time">--:--</div>
+                <div class="transcript-avatar" style="background: var(--speaker-${speaker.color}); opacity: 0.5">${speaker.name.charAt(0).toUpperCase()}</div>
+                <div class="transcript-body">
+                    <div class="transcript-speaker" style="color: var(--speaker-${speaker.color}); opacity: 0.5">${escapeHtml(speaker.name)}</div>
+                    <div class="transcript-text interim">${escapeHtml(text)}</div>
+                </div>
+            `;
+            list.appendChild(el);
+            list.scrollTop = list.scrollHeight;
+        }
+
+        function removeInterim() {
+            const el = document.getElementById('interim');
+            if (el) el.remove();
+        }
+
+        function toggleHighlight(id) {
+            const entry = state.entries.find(e => e.id === id);
+            if (!entry) return;
+            
+            entry.highlighted = !entry.highlighted;
+            const el = document.querySelector(`[data-id="${id}"]`);
+            if (el) {
+                el.classList.toggle('highlighted', entry.highlighted);
+                const btn = el.querySelector('.transcript-action');
+                btn.classList.toggle('active', entry.highlighted);
+            }
+            
+            if (entry.highlighted) {
+                state.highlights.push(entry);
+                showToast('Moment highlighted', 'success');
+            }
+        }
+
+        function addHighlight() {
+            if (!state.entries.length) return showToast('No transcript to highlight', 'error');
+            const last = state.entries[state.entries.length - 1];
+            if (!last.highlighted) toggleHighlight(last.id);
+        }
+
+        function markAction() {
+            const time = formatTime(Date.now() - (state.startTime || Date.now()));
+            state.actions.push({ time, text: 'Action item marked' });
+            showToast(`Action item marked at ${time}`, 'success');
+        }
+
+        // ============================================
+        // AI CHAT
+        // ============================================
+        function askQuestion(q) {
+            document.getElementById('chatInput').value = q;
+            sendChat();
+        }
+
+        async function sendChat() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            addChat(msg, 'user');
+            input.value = '';
+
+            const sendBtn = document.getElementById('chatSend');
+            sendBtn.disabled = true;
+            const typingId = addTyping();
+
+            try {
+                const res = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        messages: [{
+                            role: 'user',
+                            content: `You are an AI meeting assistant. Answer concisely.
+
+Meeting: ${state.meetingTitle}
+Type: ${state.meetingType}
+Attendees: ${state.speakers.map(s => s.name).join(', ')}
+
+Transcript:
+${state.transcript || '(No transcript yet)'}
+
+Notes:
+${document.getElementById('notesEditor').innerText || '(No notes)'}
+
+Question: ${msg}`
+                        }]
+                    })
+                });
+
+                const data = await res.json();
+                removeTyping(typingId);
+                
+                if (data.content?.[0]?.text) {
+                    addChat(data.content[0].text, 'assistant');
+                }
+            } catch (e) {
+                removeTyping(typingId);
+                addChat('Could not connect to AI.', 'assistant');
+            }
+
+            sendBtn.disabled = false;
+        }
+
+        function addChat(text, role) {
+            const container = document.getElementById('chatMessages');
+            const el = document.createElement('div');
+            el.className = `chat-message ${role}`;
+            el.innerHTML = `<div class="chat-bubble">${escapeHtml(text).replace(/\n/g, '<br>')}</div>`;
+            container.appendChild(el);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addTyping() {
+            const id = Date.now();
+            const container = document.getElementById('chatMessages');
+            const el = document.createElement('div');
+            el.className = 'chat-message assistant';
+            el.id = `typing-${id}`;
+            el.innerHTML = '<div class="chat-bubble"><div class="spinner"></div></div>';
+            container.appendChild(el);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function removeTyping(id) {
+            const el = document.getElementById(`typing-${id}`);
+            if (el) el.remove();
+        }
+
+        // ============================================
+        // MINUTES
+        // ============================================
+        async function generateMinutes() {
+            if (state.transcript.length < 50) return showToast('Need more transcript', 'error');
+
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner"></div> Generating...';
+
+            const prompts = {
+                general: 'Generate comprehensive minutes: overview, key points, decisions, action items.',
+                standup: 'Generate standup notes: done, planned, blockers.',
+                operations: 'Generate operations review: metrics, issues, actions.',
+                '1on1': 'Generate 1:1 notes: topics, feedback, goals, actions.',
+                client: 'Generate client notes: requirements, decisions, deliverables.',
+                interview: 'Generate interview notes: strengths, concerns, recommendation.',
+                brainstorm: 'Generate brainstorm notes: ideas, top concepts, next steps.',
+                training: 'Generate training notes: topics covered, Q&A, follow-ups.'
+            };
+
+            try {
+                const res = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 2000,
+                        messages: [{
+                            role: 'user',
+                            content: `${prompts[state.meetingType]}
+
+Meeting: ${state.meetingTitle}
+Date: ${new Date().toLocaleDateString()}
+Attendees: ${state.speakers.map(s => s.name).join(', ')}
+Type: ${state.meetingType}
+
+Transcript:
+${state.transcript}
+
+Notes:
+${document.getElementById('notesEditor').innerText || 'None'}
+
+Generate HTML using: minutes-section, minutes-section-header, minutes-item topic/decision/action, minutes-owner.`
+                        }]
+                    })
+                });
+
+                const data = await res.json();
+                if (data.content?.[0]?.text) {
+                    state.minutes = data.content[0].text;
+                    document.getElementById('minutesContent').innerHTML = state.minutes;
+                    document.getElementById('minutesContent').style.display = 'block';
+                    document.getElementById('minutesEmpty').style.display = 'none';
+                    switchPanel('minutes');
+                    showToast('Minutes generated!', 'success');
+                }
+            } catch (e) {
+                showToast('Failed to generate minutes', 'error');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Generate Minutes';
+        }
+
+        // ============================================
+        // EXPORT
+        // ============================================
+        function openExportModal() {
+            document.getElementById('exportModal').classList.add('show');
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').classList.remove('show');
+        }
+
+        function getExportContent() {
+            if (state.minutes) {
+                const temp = document.createElement('div');
+                temp.innerHTML = state.minutes;
+                return temp.innerText;
+            }
+            return `Meeting: ${state.meetingTitle}\nDate: ${new Date().toLocaleDateString()}\nAttendees: ${state.speakers.map(s => s.name).join(', ')}\n\nTranscript:\n${state.transcript}`;
+        }
+
+        function exportPDF() {
+            closeExportModal();
+            window.print();
+            showToast('Print dialog opened', 'success');
+        }
+
+        function exportEmail() {
+            const content = getExportContent();
+            const subject = encodeURIComponent(`Meeting Minutes: ${state.meetingTitle}`);
+            const body = encodeURIComponent(content);
+            window.open(`mailto:?subject=${subject}&body=${body}`);
+            closeExportModal();
+            showToast('Email client opened', 'success');
+        }
+
+        function exportPrint() {
+            closeExportModal();
+            window.print();
+        }
+
+        function exportCopy() {
+            const content = getExportContent();
+            navigator.clipboard.writeText(content);
+            closeExportModal();
+            showToast('Copied to clipboard!', 'success');
+        }
+
+        // ============================================
+        // DASHBOARD
+        // ============================================
+        function saveMeeting() {
+            if (!state.transcript) return;
+            
+            state.meetings.push({
+                id: Date.now(),
+                title: state.meetingTitle,
+                type: state.meetingType,
+                date: new Date().toISOString(),
+                duration: Math.floor((Date.now() - state.startTime) / 1000),
+                attendees: state.speakers.length,
+                transcript: state.transcript,
+                actions: state.actions.length
+            });
+            
+            updateDashboardStats();
+            updateHistoryList();
+        }
+
+        function updateDashboardStats() {
+            const meetings = state.meetings;
+            document.getElementById('statMeetings').textContent = meetings.length;
+            
+            const totalSeconds = meetings.reduce((sum, m) => sum + m.duration, 0);
+            const hours = Math.floor(totalSeconds / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            document.getElementById('statHours').textContent = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+            
+            const totalActions = meetings.reduce((sum, m) => sum + m.actions, 0);
+            document.getElementById('statActions').textContent = totalActions;
+            
+            const avgAttendees = meetings.length ? Math.round(meetings.reduce((sum, m) => sum + m.attendees, 0) / meetings.length) : 0;
+            document.getElementById('statAttendees').textContent = avgAttendees;
+        }
+
+        function updateHistoryList() {
+            const list = document.getElementById('historyList');
+            list.innerHTML = state.meetings.slice().reverse().map(m => {
+                const mins = Math.floor(m.duration / 60);
+                const initials = m.title.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+                return `
+                    <div class="meeting-item">
+                        <div class="meeting-icon" style="background: var(--gradient-primary);">${initials}</div>
+                        <div class="meeting-info">
+                            <div class="meeting-title">${escapeHtml(m.title)}</div>
+                            <div class="meeting-meta">${new Date(m.date).toLocaleDateString()} • ${m.attendees} attendees</div>
+                        </div>
+                        <div class="meeting-duration">${mins} min</div>
+                    </div>
+                `;
+            }).join('') || '<div style="padding: 2rem; text-align: center; color: var(--gray-500);">No meetings yet</div>';
+        }
+
+        function generateReport() {
+            showToast('Report generation coming soon!', 'success');
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ============================================
+        // INIT
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('attendeeInput').addEventListener('keypress', e => {
+                if (e.key === 'Enter') addAttendee();
+            });
+            document.getElementById('chatInput').addEventListener('keypress', e => {
+                if (e.key === 'Enter') sendChat();
+            });
+            document.getElementById('exportModal').addEventListener('click', e => {
+                if (e.target.id === 'exportModal') closeExportModal();
+            });
+            updateHistoryList();
+        });
+    </script>
+</body>
+</html>

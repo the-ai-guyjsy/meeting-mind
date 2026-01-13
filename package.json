@@ -1,0 +1,22 @@
+{
+  "name": "meetingmind-enterprise",
+  "version": "3.0.0",
+  "description": "Enterprise-grade AI meeting intelligence platform with dashboard, analytics, speaker tracking, and smart minutes",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . -p 3000"
+  },
+  "keywords": [
+    "meeting",
+    "minutes",
+    "transcription",
+    "ai",
+    "enterprise",
+    "dashboard",
+    "analytics",
+    "speaker-tracking"
+  ],
+  "author": "MeetingMind",
+  "license": "MIT"
+}
