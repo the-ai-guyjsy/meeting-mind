@@ -1274,6 +1274,758 @@
             outline: none;
         }
 
+        /* Enhanced Stat Cards */
+        .stat-card.clickable {
+            cursor: pointer;
+        }
+
+        .stat-card.clickable:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stat-sublabel {
+            font-size: 0.6875rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.25rem;
+        }
+
+        .stat-card:not(.gradient-1):not(.gradient-2):not(.gradient-3):not(.gradient-4) .stat-sublabel {
+            color: var(--gray-400);
+        }
+
+        .stat-trend.neutral {
+            background: var(--gray-100);
+            color: var(--gray-500);
+        }
+
+        .stat-card.gradient-1 .stat-trend,
+        .stat-card.gradient-2 .stat-trend,
+        .stat-card.gradient-3 .stat-trend,
+        .stat-card.gradient-4 .stat-trend {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        /* Meeting Types Chart */
+        .meeting-types-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .type-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .type-bar-label {
+            width: 100px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            flex-shrink: 0;
+        }
+
+        .type-bar-container {
+            flex: 1;
+            height: 24px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .type-bar-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
+        }
+
+        .type-bar-value {
+            width: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            text-align: right;
+        }
+
+        /* Participants List */
+        .participants-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .participant-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: background var(--transition-fast);
+        }
+
+        .participant-row:hover {
+            background: var(--gray-50);
+        }
+
+        .participant-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .participant-info {
+            flex: 1;
+        }
+
+        .participant-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .participant-meetings {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .participant-badge {
+            padding: 0.125rem 0.5rem;
+            background: var(--primary-100);
+            color: var(--primary-700);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+        }
+
+        /* Drilldown Modal */
+        .drilldown-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .drilldown-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drilldown-content {
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform var(--transition-base);
+        }
+
+        .drilldown-modal.show .drilldown-content {
+            transform: translateY(0);
+        }
+
+        .drilldown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .drilldown-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .drilldown-close {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            color: var(--gray-500);
+            transition: all var(--transition-fast);
+        }
+
+        .drilldown-close:hover {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+
+        .drilldown-body {
+            padding: 1.5rem;
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+        }
+
+        /* Report Styles */
+        .report-tabs {
+            display: flex;
+            gap: 0.25rem;
+            padding: 0.5rem;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.5rem;
+        }
+
+        .report-tab {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            background: transparent;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            text-align: center;
+        }
+
+        .report-tab:hover {
+            color: var(--gray-900);
+        }
+
+        .report-tab.active {
+            background: var(--white);
+            color: var(--primary-600);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .report-tab-content {
+            display: none;
+        }
+
+        .report-tab-content.active {
+            display: block;
+        }
+
+        .report-chart {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trend-chart-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .donut-chart-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            min-height: 200px;
+        }
+
+        .donut-chart {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .donut-center-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+
+        .donut-center-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .donut-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+        }
+
+        .donut-legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        /* Report Table */
+        .report-table-container {
+            overflow-x: auto;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .report-table th {
+            padding: 0.875rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-500);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .report-table td {
+            padding: 0.875rem 1rem;
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .report-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .report-table .type-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .type-badge.general { background: var(--primary-100); color: var(--primary-700); }
+        .type-badge.standup { background: var(--accent-100); color: var(--accent-700); }
+        .type-badge.operations { background: var(--success-100); color: var(--success-700); }
+        .type-badge.client { background: var(--warning-100); color: var(--warning-700); }
+        .type-badge.interview { background: var(--error-100); color: var(--error-700); }
+
+        /* Insights Grid */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .insight-card {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border-left: 3px solid var(--primary-500);
+        }
+
+        .insight-card.positive { border-left-color: var(--success-500); }
+        .insight-card.negative { border-left-color: var(--error-500); }
+        .insight-card.neutral { border-left-color: var(--gray-400); }
+
+        .insight-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin-bottom: 0.25rem;
+        }
+
+        .insight-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .insight-change {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .insight-change.up { color: var(--success-600); }
+        .insight-change.down { color: var(--error-600); }
+
+        /* Participant Bars */
+        .participant-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .participant-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .participant-bar-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .participant-bar-info {
+            width: 100px;
+        }
+
+        .participant-bar-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .participant-bar-count {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .participant-bar-container {
+            flex: 1;
+            height: 20px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .participant-bar-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
+        }
+
+        /* Time Analysis */
+        .time-by-day, .peak-hours, .duration-by-type {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .time-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .time-label {
+            width: 80px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+
+        .time-bar-container {
+            flex: 1;
+            height: 24px;
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .time-bar-fill {
+            height: 100%;
+            border-radius: var(--radius-md);
+            transition: width 0.5s ease;
+        }
+
+        .time-value {
+            width: 60px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            text-align: right;
+        }
+
+        /* Preferences Styles */
+        .preferences-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .preferences-card {
+            height: fit-content;
+        }
+
+        .preferences-card .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pref-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .pref-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .pref-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .pref-input, .pref-select {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--gray-800);
+            transition: all var(--transition-fast);
+        }
+
+        .pref-input:focus, .pref-select:focus {
+            background: var(--white);
+            border-color: var(--primary-500);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-100);
+        }
+
+        .pref-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.5rem;
+        }
+
+        .pref-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+
+        .pref-toggle-label {
+            font-size: 0.8125rem;
+            color: var(--gray-600);
+        }
+
+        .pref-toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .pref-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .pref-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--gray-300);
+            transition: var(--transition-fast);
+            border-radius: var(--radius-full);
+        }
+
+        .pref-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: var(--transition-fast);
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pref-toggle input:checked + .pref-toggle-slider {
+            background-color: var(--primary-500);
+        }
+
+        .pref-toggle input:checked + .pref-toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+        .pref-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .pref-btn.danger {
+            background: var(--error-50);
+            color: var(--error-600);
+            border: 1px solid var(--error-200);
+        }
+
+        .pref-btn.danger:hover {
+            background: var(--error-100);
+            border-color: var(--error-300);
+        }
+
+        .pref-help {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-top: 0.5rem;
+        }
+
+        .storage-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .storage-used {
+            height: 100%;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+        }
+
+        .storage-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .storage-percent {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        /* Action Items Enhanced */
+        .action-item-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--warning-500);
+        }
+
+        .action-item-card.completed {
+            border-left-color: var(--success-500);
+            opacity: 0.7;
+        }
+
+        .action-item-card.overdue {
+            border-left-color: var(--error-500);
+            background: var(--error-50);
+        }
+
+        .action-checkbox {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .action-checkbox:hover {
+            border-color: var(--primary-500);
+        }
+
+        .action-checkbox.checked {
+            background: var(--success-500);
+            border-color: var(--success-500);
+        }
+
+        .action-item-content {
+            flex: 1;
+        }
+
+        .action-item-text {
+            font-size: 0.9375rem;
+            color: var(--gray-800);
+            margin-bottom: 0.375rem;
+        }
+
+        .action-item-card.completed .action-item-text {
+            text-decoration: line-through;
+            color: var(--gray-500);
+        }
+
+        .action-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+
+        .action-item-owner {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .action-item-meeting {
+            color: var(--primary-600);
+        }
+
+        .action-item-due {
+            color: var(--gray-500);
+        }
+
+        .action-item-due.overdue {
+            color: var(--error-600);
+            font-weight: 600;
+        }
+
         /* ============================================
            MEETING VIEW
            ============================================ */
@@ -2413,6 +3165,21 @@
             .speaker-controls {
                 display: none;
             }
+            .preferences-grid {
+                grid-template-columns: 1fr;
+            }
+            .report-tabs {
+                flex-wrap: wrap;
+            }
+            .report-tab {
+                flex: 1 1 45%;
+            }
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+            .donut-chart-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -2483,6 +3250,23 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drilldown Modal -->
+    <div class="drilldown-modal" id="drilldownModal">
+        <div class="drilldown-content">
+            <div class="drilldown-header">
+                <h3 class="drilldown-title" id="drilldownTitle">Details</h3>
+                <button class="drilldown-close" onclick="closeDrilldown()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="drilldown-body" id="drilldownBody">
+                <!-- Content populated by JS -->
             </div>
         </div>
     </div>
@@ -2753,7 +3537,7 @@
                 
                 <div class="nav-section">
                     <div class="nav-section-title">Settings</div>
-                    <div class="nav-item">
+                    <div class="nav-item" data-view="preferences" onclick="switchView('preferences')">
                         <svg class="nav-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="3"/>
                             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -2783,13 +3567,13 @@
                         <h1 class="page-title">Dashboard</h1>
                     </div>
                     <div class="header-right">
-                        <button class="header-btn" onclick="openExportModal()">
+                        <button class="header-btn" onclick="exportDashboardCSV()">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                                 <polyline points="7 10 12 15 17 10"/>
                                 <line x1="12" y1="15" x2="12" y2="3"/>
                             </svg>
-                            Export
+                            Export CSV
                         </button>
                         <button class="header-btn header-btn-primary" onclick="switchView('meeting')">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2806,7 +3590,7 @@
                     <div class="filters-bar">
                         <div class="filter-group">
                             <span class="filter-label">Period:</span>
-                            <select class="filter-select" id="filterPeriod">
+                            <select class="filter-select" id="filterPeriod" onchange="updateDashboardStats()">
                                 <option value="7">Last 7 days</option>
                                 <option value="30" selected>Last 30 days</option>
                                 <option value="90">Last 90 days</option>
@@ -2815,19 +3599,29 @@
                         </div>
                         <div class="filter-group">
                             <span class="filter-label">Type:</span>
-                            <select class="filter-select" id="filterType">
+                            <select class="filter-select" id="filterType" onchange="updateDashboardStats()">
                                 <option value="all">All Types</option>
                                 <option value="general">General</option>
                                 <option value="standup">Standup</option>
                                 <option value="operations">Operations</option>
+                                <option value="1on1">1:1 Meeting</option>
                                 <option value="client">Client</option>
                             </select>
                         </div>
+                        <div class="filter-group" style="margin-left: auto;">
+                            <button class="header-btn" onclick="refreshDashboard()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 4v6h-6M1 20v-6h6"/>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                                </svg>
+                                Refresh
+                            </button>
+                        </div>
                     </div>
                     
-                    <!-- Stats -->
+                    <!-- Stats Cards - Clickable with drill-down -->
                     <div class="stats-grid">
-                        <div class="stat-card gradient-1">
+                        <div class="stat-card gradient-1 clickable" onclick="openStatDrilldown('meetings')">
                             <div class="stat-header">
                                 <div class="stat-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2835,11 +3629,18 @@
                                         <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
                                     </svg>
                                 </div>
+                                <div class="stat-trend up" id="meetingsTrend">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                    </svg>
+                                    <span>+12%</span>
+                                </div>
                             </div>
                             <div class="stat-value" id="statMeetings">0</div>
                             <div class="stat-label">Total Meetings</div>
+                            <div class="stat-sublabel">Click to view details</div>
                         </div>
-                        <div class="stat-card gradient-2">
+                        <div class="stat-card gradient-2 clickable" onclick="openStatDrilldown('hours')">
                             <div class="stat-header">
                                 <div class="stat-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2847,11 +3648,18 @@
                                         <polyline points="12 6 12 12 16 14"/>
                                     </svg>
                                 </div>
+                                <div class="stat-trend up" id="hoursTrend">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                    </svg>
+                                    <span>+8%</span>
+                                </div>
                             </div>
                             <div class="stat-value" id="statHours">0h</div>
                             <div class="stat-label">Total Time</div>
+                            <div class="stat-sublabel">Click to view breakdown</div>
                         </div>
-                        <div class="stat-card gradient-3">
+                        <div class="stat-card gradient-3 clickable" onclick="openStatDrilldown('actions')">
                             <div class="stat-header">
                                 <div class="stat-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2859,11 +3667,18 @@
                                         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
                                     </svg>
                                 </div>
+                                <div class="stat-trend down" id="actionsTrend">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/>
+                                    </svg>
+                                    <span>-5%</span>
+                                </div>
                             </div>
                             <div class="stat-value" id="statActions">0</div>
                             <div class="stat-label">Action Items</div>
+                            <div class="stat-sublabel">Click to manage</div>
                         </div>
-                        <div class="stat-card gradient-4">
+                        <div class="stat-card gradient-4 clickable" onclick="openStatDrilldown('attendees')">
                             <div class="stat-header">
                                 <div class="stat-icon">
                                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2872,9 +3687,13 @@
                                         <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
                                     </svg>
                                 </div>
+                                <div class="stat-trend neutral" id="attendeesTrend">
+                                    <span>—</span>
+                                </div>
                             </div>
                             <div class="stat-value" id="statAttendees">0</div>
                             <div class="stat-label">Avg Attendees</div>
+                            <div class="stat-sublabel">Click to view people</div>
                         </div>
                     </div>
                     
@@ -2884,55 +3703,45 @@
                             <div class="card-header">
                                 <h3 class="card-title">Meeting Activity</h3>
                                 <div class="card-actions">
-                                    <button class="header-btn" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;">Weekly</button>
+                                    <select class="filter-select" id="chartPeriod" onchange="updateChart()" style="padding: 0.375rem 0.75rem; font-size: 0.75rem;">
+                                        <option value="weekly">Weekly</option>
+                                        <option value="monthly">Monthly</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="chart-container">
-                                    <div class="chart-bars">
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar primary" style="height: 60%;"></div>
-                                            <span class="chart-label">Mon</span>
-                                        </div>
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar primary" style="height: 85%;"></div>
-                                            <span class="chart-label">Tue</span>
-                                        </div>
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar primary" style="height: 45%;"></div>
-                                            <span class="chart-label">Wed</span>
-                                        </div>
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar primary" style="height: 95%;"></div>
-                                            <span class="chart-label">Thu</span>
-                                        </div>
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar primary" style="height: 70%;"></div>
-                                            <span class="chart-label">Fri</span>
-                                        </div>
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar accent" style="height: 25%;"></div>
-                                            <span class="chart-label">Sat</span>
-                                        </div>
-                                        <div class="chart-bar-group">
-                                            <div class="chart-bar accent" style="height: 15%;"></div>
-                                            <span class="chart-label">Sun</span>
-                                        </div>
+                                <div class="chart-container" id="activityChart">
+                                    <div class="chart-bars" id="chartBars">
+                                        <!-- Populated by JS -->
                                     </div>
                                     <div class="chart-legend">
                                         <div class="legend-item">
                                             <div class="legend-dot primary"></div>
-                                            <span>Weekday</span>
+                                            <span>Meetings</span>
                                         </div>
                                         <div class="legend-item">
                                             <div class="legend-dot accent"></div>
-                                            <span>Weekend</span>
+                                            <span>Hours</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Meeting Types</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="meeting-types-chart" id="typesChart">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions & Top Participants -->
+                    <div class="dashboard-grid" style="margin-top: 1.5rem;">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Quick Actions</h3>
@@ -2963,7 +3772,7 @@
                                                 <path d="M14 2v6h6"/>
                                             </svg>
                                         </div>
-                                        <span class="quick-action-text">Generate Report</span>
+                                        <span class="quick-action-text">View Reports</span>
                                     </div>
                                     <div class="quick-action" onclick="switchView('actions')">
                                         <div class="quick-action-icon orange">
@@ -2972,8 +3781,20 @@
                                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
                                             </svg>
                                         </div>
-                                        <span class="quick-action-text">View Actions</span>
+                                        <span class="quick-action-text">Action Items</span>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Top Participants</h3>
+                                <button class="header-btn" onclick="openStatDrilldown('attendees')" style="padding: 0.25rem 0.5rem; font-size: 0.6875rem;">View All</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="participants-list" id="topParticipants">
+                                    <!-- Populated by JS -->
                                 </div>
                             </div>
                         </div>
@@ -2986,30 +3807,7 @@
                             <button class="header-btn" onclick="switchView('history')">View All</button>
                         </div>
                         <div class="meeting-list" id="recentMeetingsList">
-                            <div class="meeting-item">
-                                <div class="meeting-icon" style="background: var(--gradient-primary);">DO</div>
-                                <div class="meeting-info">
-                                    <div class="meeting-title">Daily Operations</div>
-                                    <div class="meeting-meta">Today, 9:00 AM • 5 attendees</div>
-                                </div>
-                                <div class="meeting-duration">45 min</div>
-                            </div>
-                            <div class="meeting-item">
-                                <div class="meeting-icon" style="background: var(--gradient-accent);">TS</div>
-                                <div class="meeting-info">
-                                    <div class="meeting-title">Team Standup</div>
-                                    <div class="meeting-meta">Yesterday, 10:00 AM • 8 attendees</div>
-                                </div>
-                                <div class="meeting-duration">15 min</div>
-                            </div>
-                            <div class="meeting-item">
-                                <div class="meeting-icon" style="background: var(--gradient-success);">CC</div>
-                                <div class="meeting-info">
-                                    <div class="meeting-title">Client Call - ABC Corp</div>
-                                    <div class="meeting-meta">Jan 10, 2:00 PM • 3 attendees</div>
-                                </div>
-                                <div class="meeting-duration">1h 20min</div>
-                            </div>
+                            <!-- Populated by JS -->
                         </div>
                     </div>
                 </div>
@@ -3195,35 +3993,215 @@
             <div class="view" id="reportsView">
                 <header class="header">
                     <div class="header-left">
-                        <h1 class="page-title">Reports</h1>
+                        <h1 class="page-title">Reports & Analytics</h1>
                     </div>
                     <div class="header-right">
-                        <select class="filter-select">
-                            <option value="weekly">Weekly Report</option>
-                            <option value="monthly">Monthly Report</option>
-                            <option value="quarterly">Quarterly Report</option>
+                        <select class="filter-select" id="reportPeriod" onchange="updateReports()">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                            <option value="365">Last year</option>
                         </select>
-                        <button class="header-btn header-btn-primary" onclick="generateReport()">
+                        <button class="header-btn" onclick="exportReportPDF()">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                                 <path d="M14 2v6h6"/>
                             </svg>
-                            Generate Report
+                            Export PDF
+                        </button>
+                        <button class="header-btn header-btn-primary" onclick="exportReportCSV()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export CSV
                         </button>
                     </div>
                 </header>
                 <div class="content">
-                    <div class="card">
-                        <div class="card-body" style="text-align: center; padding: 4rem;">
-                            <div class="empty-icon" style="margin: 0 auto 1rem;">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="18" y1="20" x2="18" y2="10"/>
-                                    <line x1="12" y1="20" x2="12" y2="4"/>
-                                    <line x1="6" y1="20" x2="6" y2="14"/>
-                                </svg>
+                    <!-- Report Summary Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card gradient-1">
+                            <div class="stat-value" id="reportMeetings">0</div>
+                            <div class="stat-label">Meetings Held</div>
+                        </div>
+                        <div class="stat-card gradient-2">
+                            <div class="stat-value" id="reportHours">0h</div>
+                            <div class="stat-label">Total Duration</div>
+                        </div>
+                        <div class="stat-card gradient-3">
+                            <div class="stat-value" id="reportActions">0</div>
+                            <div class="stat-label">Actions Created</div>
+                        </div>
+                        <div class="stat-card gradient-4">
+                            <div class="stat-value" id="reportCompletion">0%</div>
+                            <div class="stat-label">Action Completion</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Report Tabs -->
+                    <div class="report-tabs">
+                        <button class="report-tab active" onclick="switchReportTab('overview')">Overview</button>
+                        <button class="report-tab" onclick="switchReportTab('meetings')">Meetings</button>
+                        <button class="report-tab" onclick="switchReportTab('participants')">Participants</button>
+                        <button class="report-tab" onclick="switchReportTab('actions')">Action Items</button>
+                        <button class="report-tab" onclick="switchReportTab('time')">Time Analysis</button>
+                    </div>
+                    
+                    <!-- Report Content -->
+                    <div class="report-content" id="reportContent">
+                        <!-- Overview Tab -->
+                        <div class="report-tab-content active" id="reportOverview">
+                            <div class="dashboard-grid">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Meeting Trends</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="report-chart" id="trendChart">
+                                            <div class="trend-chart-container">
+                                                <!-- SVG Line chart rendered by JS -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Meeting Types Distribution</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="donut-chart-container" id="donutChart">
+                                            <!-- Donut chart rendered by JS -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="empty-title">Generate a Report</div>
-                            <div class="empty-text">Select a report type and date range, then click Generate Report to create comprehensive meeting analytics.</div>
+                            
+                            <div class="card" style="margin-top: 1.5rem;">
+                                <div class="card-header">
+                                    <h3 class="card-title">Key Insights</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="insights-grid" id="insightsGrid">
+                                        <!-- Populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Meetings Tab -->
+                        <div class="report-tab-content" id="reportMeetingsTab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">All Meetings</h3>
+                                    <div class="filter-group">
+                                        <select class="filter-select" id="meetingTypeFilter" onchange="filterReportMeetings()">
+                                            <option value="all">All Types</option>
+                                            <option value="general">General</option>
+                                            <option value="standup">Standup</option>
+                                            <option value="operations">Operations</option>
+                                            <option value="1on1">1:1</option>
+                                            <option value="client">Client</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="report-table-container">
+                                        <table class="report-table" id="meetingsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Meeting</th>
+                                                    <th>Type</th>
+                                                    <th>Duration</th>
+                                                    <th>Attendees</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="meetingsTableBody">
+                                                <!-- Populated by JS -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Participants Tab -->
+                        <div class="report-tab-content" id="reportParticipants">
+                            <div class="dashboard-grid">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Participant Engagement</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="participant-bars" id="participantBars">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Meeting Attendance</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="attendance-stats" id="attendanceStats">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions Tab -->
+                        <div class="report-tab-content" id="reportActionsTab">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Action Items Summary</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="action-summary-grid" id="actionSummary">
+                                        <!-- Populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Time Analysis Tab -->
+                        <div class="report-tab-content" id="reportTime">
+                            <div class="dashboard-grid">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Time by Day of Week</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="time-by-day" id="timeByDay">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Peak Meeting Hours</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="peak-hours" id="peakHours">
+                                            <!-- Populated by JS -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-top: 1.5rem;">
+                                <div class="card-header">
+                                    <h3 class="card-title">Average Meeting Duration by Type</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="duration-by-type" id="durationByType">
+                                        <!-- Populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3236,17 +4214,322 @@
                         <h1 class="page-title">Action Items</h1>
                     </div>
                     <div class="header-right">
-                        <select class="filter-select">
+                        <select class="filter-select" id="actionStatusFilter" onchange="filterActions()">
                             <option value="all">All Status</option>
                             <option value="pending">Pending</option>
                             <option value="completed">Completed</option>
+                            <option value="overdue">Overdue</option>
                         </select>
+                        <button class="header-btn" onclick="exportActionsCSV()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export
+                        </button>
                     </div>
                 </header>
                 <div class="content">
+                    <!-- Action Stats -->
+                    <div class="stats-grid" style="margin-bottom: 1.5rem;">
+                        <div class="stat-card gradient-1" style="cursor: default;">
+                            <div class="stat-value" id="totalActionsCount">0</div>
+                            <div class="stat-label">Total Actions</div>
+                        </div>
+                        <div class="stat-card gradient-3" style="cursor: default;">
+                            <div class="stat-value" id="pendingActionsCount">0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                        <div class="stat-card gradient-2" style="cursor: default;">
+                            <div class="stat-value" id="completedActionsCount">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); cursor: default;">
+                            <div class="stat-value" id="overdueActionsCount">0</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                    </div>
+                    
                     <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">All Action Items</h3>
+                        </div>
                         <div class="card-body" id="actionsList">
                             <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Preferences View -->
+            <div class="view" id="preferencesView">
+                <header class="header">
+                    <div class="header-left">
+                        <h1 class="page-title">Preferences</h1>
+                    </div>
+                    <div class="header-right">
+                        <button class="header-btn header-btn-primary" onclick="savePreferences()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                <polyline points="17 21 17 13 7 13 7 21"/>
+                                <polyline points="7 3 7 8 15 8"/>
+                            </svg>
+                            Save Changes
+                        </button>
+                    </div>
+                </header>
+                <div class="content">
+                    <div class="preferences-grid">
+                        <!-- Profile Section -->
+                        <div class="card preferences-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/>
+                                    </svg>
+                                    Profile
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="pref-group">
+                                    <label class="pref-label">Display Name</label>
+                                    <input type="text" class="pref-input" id="prefDisplayName" value="Ciaran" placeholder="Your name">
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Email</label>
+                                    <input type="email" class="pref-input" id="prefEmail" value="ciaran@lacollette.je" placeholder="your@email.com">
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Company</label>
+                                    <input type="text" class="pref-input" id="prefCompany" value="La Collette Wholesale Ltd" placeholder="Company name">
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Role</label>
+                                    <select class="pref-select" id="prefRole">
+                                        <option value="admin" selected>Administrator</option>
+                                        <option value="manager">Manager</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Meeting Defaults Section -->
+                        <div class="card preferences-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                    </svg>
+                                    Meeting Defaults
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="pref-group">
+                                    <label class="pref-label">Default Meeting Type</label>
+                                    <select class="pref-select" id="prefDefaultType">
+                                        <option value="general">General Meeting</option>
+                                        <option value="standup">Daily Standup</option>
+                                        <option value="operations" selected>Operations Review</option>
+                                        <option value="1on1">1:1 Meeting</option>
+                                        <option value="client">Client Call</option>
+                                        <option value="brainstorm">Brainstorm</option>
+                                    </select>
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Auto-select Participants</label>
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Remember last meeting's participants</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefRememberParticipants" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Auto-Alternate Speakers</label>
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Enable by default for 1:1 meetings</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefAutoAlternate" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Speech Recognition Section -->
+                        <div class="card preferences-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                        <line x1="12" y1="19" x2="12" y2="23"/>
+                                        <line x1="8" y1="23" x2="16" y2="23"/>
+                                    </svg>
+                                    Speech Recognition
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="pref-group">
+                                    <label class="pref-label">Default Language</label>
+                                    <select class="pref-select" id="prefLanguage">
+                                        <option value="en-GB" selected>🇬🇧 English (UK)</option>
+                                        <option value="en-US">🇺🇸 English (US)</option>
+                                        <option value="pt-PT">🇵🇹 Portuguese (PT)</option>
+                                        <option value="ro-RO">🇷🇴 Romanian</option>
+                                        <option value="pl-PL">🇵🇱 Polish</option>
+                                        <option value="es-ES">🇪🇸 Spanish</option>
+                                        <option value="fr-FR">🇫🇷 French</option>
+                                        <option value="de-DE">🇩🇪 German</option>
+                                    </select>
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Accent Mode</label>
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Enable by default for better accent recognition</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefAccentMode">
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="pref-group">
+                                    <label class="pref-label">Continuous Listening</label>
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Keep listening even during pauses</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefContinuous" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Notifications Section -->
+                        <div class="card preferences-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                                    </svg>
+                                    Notifications
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="pref-group">
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Show toast notifications</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefToasts" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="pref-group">
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Sound effects</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefSounds">
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="pref-group">
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Action item reminders</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefReminders" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Export Settings Section -->
+                        <div class="card preferences-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7 10 12 15 17 10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                    Export Settings
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="pref-group">
+                                    <label class="pref-label">Default Export Format</label>
+                                    <select class="pref-select" id="prefExportFormat">
+                                        <option value="pdf" selected>PDF Document</option>
+                                        <option value="csv">CSV Spreadsheet</option>
+                                        <option value="txt">Plain Text</option>
+                                    </select>
+                                </div>
+                                <div class="pref-group">
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Include transcript in exports</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefIncludeTranscript" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="pref-group">
+                                    <div class="pref-toggle-row">
+                                        <span class="pref-toggle-label">Include action items in exports</span>
+                                        <label class="pref-toggle">
+                                            <input type="checkbox" id="prefIncludeActions" checked>
+                                            <span class="pref-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Management Section -->
+                        <div class="card preferences-card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                                    </svg>
+                                    Data Management
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="pref-group">
+                                    <label class="pref-label">Storage</label>
+                                    <div class="storage-bar">
+                                        <div class="storage-used" style="width: 35%;"></div>
+                                    </div>
+                                    <div class="storage-info">
+                                        <span>3.5 GB used of 10 GB</span>
+                                        <span class="storage-percent">35%</span>
+                                    </div>
+                                </div>
+                                <div class="pref-group" style="margin-top: 1.5rem;">
+                                    <button class="pref-btn danger" onclick="confirmClearData()">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3 6 5 6 21 6"/>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                        </svg>
+                                        Clear All Meeting Data
+                                    </button>
+                                    <p class="pref-help">This will permanently delete all meetings, transcripts, and action items.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4162,6 +5445,9 @@
             updateHistoryList();
         }
 
+        // ============================================
+        // DASHBOARD FUNCTIONS
+        // ============================================
         function updateDashboardStats() {
             const meetings = state.meetings;
             document.getElementById('statMeetings').textContent = meetings.length;
@@ -4176,10 +5462,795 @@
             
             const avgAttendees = meetings.length ? Math.round(meetings.reduce((sum, m) => sum + m.attendees, 0) / meetings.length) : 0;
             document.getElementById('statAttendees').textContent = avgAttendees;
+            
+            // Update charts
+            updateActivityChart();
+            updateTypesChart();
+            updateTopParticipants();
+            updateRecentMeetings();
+        }
+
+        function refreshDashboard() {
+            updateDashboardStats();
+            showToast('Dashboard refreshed', 'success');
+        }
+
+        function updateActivityChart() {
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const data = days.map(() => Math.floor(Math.random() * 5) + 1); // Mock data
+            const max = Math.max(...data, 1);
+            
+            const chartBars = document.getElementById('chartBars');
+            if (chartBars) {
+                chartBars.innerHTML = days.map((day, i) => `
+                    <div class="chart-bar-group">
+                        <div class="chart-bar ${i < 5 ? 'primary' : 'accent'}" style="height: ${(data[i] / max) * 100}%;"></div>
+                        <span class="chart-label">${day}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateChart() {
+            updateActivityChart();
+        }
+
+        function updateTypesChart() {
+            const types = [
+                { name: 'Operations', count: 12, color: 'var(--gradient-success)' },
+                { name: 'Standup', count: 8, color: 'var(--gradient-accent)' },
+                { name: '1:1', count: 6, color: 'var(--gradient-warm)' },
+                { name: 'Client', count: 4, color: 'var(--gradient-primary)' },
+                { name: 'General', count: 3, color: 'linear-gradient(135deg, #64748b 0%, #475569 100%)' }
+            ];
+            const max = Math.max(...types.map(t => t.count), 1);
+            
+            const chart = document.getElementById('typesChart');
+            if (chart) {
+                chart.innerHTML = types.map(t => `
+                    <div class="type-bar-row">
+                        <span class="type-bar-label">${t.name}</span>
+                        <div class="type-bar-container">
+                            <div class="type-bar-fill" style="width: ${(t.count / max) * 100}%; background: ${t.color};"></div>
+                        </div>
+                        <span class="type-bar-value">${t.count}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateTopParticipants() {
+            const participants = employees.slice(0, 5).map((emp, i) => ({
+                name: emp.name,
+                meetings: Math.floor(Math.random() * 15) + 5,
+                color: emp.color
+            })).sort((a, b) => b.meetings - a.meetings);
+            
+            const container = document.getElementById('topParticipants');
+            if (container) {
+                container.innerHTML = participants.map(p => `
+                    <div class="participant-row">
+                        <div class="participant-avatar" style="background: var(--speaker-${p.color})">${p.name.charAt(0)}</div>
+                        <div class="participant-info">
+                            <div class="participant-name">${p.name}</div>
+                            <div class="participant-meetings">${p.meetings} meetings</div>
+                        </div>
+                        <div class="participant-badge">${p.meetings}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateRecentMeetings() {
+            const recentMeetings = [
+                { title: 'Daily Operations', date: 'Today, 9:00 AM', attendees: 5, duration: '45 min', type: 'operations' },
+                { title: 'Team Standup', date: 'Yesterday, 10:00 AM', attendees: 8, duration: '15 min', type: 'standup' },
+                { title: '1:1 with Eduardo', date: 'Jan 12, 2:00 PM', attendees: 2, duration: '30 min', type: '1on1' },
+                { title: 'Client Call - ABC Foods', date: 'Jan 11, 11:00 AM', attendees: 4, duration: '1h 20min', type: 'client' }
+            ];
+            
+            const colors = {
+                operations: 'var(--gradient-success)',
+                standup: 'var(--gradient-accent)',
+                '1on1': 'var(--gradient-warm)',
+                client: 'var(--gradient-primary)',
+                general: 'linear-gradient(135deg, #64748b 0%, #475569 100%)'
+            };
+            
+            const container = document.getElementById('recentMeetingsList');
+            if (container) {
+                container.innerHTML = recentMeetings.map(m => {
+                    const initials = m.title.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+                    return `
+                        <div class="meeting-item" onclick="openMeetingDetail('${m.title}')">
+                            <div class="meeting-icon" style="background: ${colors[m.type] || colors.general};">${initials}</div>
+                            <div class="meeting-info">
+                                <div class="meeting-title">${m.title}</div>
+                                <div class="meeting-meta">${m.date} • ${m.attendees} attendees</div>
+                            </div>
+                            <div class="meeting-duration">${m.duration}</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function openMeetingDetail(title) {
+            showToast(`Opening "${title}"...`, 'success');
+            // In production, this would open a detailed view
+        }
+
+        // ============================================
+        // DRILLDOWN MODAL
+        // ============================================
+        function openStatDrilldown(type) {
+            const modal = document.getElementById('drilldownModal');
+            const title = document.getElementById('drilldownTitle');
+            const body = document.getElementById('drilldownBody');
+            
+            const titles = {
+                meetings: 'Meeting Details',
+                hours: 'Time Breakdown',
+                actions: 'Action Items',
+                attendees: 'Participants'
+            };
+            
+            title.textContent = titles[type] || 'Details';
+            body.innerHTML = getDrilldownContent(type);
+            modal.classList.add('show');
+        }
+
+        function closeDrilldown() {
+            document.getElementById('drilldownModal').classList.remove('show');
+        }
+
+        function getDrilldownContent(type) {
+            switch(type) {
+                case 'meetings':
+                    return `
+                        <div class="insights-grid" style="margin-bottom: 1.5rem;">
+                            <div class="insight-card positive">
+                                <div class="insight-title">This Week</div>
+                                <div class="insight-value">12</div>
+                                <div class="insight-change up">↑ 3 from last week</div>
+                            </div>
+                            <div class="insight-card">
+                                <div class="insight-title">This Month</div>
+                                <div class="insight-value">45</div>
+                                <div class="insight-change up">↑ 12% vs last month</div>
+                            </div>
+                            <div class="insight-card neutral">
+                                <div class="insight-title">Avg Duration</div>
+                                <div class="insight-value">32 min</div>
+                                <div class="insight-change">No change</div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: 1rem; color: var(--gray-700);">Meeting Breakdown by Type</h4>
+                        <div class="meeting-types-chart" id="drilldownTypesChart"></div>
+                    `;
+                case 'hours':
+                    return `
+                        <div class="insights-grid" style="margin-bottom: 1.5rem;">
+                            <div class="insight-card">
+                                <div class="insight-title">Total Hours</div>
+                                <div class="insight-value">24h 30m</div>
+                            </div>
+                            <div class="insight-card positive">
+                                <div class="insight-title">Avg Per Day</div>
+                                <div class="insight-value">1h 45m</div>
+                            </div>
+                            <div class="insight-card negative">
+                                <div class="insight-title">Longest Meeting</div>
+                                <div class="insight-value">2h 15m</div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: 1rem; color: var(--gray-700);">Time by Day of Week</h4>
+                        <div class="time-by-day">
+                            ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day, i) => {
+                                const hours = [3.5, 4.2, 2.8, 5.1, 3.9][i];
+                                return `
+                                    <div class="time-row">
+                                        <span class="time-label">${day}</span>
+                                        <div class="time-bar-container">
+                                            <div class="time-bar-fill" style="width: ${(hours/5.1)*100}%; background: var(--gradient-primary);"></div>
+                                        </div>
+                                        <span class="time-value">${hours}h</span>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                case 'actions':
+                    return `
+                        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.5rem;">
+                            <div class="stat-card gradient-3" style="cursor: default;">
+                                <div class="stat-value">23</div>
+                                <div class="stat-label">Pending</div>
+                            </div>
+                            <div class="stat-card gradient-2" style="cursor: default;">
+                                <div class="stat-value">45</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                            <div class="stat-card" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); cursor: default;">
+                                <div class="stat-value">5</div>
+                                <div class="stat-label">Overdue</div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: 1rem; color: var(--gray-700);">Recent Action Items</h4>
+                        <div id="drilldownActions">
+                            ${generateActionItems().slice(0, 5).map(a => `
+                                <div class="action-item-card ${a.status}">
+                                    <div class="action-checkbox ${a.status === 'completed' ? 'checked' : ''}" onclick="toggleActionStatus(this)">
+                                        ${a.status === 'completed' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+                                    </div>
+                                    <div class="action-item-content">
+                                        <div class="action-item-text">${a.text}</div>
+                                        <div class="action-item-meta">
+                                            <span class="action-item-owner">@${a.owner}</span>
+                                            <span class="action-item-meeting">${a.meeting}</span>
+                                            <span class="action-item-due ${a.status === 'overdue' ? 'overdue' : ''}">${a.due}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                case 'attendees':
+                    return `
+                        <div class="insights-grid" style="margin-bottom: 1.5rem;">
+                            <div class="insight-card">
+                                <div class="insight-title">Total Participants</div>
+                                <div class="insight-value">14</div>
+                            </div>
+                            <div class="insight-card positive">
+                                <div class="insight-title">Most Active</div>
+                                <div class="insight-value">Ciaran</div>
+                            </div>
+                            <div class="insight-card neutral">
+                                <div class="insight-title">Avg Attendance</div>
+                                <div class="insight-value">4.2</div>
+                            </div>
+                        </div>
+                        <h4 style="margin-bottom: 1rem; color: var(--gray-700);">Participation Ranking</h4>
+                        <div class="participant-bars">
+                            ${employees.slice(0, 8).map((emp, i) => {
+                                const meetings = [18, 15, 12, 10, 8, 7, 5, 4][i];
+                                return `
+                                    <div class="participant-bar-row">
+                                        <div class="participant-bar-avatar" style="background: var(--speaker-${emp.color})">${emp.name.charAt(0)}</div>
+                                        <div class="participant-bar-info">
+                                            <div class="participant-bar-name">${emp.name}</div>
+                                            <div class="participant-bar-count">${meetings} meetings</div>
+                                        </div>
+                                        <div class="participant-bar-container">
+                                            <div class="participant-bar-fill" style="width: ${(meetings/18)*100}%; background: var(--speaker-${emp.color});"></div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                default:
+                    return '<p>No data available</p>';
+            }
+        }
+
+        function generateActionItems() {
+            return [
+                { text: 'Review Q1 inventory levels', owner: 'Ciaran', meeting: 'Operations Review', due: 'Due tomorrow', status: 'pending' },
+                { text: 'Update supplier contact list', owner: 'Eduardo', meeting: 'Daily Standup', due: 'Due Jan 15', status: 'pending' },
+                { text: 'Prepare client presentation', owner: 'Kelly', meeting: 'Client Call', due: 'Overdue', status: 'overdue' },
+                { text: 'Fix delivery route optimisation', owner: 'Toby', meeting: '1:1 Meeting', due: 'Completed', status: 'completed' },
+                { text: 'Order new cold storage equipment', owner: 'Jason', meeting: 'Operations Review', due: 'Due Jan 20', status: 'pending' },
+                { text: 'Update product catalogue', owner: 'Ciaran', meeting: 'Team Meeting', due: 'Due Jan 18', status: 'pending' },
+                { text: 'Schedule maintenance check', owner: 'Nelson', meeting: 'Daily Standup', due: 'Completed', status: 'completed' }
+            ];
+        }
+
+        function toggleActionStatus(checkbox) {
+            checkbox.classList.toggle('checked');
+            const isChecked = checkbox.classList.contains('checked');
+            checkbox.innerHTML = isChecked ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '';
+            checkbox.parentElement.classList.toggle('completed', isChecked);
+        }
+
+        // ============================================
+        // REPORTS FUNCTIONS
+        // ============================================
+        function switchReportTab(tab) {
+            document.querySelectorAll('.report-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.report-tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('report' + tab.charAt(0).toUpperCase() + tab.slice(1) + (tab === 'meetings' || tab === 'actions' ? 'Tab' : '')).classList.add('active');
+            
+            updateReportContent(tab);
+        }
+
+        function updateReports() {
+            const period = document.getElementById('reportPeriod').value;
+            // Update report stats based on period
+            document.getElementById('reportMeetings').textContent = Math.floor(Math.random() * 30) + 10;
+            document.getElementById('reportHours').textContent = Math.floor(Math.random() * 40) + 10 + 'h';
+            document.getElementById('reportActions').textContent = Math.floor(Math.random() * 50) + 20;
+            document.getElementById('reportCompletion').textContent = Math.floor(Math.random() * 30) + 60 + '%';
+            
+            updateReportContent('overview');
+        }
+
+        function updateReportContent(tab) {
+            switch(tab) {
+                case 'overview':
+                    updateTrendChart();
+                    updateDonutChart();
+                    updateInsights();
+                    break;
+                case 'meetings':
+                    updateMeetingsTable();
+                    break;
+                case 'participants':
+                    updateParticipantReport();
+                    break;
+                case 'actions':
+                    updateActionsReport();
+                    break;
+                case 'time':
+                    updateTimeAnalysis();
+                    break;
+            }
+        }
+
+        function updateTrendChart() {
+            const container = document.querySelector('#trendChart .trend-chart-container');
+            if (container) {
+                const data = [3, 5, 4, 7, 6, 8, 5, 9, 7, 6, 8, 10];
+                const max = Math.max(...data);
+                const width = 100 / data.length;
+                
+                container.innerHTML = `
+                    <svg viewBox="0 0 400 150" style="width: 100%; height: 100%;">
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="var(--primary-500)"/>
+                                <stop offset="100%" stop-color="var(--accent-500)"/>
+                            </linearGradient>
+                            <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="var(--primary-200)" stop-opacity="0.5"/>
+                                <stop offset="100%" stop-color="var(--primary-100)" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="${data.map((d, i) => `${i === 0 ? 'M' : 'L'} ${i * (380/11) + 10} ${130 - (d/max) * 110}`).join(' ')} L 390 130 L 10 130 Z" fill="url(#areaGradient)"/>
+                        <path d="${data.map((d, i) => `${i === 0 ? 'M' : 'L'} ${i * (380/11) + 10} ${130 - (d/max) * 110}`).join(' ')}" fill="none" stroke="url(#lineGradient)" stroke-width="3" stroke-linecap="round"/>
+                        ${data.map((d, i) => `<circle cx="${i * (380/11) + 10}" cy="${130 - (d/max) * 110}" r="5" fill="var(--primary-500)"/>`).join('')}
+                    </svg>
+                `;
+            }
+        }
+
+        function updateDonutChart() {
+            const container = document.getElementById('donutChart');
+            if (container) {
+                const data = [
+                    { label: 'Operations', value: 35, color: '#10b981' },
+                    { label: 'Standup', value: 25, color: '#06b6d4' },
+                    { label: '1:1', value: 20, color: '#f59e0b' },
+                    { label: 'Client', value: 15, color: '#6366f1' },
+                    { label: 'Other', value: 5, color: '#94a3b8' }
+                ];
+                
+                const total = data.reduce((s, d) => s + d.value, 0);
+                let cumulative = 0;
+                
+                container.innerHTML = `
+                    <svg viewBox="0 0 160 160" style="width: 160px; height: 160px; transform: rotate(-90deg);">
+                        ${data.map(d => {
+                            const start = cumulative / total * 360;
+                            const angle = d.value / total * 360;
+                            cumulative += d.value;
+                            const r = 70;
+                            const circumference = 2 * Math.PI * r;
+                            const dashArray = (angle / 360) * circumference;
+                            const dashOffset = -(start / 360) * circumference;
+                            return `<circle cx="80" cy="80" r="${r}" fill="none" stroke="${d.color}" stroke-width="20" stroke-dasharray="${dashArray} ${circumference}" stroke-dashoffset="${dashOffset}"/>`;
+                        }).join('')}
+                    </svg>
+                    <div style="text-align: center; margin-top: -100px; margin-bottom: 20px;">
+                        <div style="font-size: 2rem; font-weight: 800; color: var(--gray-900);">${total}</div>
+                        <div style="font-size: 0.75rem; color: var(--gray-500);">Total</div>
+                    </div>
+                    <div class="donut-legend">
+                        ${data.map(d => `
+                            <div class="donut-legend-item">
+                                <div class="donut-legend-color" style="background: ${d.color};"></div>
+                                <span>${d.label} (${d.value}%)</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        function updateInsights() {
+            const container = document.getElementById('insightsGrid');
+            if (container) {
+                container.innerHTML = `
+                    <div class="insight-card positive">
+                        <div class="insight-title">Meeting Efficiency</div>
+                        <div class="insight-value">87%</div>
+                        <div class="insight-change up">↑ 5% from last month</div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-title">Action Completion</div>
+                        <div class="insight-value">72%</div>
+                        <div class="insight-change up">↑ 8% improvement</div>
+                    </div>
+                    <div class="insight-card negative">
+                        <div class="insight-title">Overdue Items</div>
+                        <div class="insight-value">5</div>
+                        <div class="insight-change down">↑ 2 from last week</div>
+                    </div>
+                `;
+            }
+        }
+
+        function updateMeetingsTable() {
+            const tbody = document.getElementById('meetingsTableBody');
+            if (tbody) {
+                const meetings = [
+                    { date: '13 Jan 2026', title: 'Daily Operations', type: 'operations', duration: '45 min', attendees: 5, actions: 3 },
+                    { date: '12 Jan 2026', title: 'Team Standup', type: 'standup', duration: '15 min', attendees: 8, actions: 2 },
+                    { date: '12 Jan 2026', title: '1:1 with Eduardo', type: '1on1', duration: '30 min', attendees: 2, actions: 4 },
+                    { date: '11 Jan 2026', title: 'Client Call - ABC Foods', type: 'client', duration: '1h 20m', attendees: 4, actions: 5 },
+                    { date: '10 Jan 2026', title: 'Operations Review', type: 'operations', duration: '55 min', attendees: 6, actions: 7 }
+                ];
+                
+                tbody.innerHTML = meetings.map(m => `
+                    <tr>
+                        <td>${m.date}</td>
+                        <td><strong>${m.title}</strong></td>
+                        <td><span class="type-badge ${m.type}">${m.type}</span></td>
+                        <td>${m.duration}</td>
+                        <td>${m.attendees}</td>
+                        <td>${m.actions}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function filterReportMeetings() {
+            updateMeetingsTable();
+        }
+
+        function updateParticipantReport() {
+            const barsContainer = document.getElementById('participantBars');
+            const statsContainer = document.getElementById('attendanceStats');
+            
+            if (barsContainer) {
+                barsContainer.innerHTML = employees.slice(0, 6).map((emp, i) => {
+                    const meetings = [18, 15, 12, 10, 8, 6][i];
+                    return `
+                        <div class="participant-bar-row">
+                            <div class="participant-bar-avatar" style="background: var(--speaker-${emp.color})">${emp.name.charAt(0)}</div>
+                            <div class="participant-bar-info">
+                                <div class="participant-bar-name">${emp.name}</div>
+                                <div class="participant-bar-count">${meetings} meetings</div>
+                            </div>
+                            <div class="participant-bar-container">
+                                <div class="participant-bar-fill" style="width: ${(meetings/18)*100}%; background: var(--speaker-${emp.color});"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            if (statsContainer) {
+                statsContainer.innerHTML = `
+                    <div class="insight-card">
+                        <div class="insight-title">Most Meetings</div>
+                        <div class="insight-value">Ciaran</div>
+                        <div class="insight-change">18 meetings</div>
+                    </div>
+                    <div class="insight-card positive">
+                        <div class="insight-title">Best Attendance</div>
+                        <div class="insight-value">95%</div>
+                        <div class="insight-change">Eduardo</div>
+                    </div>
+                `;
+            }
+        }
+
+        function updateActionsReport() {
+            const container = document.getElementById('actionSummary');
+            if (container) {
+                container.innerHTML = `
+                    <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 1.5rem;">
+                        <div class="stat-card gradient-1" style="cursor: default;">
+                            <div class="stat-value">73</div>
+                            <div class="stat-label">Total Created</div>
+                        </div>
+                        <div class="stat-card gradient-3" style="cursor: default;">
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card gradient-2" style="cursor: default;">
+                            <div class="stat-value">23</div>
+                            <div class="stat-label">In Progress</div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); cursor: default;">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                    </div>
+                    <h4 style="margin-bottom: 1rem; color: var(--gray-700);">Action Items by Owner</h4>
+                    <div class="participant-bars">
+                        ${employees.slice(0, 5).map((emp, i) => {
+                            const actions = [12, 9, 7, 5, 4][i];
+                            return `
+                                <div class="participant-bar-row">
+                                    <div class="participant-bar-avatar" style="background: var(--speaker-${emp.color})">${emp.name.charAt(0)}</div>
+                                    <div class="participant-bar-info">
+                                        <div class="participant-bar-name">${emp.name}</div>
+                                        <div class="participant-bar-count">${actions} actions</div>
+                                    </div>
+                                    <div class="participant-bar-container">
+                                        <div class="participant-bar-fill" style="width: ${(actions/12)*100}%; background: var(--speaker-${emp.color});"></div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+        }
+
+        function updateTimeAnalysis() {
+            const dayContainer = document.getElementById('timeByDay');
+            const peakContainer = document.getElementById('peakHours');
+            const durationContainer = document.getElementById('durationByType');
+            
+            if (dayContainer) {
+                const days = [
+                    { name: 'Monday', hours: 3.5 },
+                    { name: 'Tuesday', hours: 4.2 },
+                    { name: 'Wednesday', hours: 2.8 },
+                    { name: 'Thursday', hours: 5.1 },
+                    { name: 'Friday', hours: 3.9 }
+                ];
+                const max = Math.max(...days.map(d => d.hours));
+                
+                dayContainer.innerHTML = days.map(d => `
+                    <div class="time-row">
+                        <span class="time-label">${d.name}</span>
+                        <div class="time-bar-container">
+                            <div class="time-bar-fill" style="width: ${(d.hours/max)*100}%; background: var(--gradient-primary);"></div>
+                        </div>
+                        <span class="time-value">${d.hours}h</span>
+                    </div>
+                `).join('');
+            }
+            
+            if (peakContainer) {
+                const hours = [
+                    { time: '9:00 AM', meetings: 8 },
+                    { time: '10:00 AM', meetings: 12 },
+                    { time: '11:00 AM', meetings: 6 },
+                    { time: '2:00 PM', meetings: 10 },
+                    { time: '3:00 PM', meetings: 7 }
+                ];
+                const max = Math.max(...hours.map(h => h.meetings));
+                
+                peakContainer.innerHTML = hours.map(h => `
+                    <div class="time-row">
+                        <span class="time-label">${h.time}</span>
+                        <div class="time-bar-container">
+                            <div class="time-bar-fill" style="width: ${(h.meetings/max)*100}%; background: var(--gradient-accent);"></div>
+                        </div>
+                        <span class="time-value">${h.meetings}</span>
+                    </div>
+                `).join('');
+            }
+            
+            if (durationContainer) {
+                const types = [
+                    { name: 'Client Call', duration: 75, color: 'var(--gradient-primary)' },
+                    { name: 'Operations', duration: 45, color: 'var(--gradient-success)' },
+                    { name: '1:1 Meeting', duration: 30, color: 'var(--gradient-warm)' },
+                    { name: 'Standup', duration: 15, color: 'var(--gradient-accent)' }
+                ];
+                const max = Math.max(...types.map(t => t.duration));
+                
+                durationContainer.innerHTML = types.map(t => `
+                    <div class="time-row">
+                        <span class="time-label">${t.name}</span>
+                        <div class="time-bar-container">
+                            <div class="time-bar-fill" style="width: ${(t.duration/max)*100}%; background: ${t.color};"></div>
+                        </div>
+                        <span class="time-value">${t.duration}m</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ============================================
+        // EXPORT FUNCTIONS
+        // ============================================
+        function exportDashboardCSV() {
+            const data = [
+                ['Metric', 'Value'],
+                ['Total Meetings', document.getElementById('statMeetings').textContent],
+                ['Total Time', document.getElementById('statHours').textContent],
+                ['Action Items', document.getElementById('statActions').textContent],
+                ['Avg Attendees', document.getElementById('statAttendees').textContent]
+            ];
+            
+            downloadCSV(data, 'meetingmind-dashboard.csv');
+            showToast('Dashboard exported to CSV', 'success');
+        }
+
+        function exportReportPDF() {
+            window.print();
+            showToast('Print dialog opened', 'success');
+        }
+
+        function exportReportCSV() {
+            const data = [
+                ['Report Data'],
+                ['Period', document.getElementById('reportPeriod').value + ' days'],
+                ['Meetings', document.getElementById('reportMeetings').textContent],
+                ['Hours', document.getElementById('reportHours').textContent],
+                ['Actions', document.getElementById('reportActions').textContent],
+                ['Completion Rate', document.getElementById('reportCompletion').textContent]
+            ];
+            
+            downloadCSV(data, 'meetingmind-report.csv');
+            showToast('Report exported to CSV', 'success');
+        }
+
+        function exportActionsCSV() {
+            const actions = generateActionItems();
+            const data = [
+                ['Action', 'Owner', 'Meeting', 'Due', 'Status'],
+                ...actions.map(a => [a.text, a.owner, a.meeting, a.due, a.status])
+            ];
+            
+            downloadCSV(data, 'meetingmind-actions.csv');
+            showToast('Actions exported to CSV', 'success');
+        }
+
+        function downloadCSV(data, filename) {
+            const csv = data.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ============================================
+        // ACTIONS VIEW FUNCTIONS
+        // ============================================
+        function filterActions() {
+            updateActionsList();
+        }
+
+        function updateActionsList() {
+            const filter = document.getElementById('actionStatusFilter')?.value || 'all';
+            let actions = generateActionItems();
+            
+            if (filter !== 'all') {
+                actions = actions.filter(a => a.status === filter);
+            }
+            
+            // Update counts
+            const allActions = generateActionItems();
+            document.getElementById('totalActionsCount').textContent = allActions.length;
+            document.getElementById('pendingActionsCount').textContent = allActions.filter(a => a.status === 'pending').length;
+            document.getElementById('completedActionsCount').textContent = allActions.filter(a => a.status === 'completed').length;
+            document.getElementById('overdueActionsCount').textContent = allActions.filter(a => a.status === 'overdue').length;
+            
+            const container = document.getElementById('actionsList');
+            if (container) {
+                container.innerHTML = actions.length ? actions.map(a => `
+                    <div class="action-item-card ${a.status}">
+                        <div class="action-checkbox ${a.status === 'completed' ? 'checked' : ''}" onclick="toggleActionStatus(this)">
+                            ${a.status === 'completed' ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+                        </div>
+                        <div class="action-item-content">
+                            <div class="action-item-text">${a.text}</div>
+                            <div class="action-item-meta">
+                                <span class="action-item-owner">@${a.owner}</span>
+                                <span class="action-item-meeting">${a.meeting}</span>
+                                <span class="action-item-due ${a.status === 'overdue' ? 'overdue' : ''}">${a.due}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('') : '<div style="padding: 2rem; text-align: center; color: var(--gray-500);">No action items found</div>';
+            }
+        }
+
+        // ============================================
+        // PREFERENCES FUNCTIONS
+        // ============================================
+        function savePreferences() {
+            const prefs = {
+                displayName: document.getElementById('prefDisplayName').value,
+                email: document.getElementById('prefEmail').value,
+                company: document.getElementById('prefCompany').value,
+                role: document.getElementById('prefRole').value,
+                defaultType: document.getElementById('prefDefaultType').value,
+                rememberParticipants: document.getElementById('prefRememberParticipants').checked,
+                autoAlternate: document.getElementById('prefAutoAlternate').checked,
+                language: document.getElementById('prefLanguage').value,
+                accentMode: document.getElementById('prefAccentMode').checked,
+                continuous: document.getElementById('prefContinuous').checked,
+                toasts: document.getElementById('prefToasts').checked,
+                sounds: document.getElementById('prefSounds').checked,
+                reminders: document.getElementById('prefReminders').checked,
+                exportFormat: document.getElementById('prefExportFormat').value,
+                includeTranscript: document.getElementById('prefIncludeTranscript').checked,
+                includeActions: document.getElementById('prefIncludeActions').checked
+            };
+            
+            localStorage.setItem('meetingmind_preferences', JSON.stringify(prefs));
+            
+            // Apply some preferences immediately
+            state.userName = prefs.displayName;
+            state.accentMode = prefs.accentMode;
+            state.defaultLang = prefs.language;
+            
+            document.getElementById('userName').textContent = prefs.displayName;
+            document.getElementById('userAvatar').textContent = prefs.displayName.charAt(0).toUpperCase();
+            
+            showToast('Preferences saved successfully', 'success');
+        }
+
+        function loadPreferences() {
+            const saved = localStorage.getItem('meetingmind_preferences');
+            if (saved) {
+                const prefs = JSON.parse(saved);
+                
+                if (prefs.displayName) document.getElementById('prefDisplayName').value = prefs.displayName;
+                if (prefs.email) document.getElementById('prefEmail').value = prefs.email;
+                if (prefs.company) document.getElementById('prefCompany').value = prefs.company;
+                if (prefs.role) document.getElementById('prefRole').value = prefs.role;
+                if (prefs.defaultType) document.getElementById('prefDefaultType').value = prefs.defaultType;
+                if (prefs.rememberParticipants !== undefined) document.getElementById('prefRememberParticipants').checked = prefs.rememberParticipants;
+                if (prefs.autoAlternate !== undefined) document.getElementById('prefAutoAlternate').checked = prefs.autoAlternate;
+                if (prefs.language) document.getElementById('prefLanguage').value = prefs.language;
+                if (prefs.accentMode !== undefined) document.getElementById('prefAccentMode').checked = prefs.accentMode;
+                if (prefs.continuous !== undefined) document.getElementById('prefContinuous').checked = prefs.continuous;
+                if (prefs.toasts !== undefined) document.getElementById('prefToasts').checked = prefs.toasts;
+                if (prefs.sounds !== undefined) document.getElementById('prefSounds').checked = prefs.sounds;
+                if (prefs.reminders !== undefined) document.getElementById('prefReminders').checked = prefs.reminders;
+                if (prefs.exportFormat) document.getElementById('prefExportFormat').value = prefs.exportFormat;
+                if (prefs.includeTranscript !== undefined) document.getElementById('prefIncludeTranscript').checked = prefs.includeTranscript;
+                if (prefs.includeActions !== undefined) document.getElementById('prefIncludeActions').checked = prefs.includeActions;
+                
+                // Apply to state
+                state.userName = prefs.displayName || 'Ciaran';
+                state.accentMode = prefs.accentMode || false;
+                state.defaultLang = prefs.language || 'en-GB';
+            }
+        }
+
+        function confirmClearData() {
+            if (confirm('Are you sure you want to delete all meeting data? This cannot be undone.')) {
+                localStorage.removeItem('meetingmind_meetings');
+                state.meetings = [];
+                state.entries = [];
+                state.actions = [];
+                updateDashboardStats();
+                updateHistoryList();
+                showToast('All meeting data cleared', 'success');
+            }
         }
 
         function updateHistoryList() {
             const list = document.getElementById('historyList');
+            if (!list) return;
+            
             list.innerHTML = state.meetings.slice().reverse().map(m => {
                 const mins = Math.floor(m.duration / 60);
                 const initials = m.title.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
@@ -4194,10 +6265,6 @@
                     </div>
                 `;
             }).join('') || '<div style="padding: 2rem; text-align: center; color: var(--gray-500);">No meetings yet</div>';
-        }
-
-        function generateReport() {
-            showToast('Report generation coming soon!', 'success');
         }
 
         // ============================================
@@ -4223,6 +6290,9 @@
             // Render employee selection grid
             renderEmployeeGrid();
             
+            // Load saved preferences
+            loadPreferences();
+            
             // Keyboard shortcuts for speaker switching
             document.addEventListener('keydown', handleKeyboardShortcuts);
             
@@ -4232,7 +6302,15 @@
             document.getElementById('exportModal').addEventListener('click', e => {
                 if (e.target.id === 'exportModal') closeExportModal();
             });
+            document.getElementById('drilldownModal')?.addEventListener('click', e => {
+                if (e.target.id === 'drilldownModal') closeDrilldown();
+            });
+            
+            // Initialize dashboard
+            updateDashboardStats();
             updateHistoryList();
+            updateActionsList();
+            updateReports();
         });
     </script>
 </body>
