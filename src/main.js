@@ -60,6 +60,14 @@ async function initializeApp() {
   console.log('🚀 Initializing MeetingMind Enterprise...');
 
   try {
+    // Check if Supabase is configured
+    if (!window.location.hostname.includes('localhost') && 
+        (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY)) {
+      showConfigurationError();
+      hideLoadingScreen();
+      return;
+    }
+
     // Check authentication
     const isAuthenticated = await authService.initialize();
 
@@ -81,7 +89,12 @@ async function initializeApp() {
     }
   } catch (error) {
     console.error('Initialization error:', error);
-    showView('auth');
+    // Show error to user
+    if (error.message && error.message.includes('not configured')) {
+      showConfigurationError();
+    } else {
+      showView('auth');
+    }
   }
 
   hideLoadingScreen();
@@ -669,6 +682,56 @@ function hideLoadingScreen() {
     loading.style.opacity = '0';
     setTimeout(() => loading.style.display = 'none', 300);
   }
+}
+
+function showConfigurationError() {
+  const appContainer = document.getElementById('app');
+  appContainer.innerHTML = `
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <div style="background: white; border-radius: 20px; padding: 3rem; max-width: 600px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
+          <h1 style="font-size: 2rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Configuration Required</h1>
+          <p style="font-size: 1.125rem; color: #64748b; line-height: 1.6;">
+            Environment variables are not configured in Vercel.
+          </p>
+        </div>
+        
+        <div style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1rem; font-weight: 700; color: #475569; margin-bottom: 1rem;">Required Variables:</h2>
+          <div style="font-family: 'Monaco', 'Courier New', monospace; font-size: 0.875rem; color: #1e293b;">
+            <div style="margin-bottom: 0.5rem;">• VITE_SUPABASE_URL</div>
+            <div style="margin-bottom: 0.5rem;">• VITE_SUPABASE_ANON_KEY</div>
+            <div>• VITE_ANTHROPIC_API_KEY</div>
+          </div>
+        </div>
+        
+        <div style="background: #dbeafe; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 0.875rem; font-weight: 700; color: #1e40af; margin-bottom: 0.5rem;">How to Fix:</h3>
+          <ol style="font-size: 0.875rem; color: #1e40af; line-height: 1.6; padding-left: 1.25rem; margin: 0;">
+            <li>Go to your Vercel project settings</li>
+            <li>Navigate to "Environment Variables"</li>
+            <li>Add the three required variables</li>
+            <li>Redeploy the application</li>
+          </ol>
+        </div>
+        
+        <div style="text-align: center;">
+          <a href="https://vercel.com/the-ai-guyjsy/meeting-mind/settings/environment-variables" 
+             target="_blank"
+             style="display: inline-block; padding: 0.875rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4); transition: transform 0.2s;">
+            Open Vercel Settings →
+          </a>
+        </div>
+        
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; text-align: center;">
+          <p style="font-size: 0.8125rem; color: #94a3b8;">
+            Need help? Check <a href="https://github.com/the-ai-guyjsy/meeting-mind" style="color: #3b82f6; text-decoration: none;">the documentation</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 // ============================================

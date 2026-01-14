@@ -8,21 +8,27 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+// Check for environment variables
+const hasConfig = supabaseUrl && supabaseAnonKey;
+
+if (!hasConfig) {
+  console.error('❌ Missing Supabase environment variables!');
+  console.error('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// Create client even if config missing (will fail gracefully)
+export const supabase = hasConfig ? createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true
   }
-});
+}) : null;
 
 // Auth helpers
 export const auth = {
   async signUp(email, password, userData = {}) {
+    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -35,6 +41,7 @@ export const auth = {
   },
 
   async signIn(email, password) {
+    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
@@ -44,23 +51,27 @@ export const auth = {
   },
 
   async signOut() {
+    if (!supabase) throw new Error('Supabase not configured');
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
   },
 
   async getSession() {
+    if (!supabase) return null;
     const { data: { session }, error } = await supabase.auth.getSession();
     if (error) throw error;
     return session;
   },
 
   async getUser() {
+    if (!supabase) return null;
     const { data: { user }, error } = await supabase.auth.getUser();
     if (error) throw error;
     return user;
   },
 
   onAuthStateChange(callback) {
+    if (!supabase) return () => {};
     return supabase.auth.onAuthStateChange(callback);
   }
 };
