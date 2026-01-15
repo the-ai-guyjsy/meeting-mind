@@ -5,39 +5,26 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Get and clean environment variables (remove any accidental whitespace/quotes)
-const rawUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const rawKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-
-const supabaseUrl = rawUrl.trim().replace(/^["']|["']$/g, '');
-const supabaseAnonKey = rawKey.trim().replace(/^["']|["']$/g, '');
+// Supabase configuration
+// First try environment variables, then fall back to defaults for testing
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://xrvbfnceuuajjwxnccon.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhydmJmbmNldXVhamp3eG5jY29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTE3NzMsImV4cCI6MjA4Mzk2Nzc3M30.ZtFkbuPutpWL2FqVD6s-Wz60Xbm0bvL4TUpGeAqk4KM';
 
 // Debug logging
 console.log('Supabase Config:', {
-  urlPresent: !!supabaseUrl,
-  urlLength: supabaseUrl.length,
-  urlStart: supabaseUrl.substring(0, 30),
-  keyPresent: !!supabaseAnonKey,
-  keyLength: supabaseAnonKey.length
+  url: supabaseUrl,
+  keyLength: supabaseAnonKey.length,
+  envUrlSet: !!import.meta.env.VITE_SUPABASE_URL
 });
 
-// Check for environment variables - URL must start with https://
-const hasConfig = supabaseUrl && supabaseAnonKey && supabaseUrl.startsWith('https://');
-
-if (!hasConfig) {
-  console.error('Invalid Supabase configuration!');
-  console.error('URL valid:', supabaseUrl && supabaseUrl.startsWith('https://'));
-  console.error('Key present:', !!supabaseAnonKey);
-}
-
-// Create client only if config is valid
-export const supabase = hasConfig ? createClient(supabaseUrl, supabaseAnonKey, {
+// Create client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true
   }
-}) : null;
+});
 
 // Auth helpers
 export const auth = {
