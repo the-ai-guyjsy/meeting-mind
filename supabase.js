@@ -137,7 +137,7 @@ export const db = {
     if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('organizations')
-      .insert({ name })
+      .insert({ name, created_by: userId })
       .select()
       .single();
     if (error) throw error;
@@ -146,11 +146,25 @@ export const db = {
 
   async getOrganizations(userId) {
     if (!supabase) throw new Error('Supabase not configured');
+    // Get organizations where user is a member
     const { data, error } = await supabase
-      .from('organizations')
-      .select('*');
-    if (error) throw error;
-    return data;
+      .from('organization_members')
+      .select('organization_id, organizations(*)')
+      .eq('user_id', userId);
+    
+    if (error) {
+      // Fallback: try getting orgs created by user directly
+      console.log('Member query failed, trying direct org query...');
+      const { data: directOrgs, error: directError } = await supabase
+        .from('organizations')
+        .select('*')
+        .eq('created_by', userId);
+      if (directError) throw directError;
+      return directOrgs;
+    }
+    
+    // Extract organizations from the join result
+    return data?.map(m => m.organizations).filter(Boolean) || [];
   },
 
   // Employees

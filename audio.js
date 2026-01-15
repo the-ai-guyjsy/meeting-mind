@@ -57,7 +57,7 @@ export class AudioRecorder {
       this.mediaRecorder.start(1000); // Collect data every second
       this.isRecording = true;
 
-      console.log('ðŸŽ™ï¸ Audio recording started:', selectedMimeType);
+      console.log('Ã°Å¸Å½â„¢Ã¯Â¸Â Audio recording started:', selectedMimeType);
       return true;
     } catch (error) {
       console.error('Failed to start audio recording:', error);
@@ -92,7 +92,7 @@ export class AudioRecorder {
         }
 
         this.isRecording = false;
-        console.log('ðŸŽ™ï¸ Audio recording stopped. Size:', (audioBlob.size / 1024 / 1024).toFixed(2), 'MB');
+        console.log('Ã°Å¸Å½â„¢Ã¯Â¸Â Audio recording stopped. Size:', (audioBlob.size / 1024 / 1024).toFixed(2), 'MB');
         
         resolve({
           blob: audioBlob,
@@ -222,7 +222,7 @@ export class SpeechRecognizer {
     try {
       this.recognition.start();
       this.isListening = true;
-      console.log('ðŸŽ¤ Speech recognition started:', this.language);
+      console.log('Ã°Å¸Å½Â¤ Speech recognition started:', this.language);
     } catch (error) {
       if (error.name !== 'InvalidStateError') {
         console.error('Failed to start speech recognition:', error);
@@ -238,7 +238,7 @@ export class SpeechRecognizer {
     if (this.recognition && this.isListening) {
       this.isListening = false;
       this.recognition.stop();
-      console.log('ðŸŽ¤ Speech recognition stopped');
+      console.log('Ã°Å¸Å½Â¤ Speech recognition stopped');
     }
   }
 

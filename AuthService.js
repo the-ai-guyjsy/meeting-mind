@@ -40,13 +40,24 @@ class AuthService {
    */
   async loadUserData() {
     try {
-      // Get profile
-      this.currentProfile = await db.getProfile(this.currentUser.id);
+      // Get profile (may not exist if trigger didn't fire)
+      try {
+        this.currentProfile = await db.getProfile(this.currentUser.id);
+      } catch (profileError) {
+        console.log('Profile not found, will be created on first action');
+        this.currentProfile = null;
+      }
       
       // Get organizations
-      const orgs = await db.getOrganizations(this.currentUser.id);
-      if (orgs && orgs.length > 0) {
-        this.currentOrganization = orgs[0]; // Use first org for now
+      try {
+        const orgs = await db.getOrganizations(this.currentUser.id);
+        console.log('Loaded organizations:', orgs);
+        if (orgs && orgs.length > 0) {
+          this.currentOrganization = orgs[0]; // Use first org for now
+        }
+      } catch (orgError) {
+        console.log('No organizations found:', orgError.message);
+        this.currentOrganization = null;
       }
       
       return true;
