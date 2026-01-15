@@ -8,7 +8,7 @@ import Anthropic from '@anthropic-ai/sdk';
 const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
 
 if (!apiKey) {
-  console.warn('Ã¢Å¡Â Ã¯Â¸Â Anthropic API key not configured. AI features will be limited.');
+  console.warn('[!] Anthropic API key not configured. AI features will be limited.');
 }
 
 const anthropic = apiKey ? new Anthropic({
@@ -213,7 +213,7 @@ function generateFallbackAnswer(question, context) {
     );
     if (decisions.length > 0) {
       return `Based on the transcript, potential decisions include:\n\n${
-        decisions.slice(0, 3).map(d => `Ã¢â‚¬Â¢ ${d.speaker.name}: "${d.text}"`).join('\n')
+        decisions.slice(0, 3).map(d => `* ${d.speaker.name}: "${d.text}"`).join('\n')
       }`;
     }
     return 'No clear decisions identified yet in the transcript.';
@@ -227,7 +227,7 @@ function generateFallbackAnswer(question, context) {
     );
     if (actions.length > 0) {
       return `Potential action items:\n\n${
-        actions.slice(0, 4).map(a => `Ã¢â‚¬Â¢ ${a.speaker.name}: ${a.text}`).join('\n')
+        actions.slice(0, 4).map(a => `* ${a.speaker.name}: ${a.text}`).join('\n')
       }`;
     }
     return 'No clear action items identified yet.';

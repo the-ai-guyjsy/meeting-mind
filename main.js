@@ -43,7 +43,7 @@ const state = {
   currentMeeting: null,
   onboardingStep: 1,
   selectedEmployees: [],
-  organizationName: 'La Collette Wholesale Ltd' // Store org name across steps
+  organizationName: 'La Collette Wholesale Ltd'
 };
 
 // Predefined employees for onboarding
@@ -69,7 +69,7 @@ const PREDEFINED_EMPLOYEES = [
 // ============================================
 
 async function initializeApp() {
-  console.log('🚀 Initializing MeetingMind Enterprise...');
+  console.log('Initializing MeetingMind Enterprise...');
 
   try {
     // Check authentication
@@ -196,7 +196,7 @@ function renderAuthView() {
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="password" required placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢">
+              <input type="password" name="password" required placeholder="Enter your password">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </form>
@@ -214,7 +214,7 @@ function renderAuthView() {
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="password" required placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢" minlength="6">
+              <input type="password" name="password" required placeholder="Create a password" minlength="6">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Create Account</button>
           </form>
@@ -242,20 +242,20 @@ function attachAuthHandlers() {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    // Debug logging
-    console.log('Sign in attempt:', { 
-      email, 
-      emailType: typeof email,
-      passwordLength: password ? password.length : 0,
-      passwordType: typeof password
-    });
+    console.log('Sign in attempt:', { email });
 
     const result = await authService.signIn(email, password);
     if (result.success) {
       state.isAuthenticated = true;
       state.user = result.user;
-      await loadAppData();
-      showView('dashboard');
+      state.organization = authService.getOrganization();
+      
+      if (authService.hasCompletedOnboarding()) {
+        await loadAppData();
+        showView('dashboard');
+      } else {
+        showView('onboarding');
+      }
     }
   });
 
@@ -374,7 +374,6 @@ function attachOnboardingHandlers() {
   if (orgForm) {
     orgForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // Save org name to state before moving to step 2
       const orgNameInput = document.querySelector('input[name="orgName"]');
       if (orgNameInput) {
         state.organizationName = orgNameInput.value || 'My Organization';
@@ -491,7 +490,11 @@ function renderDashboardView() {
         <div class="stats-grid">
           <div class="stat-card gradient-1">
             <div class="stat-header">
-              <div class="stat-icon">Ã°Å¸â€œÅ </div>
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
               <div class="stat-trend up">+12%</div>
             </div>
             <div class="stat-value">${stats.totalMeetings}</div>
@@ -499,7 +502,11 @@ function renderDashboardView() {
           </div>
           <div class="stat-card gradient-2">
             <div class="stat-header">
-              <div class="stat-icon">Ã¢ÂÂ±Ã¯Â¸Â</div>
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
               <div class="stat-trend up">+8%</div>
             </div>
             <div class="stat-value">${stats.totalHours}</div>
@@ -507,16 +514,24 @@ function renderDashboardView() {
           </div>
           <div class="stat-card gradient-3">
             <div class="stat-header">
-              <div class="stat-icon">Ã¢Å“â€œ</div>
-              <div class="stat-trend neutral">Ã¢â‚¬â€</div>
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                </svg>
+              </div>
+              <div class="stat-trend neutral">-</div>
             </div>
             <div class="stat-value">${stats.actionItems}</div>
             <div class="stat-label">Action Items</div>
           </div>
           <div class="stat-card gradient-4">
             <div class="stat-header">
-              <div class="stat-icon">Ã°Å¸â€˜Â¥</div>
-              <div class="stat-trend neutral">Ã¢â‚¬â€</div>
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <div class="stat-trend neutral">-</div>
             </div>
             <div class="stat-value">${stats.avgAttendees}</div>
             <div class="stat-label">Avg Attendees</div>
@@ -539,6 +554,8 @@ function renderDashboardView() {
 }
 
 function renderSidebar() {
+  const userName = state.profile?.display_name || state.user?.email?.split('@')[0] || 'User';
+  
   return `
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -594,9 +611,9 @@ function renderSidebar() {
 
       <div class="sidebar-footer">
         <div class="user-card">
-          <div class="user-avatar">${getInitials(state.profile?.display_name || state.user?.email || 'U')}</div>
+          <div class="user-avatar">${getInitials(userName)}</div>
           <div class="user-info">
-            <div class="user-name">${state.profile?.display_name || 'User'}</div>
+            <div class="user-name">${userName}</div>
             <div class="user-role">Enterprise</div>
           </div>
         </div>
@@ -617,7 +634,7 @@ function renderRecentMeetings() {
       </div>
       <div class="meeting-info">
         <div class="meeting-title">${escapeHtml(meeting.title)}</div>
-        <div class="meeting-meta">${formatDate(meeting.created_at, 'short')} Ã¢â‚¬Â¢ ${meeting.type}</div>
+        <div class="meeting-meta">${formatDate(meeting.created_at, 'short')} - ${meeting.type}</div>
       </div>
       <div class="meeting-duration">${formatDuration(meeting.duration_seconds || 0)}</div>
     </div>
@@ -633,7 +650,7 @@ function calculateDashboardStats() {
   return {
     totalMeetings,
     totalHours,
-    actionItems: 0, // TODO: Load from DB
+    actionItems: 0,
     avgAttendees: state.employees.length > 0 ? Math.ceil(state.employees.length / 2) : 0
   };
 }
@@ -643,12 +660,11 @@ function attachDashboardHandlers() {
   window.startNewMeeting = () => showView('meeting');
   window.viewMeeting = (id) => {
     console.log('View meeting:', id);
-    // TODO: Load and show meeting details
   };
 }
 
 // ============================================
-// MEETING VIEW (Simplified for now)
+// MEETING VIEW
 // ============================================
 
 function renderMeetingView() {
@@ -693,13 +709,12 @@ function attachMeetingHandlers() {
     if (result.success) {
       await meetingService.startRecording();
       showToast('Recording started!', 'success');
-      // TODO: Show recording UI
     }
   });
 }
 
 // ============================================
-// OTHER VIEWS (Stubs)
+// OTHER VIEWS
 // ============================================
 
 function renderHistoryView() {
@@ -736,61 +751,9 @@ function hideLoadingScreen() {
     setTimeout(() => loading.style.display = 'none', 300);
   }
   
-  // Make app visible
   if (app) {
     app.classList.add('visible');
   }
-}
-
-function showConfigurationError() {
-  const appContainer = document.getElementById('app');
-  appContainer.classList.add('visible'); // Make visible first
-  appContainer.innerHTML = `
-    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-      <div style="background: white; border-radius: 20px; padding: 3rem; max-width: 600px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">Ã¢Å¡Â Ã¯Â¸Â</div>
-          <h1 style="font-size: 2rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Configuration Required</h1>
-          <p style="font-size: 1.125rem; color: #64748b; line-height: 1.6;">
-            Environment variables are not configured in Vercel.
-          </p>
-        </div>
-        
-        <div style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-          <h2 style="font-size: 1rem; font-weight: 700; color: #475569; margin-bottom: 1rem;">Required Variables:</h2>
-          <div style="font-family: 'Monaco', 'Courier New', monospace; font-size: 0.875rem; color: #1e293b;">
-            <div style="margin-bottom: 0.5rem;">Ã¢â‚¬Â¢ VITE_SUPABASE_URL</div>
-            <div style="margin-bottom: 0.5rem;">Ã¢â‚¬Â¢ VITE_SUPABASE_ANON_KEY</div>
-            <div>Ã¢â‚¬Â¢ VITE_ANTHROPIC_API_KEY</div>
-          </div>
-        </div>
-        
-        <div style="background: #dbeafe; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 0.875rem; font-weight: 700; color: #1e40af; margin-bottom: 0.5rem;">How to Fix:</h3>
-          <ol style="font-size: 0.875rem; color: #1e40af; line-height: 1.6; padding-left: 1.25rem; margin: 0;">
-            <li>Go to your Vercel project settings</li>
-            <li>Navigate to "Environment Variables"</li>
-            <li>Add the three required variables</li>
-            <li>Redeploy the application</li>
-          </ol>
-        </div>
-        
-        <div style="text-align: center;">
-          <a href="https://vercel.com/the-ai-guyjsy/meeting-mind/settings/environment-variables" 
-             target="_blank"
-             style="display: inline-block; padding: 0.875rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4); transition: transform 0.2s;">
-            Open Vercel Settings Ã¢â€ â€™
-          </a>
-        </div>
-        
-        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; text-align: center;">
-          <p style="font-size: 0.8125rem; color: #94a3b8;">
-            Need help? Check <a href="https://github.com/the-ai-guyjsy/meeting-mind" style="color: #3b82f6; text-decoration: none;">the documentation</a>
-          </p>
-        </div>
-      </div>
-    </div>
-  `;
 }
 
 // ============================================
