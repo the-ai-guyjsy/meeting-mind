@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/badge/version-5.0.0-6366f1?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-3.0.0-6366f1?style=for-the-badge)
 ![Enterprise](https://img.shields.io/badge/grade-Enterprise-10b981?style=for-the-badge)
 
 **Enterprise-grade AI meeting intelligence**
@@ -38,46 +38,49 @@
 - **Print** — Print meeting minutes
 - **Copy to Clipboard** — Quick copy for pasting
 
+### 🎨 Modern UI
+- **Vibrant Design** — Colorful gradients and modern aesthetics
+- **Dark Sidebar** — Professional enterprise look
+- **Responsive** — Works on desktop and tablet
+- **Guided Onboarding** — Step-by-step setup wizard
+
 ## 🚀 Quick Start
 
 ### Deploy to Vercel
 
 1. Push to GitHub
 2. Import to [Vercel](https://vercel.com/new)
-3. Add environment variables (see below)
-4. Deploy!
-
-### Environment Variables
-
-Add these in your Vercel project settings:
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_SUPABASE_URL` | Your Supabase project URL |
-| `VITE_SUPABASE_ANON_KEY` | Your Supabase anon/public key |
-| `VITE_ANTHROPIC_API_KEY` | Your Anthropic API key |
+3. Deploy — zero configuration needed!
 
 ### Run Locally
 
 ```bash
-# Clone the repo
 git clone <your-repo>
 cd meetingmind-enterprise
-
-# Install dependencies
-npm install
-
-# Create .env file with your variables
-cp .env.example .env
-# Edit .env with your values
-
-# Start development server
-npm run dev
+npx serve .
 ```
 
-## 📋 Supabase Setup
+## 📋 Meeting Templates
 
-Run the SQL in `supabase-schema.sql` in your Supabase SQL Editor to create the required tables.
+| Template | Best For |
+|----------|----------|
+| General | All-purpose meetings |
+| Daily Standup | Team standups |
+| Operations Review | Ops meetings |
+| 1:1 Meeting | Manager check-ins |
+| Client Call | External calls |
+| Interview | Hiring |
+| Brainstorming | Ideation sessions |
+| Training | Training sessions |
+
+## 🎯 Predefined Quick Titles
+
+- Daily Operations
+- Team Standup
+- Weekly Review
+- Client Call
+- Project Planning
+- 1:1 Meeting
 
 ## 📱 Browser Support
 
@@ -86,12 +89,12 @@ Run the SQL in `supabase-schema.sql` in your Supabase SQL Editor to create the r
 | Chrome | ✅ Full |
 | Edge | ✅ Full |
 | Safari | ✅ Full |
-| Firefox | ⚠️ Limited speech recognition |
+| Firefox | ⚠️ Limited |
 
 ## 🔒 Privacy
 
 - Audio processed locally in browser
-- Data stored in your Supabase instance
+- No data stored on external servers
 - AI features use on-demand API calls only
 
 ## 📄 License

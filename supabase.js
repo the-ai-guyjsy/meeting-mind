@@ -5,25 +5,55 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Supabase configuration
+const supabaseUrl = 'https://xrvbfnceuuajjwxnccon.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhydmJmbmNldXVhamp3eG5jY29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTE3NzMsImV4cCI6MjA4Mzk2Nzc3M30.ZtFkbuPutpWL2FqVD6s-Wz60Xbm0bvL4TUpGeAqk4KM';
 
-// Check for environment variables
-const hasConfig = supabaseUrl && supabaseAnonKey;
+// Debug logging
+console.log('Supabase Config:', {
+  url: supabaseUrl,
+  keyLength: supabaseAnonKey.length
+});
 
-if (!hasConfig) {
-  console.error('⚠️ Missing Supabase environment variables!');
-  console.error('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel');
-}
-
-// Create client even if config missing (will fail gracefully)
-export const supabase = hasConfig ? createClient(supabaseUrl, supabaseAnonKey, {
+// Create client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true
   }
-}) : null;
+});
+
+// DEBUG: Test function - call window.testSupabase('email', 'password') from console
+window.testSupabase = async (email, password) => {
+  console.log('Testing with:', { email, password: '***' });
+  try {
+    const result = await supabase.auth.signInWithPassword({ email, password });
+    console.log('Result:', result);
+    return result;
+  } catch (err) {
+    console.error('Error:', err);
+    return err;
+  }
+};
+
+// DEBUG: Test basic fetch to Supabase
+window.testFetch = async () => {
+  console.log('Testing fetch to:', supabaseUrl);
+  try {
+    const response = await fetch(`${supabaseUrl}/rest/v1/`, {
+      headers: {
+        'apikey': supabaseAnonKey,
+        'Authorization': `Bearer ${supabaseAnonKey}`
+      }
+    });
+    console.log('Fetch response:', response.status, response.statusText);
+    return response;
+  } catch (err) {
+    console.error('Fetch error:', err);
+    return err;
+  }
+};
 
 // Auth helpers
 export const auth = {
