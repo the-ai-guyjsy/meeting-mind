@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: 'src',
+  // Root is the project directory (where index.html is)
+  root: '.',
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     emptyOutDir: true
   },
   server: {
