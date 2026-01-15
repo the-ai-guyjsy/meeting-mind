@@ -32,11 +32,15 @@ class MeetingService {
       const org = authService.getOrganization();
       const user = authService.getUser();
 
-      if (!org || !user) {
-        throw new Error('User not authenticated or no organization');
+      if (!org) {
+        throw new Error('No organization - please complete setup first');
+      }
+      
+      if (!user) {
+        throw new Error('Not authenticated - please sign in');
       }
 
-      // Create meeting record
+      // Create meeting record in database
       const meeting = await db.createMeeting({
         organization_id: org.id,
         created_by: user.id,
@@ -56,7 +60,7 @@ class MeetingService {
       return { success: true, meeting };
     } catch (error) {
       console.error('Failed to start meeting:', error);
-      showToast('Failed to create meeting', 'error');
+      showToast('Failed to create meeting: ' + error.message, 'error');
       return { success: false, error: error.message };
     }
   }
@@ -382,14 +386,15 @@ class MeetingService {
     try {
       const org = authService.getOrganization();
       if (!org) {
-        throw new Error('No organization');
+        console.warn('No organization set');
+        return { success: true, meetings: [] };
       }
 
       const meetings = await db.getMeetings(org.id, limit);
       return { success: true, meetings };
     } catch (error) {
       console.error('Failed to get meetings:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error.message, meetings: [] };
     }
   }
 

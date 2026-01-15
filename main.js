@@ -106,9 +106,14 @@ async function initializeApp() {
 
 async function loadAppData() {
   try {
+    if (!state.organization) {
+      console.warn('No organization, skipping data load');
+      return;
+    }
+    
     // Load employees
     const employees = await db.getEmployees(state.organization.id);
-    state.employees = employees;
+    state.employees = employees || [];
 
     // Load recent meetings
     const { meetings } = await meetingService.getMeetings(20);
@@ -116,6 +121,7 @@ async function loadAppData() {
 
   } catch (error) {
     console.error('Failed to load app data:', error);
+    showToast('Failed to load data: ' + error.message, 'error');
   }
 }
 
@@ -413,15 +419,29 @@ function attachOnboardingHandlers() {
   };
 
   window.completeOnboarding = async () => {
-    // Use stored org name from state (saved in step 1)
-    const orgName = state.organizationName || 'My Organization';
+    const finishBtn = document.querySelector('.btn-primary.btn-lg');
+    if (finishBtn) {
+      finishBtn.disabled = true;
+      finishBtn.innerHTML = '<span class="spinner"></span> Setting up...';
+    }
+    
+    const orgName = state.organizationName || 'La Collette Wholesale Ltd';
     console.log('Creating organization:', orgName);
     
     const employeesToCreate = PREDEFINED_EMPLOYEES
       .filter(e => state.selectedEmployees.includes(e.name))
       .map(e => ({ ...e }));
     
-    console.log('Creating employees:', employeesToCreate.length);
+    if (employeesToCreate.length === 0) {
+      showToast('Please select at least one team member', 'error');
+      if (finishBtn) {
+        finishBtn.disabled = false;
+        finishBtn.innerHTML = 'Finish Setup';
+      }
+      return;
+    }
+    
+    console.log('Creating', employeesToCreate.length, 'employees');
 
     const result = await authService.setupOrganization(orgName, employeesToCreate);
     console.log('Setup result:', result);
@@ -432,7 +452,12 @@ function attachOnboardingHandlers() {
       await loadAppData();
       showView('dashboard');
     } else {
-      showToast('Failed to setup organization: ' + (result.error || 'Unknown error'), 'error');
+      showToast('Setup failed: ' + (result.error || 'Unknown error'), 'error');
+      console.error('Full error:', result);
+      if (finishBtn) {
+        finishBtn.disabled = false;
+        finishBtn.innerHTML = 'Finish Setup';
+      }
     }
   };
 }
