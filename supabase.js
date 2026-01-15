@@ -12,7 +12,7 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const hasConfig = supabaseUrl && supabaseAnonKey;
 
 if (!hasConfig) {
-  console.error('⚠️ Missing Supabase environment variables!');
+  console.error('âŒ Missing Supabase environment variables!');
   console.error('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel');
 }
 
@@ -80,7 +80,6 @@ export const auth = {
 export const db = {
   // Profiles
   async getProfile(userId) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -91,7 +90,6 @@ export const db = {
   },
 
   async updateProfile(userId, updates) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('profiles')
       .update(updates)
@@ -104,7 +102,6 @@ export const db = {
 
   // Organizations
   async createOrganization(name, userId) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('organizations')
       .insert({ name })
@@ -115,7 +112,6 @@ export const db = {
   },
 
   async getOrganizations(userId) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('organizations')
       .select('*');
@@ -125,7 +121,6 @@ export const db = {
 
   // Employees
   async createEmployee(orgId, employeeData) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('employees')
       .insert({ organization_id: orgId, ...employeeData })
@@ -136,7 +131,6 @@ export const db = {
   },
 
   async getEmployees(orgId) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('employees')
       .select('*')
@@ -148,7 +142,6 @@ export const db = {
 
   // Meetings
   async createMeeting(meetingData) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('meetings')
       .insert(meetingData)
@@ -159,7 +152,6 @@ export const db = {
   },
 
   async updateMeeting(meetingId, updates) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('meetings')
       .update(updates)
@@ -171,7 +163,6 @@ export const db = {
   },
 
   async getMeetings(orgId, limit = 50) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('meetings')
       .select('*')
@@ -183,7 +174,6 @@ export const db = {
   },
 
   async getMeeting(meetingId) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('meetings')
       .select(`
@@ -199,7 +189,6 @@ export const db = {
 
   // Transcript Entries
   async createTranscriptEntry(entryData) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('transcript_entries')
       .insert(entryData)
@@ -210,7 +199,6 @@ export const db = {
   },
 
   async getTranscriptEntries(meetingId) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('transcript_entries')
       .select('*, employees(*)')
@@ -222,7 +210,6 @@ export const db = {
 
   // Action Items
   async createActionItem(actionData) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('action_items')
       .insert(actionData)
@@ -233,7 +220,6 @@ export const db = {
   },
 
   async updateActionItem(actionId, updates) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data, error } = await supabase
       .from('action_items')
       .update(updates)
@@ -245,7 +231,6 @@ export const db = {
   },
 
   async getActionItems(orgId, filters = {}) {
-    if (!supabase) throw new Error('Supabase not configured');
     let query = supabase
       .from('action_items')
       .select('*, meetings(title), employees(name)')
@@ -268,7 +253,6 @@ export const db = {
 // Storage helpers
 export const storage = {
   async uploadAudio(meetingId, audioBlob, filename) {
-    if (!supabase) throw new Error('Supabase not configured');
     const filePath = `${meetingId}/${filename}`;
     
     const { data, error } = await supabase.storage
@@ -289,7 +273,6 @@ export const storage = {
   },
 
   async getAudioUrl(filePath) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { data } = supabase.storage
       .from('meeting-audio')
       .getPublicUrl(filePath);
@@ -298,7 +281,6 @@ export const storage = {
   },
 
   async deleteAudio(filePath) {
-    if (!supabase) throw new Error('Supabase not configured');
     const { error } = await supabase.storage
       .from('meeting-audio')
       .remove([filePath]);
