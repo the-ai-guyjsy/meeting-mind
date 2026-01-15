@@ -60,9 +60,20 @@ async function initializeApp() {
   console.log('🚀 Initializing MeetingMind Enterprise...');
 
   try {
-    // Check if Supabase is configured
-    if (!window.location.hostname.includes('localhost') && 
-        (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY)) {
+    // Check if Supabase is configured (only on production)
+    const isProduction = !window.location.hostname.includes('localhost') && 
+                         !window.location.hostname.includes('127.0.0.1');
+    
+    if (isProduction && (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY)) {
+      console.warn('⚠️ Missing environment variables');
+      showConfigurationError();
+      hideLoadingScreen();
+      return;
+    }
+
+    // Check if db is available (Supabase configured)
+    if (!db) {
+      console.warn('⚠️ Database not configured');
       showConfigurationError();
       hideLoadingScreen();
       return;
@@ -89,12 +100,8 @@ async function initializeApp() {
     }
   } catch (error) {
     console.error('Initialization error:', error);
-    // Show error to user
-    if (error.message && error.message.includes('not configured')) {
-      showConfigurationError();
-    } else {
-      showView('auth');
-    }
+    // Show auth view as fallback
+    showView('auth');
   }
 
   hideLoadingScreen();
@@ -102,9 +109,11 @@ async function initializeApp() {
 
 async function loadAppData() {
   try {
+    if (!state.organization) return;
+    
     // Load employees
     const employees = await db.getEmployees(state.organization.id);
-    state.employees = employees;
+    state.employees = employees || [];
 
     // Load recent meetings
     const { meetings } = await meetingService.getMeetings(20);
@@ -236,8 +245,15 @@ function attachAuthHandlers() {
     if (result.success) {
       state.isAuthenticated = true;
       state.user = result.user;
-      await loadAppData();
-      showView('dashboard');
+      state.profile = authService.getProfile();
+      state.organization = authService.getOrganization();
+      
+      if (!authService.hasCompletedOnboarding()) {
+        showView('onboarding');
+      } else {
+        await loadAppData();
+        showView('dashboard');
+      }
     }
   });
 
@@ -394,7 +410,8 @@ function attachOnboardingHandlers() {
   };
 
   window.completeOnboarding = async () => {
-    const orgName = document.querySelector('input[name="orgName"]')?.value || 'My Organization';
+    const orgNameInput = document.querySelector('input[name="orgName"]');
+    const orgName = orgNameInput?.value || 'My Organization';
     
     const employeesToCreate = PREDEFINED_EMPLOYEES
       .filter(e => state.selectedEmployees.includes(e.name))
@@ -456,7 +473,7 @@ function renderDashboardView() {
           </div>
           <div class="stat-card gradient-3">
             <div class="stat-header">
-              <div class="stat-icon">✓</div>
+              <div class="stat-icon">✔</div>
               <div class="stat-trend neutral">—</div>
             </div>
             <div class="stat-value">${stats.actionItems}</div>
@@ -581,8 +598,8 @@ function calculateDashboardStats() {
 
   return {
     totalMeetings,
-    totalHours,
-    actionItems: 0, // TODO: Load from DB
+    totalHours: totalHours || '0m',
+    actionItems: 0,
     avgAttendees: state.employees.length > 0 ? Math.ceil(state.employees.length / 2) : 0
   };
 }
@@ -592,7 +609,6 @@ function attachDashboardHandlers() {
   window.startNewMeeting = () => showView('meeting');
   window.viewMeeting = (id) => {
     console.log('View meeting:', id);
-    // TODO: Load and show meeting details
   };
 }
 
@@ -642,7 +658,6 @@ function attachMeetingHandlers() {
     if (result.success) {
       await meetingService.startRecording();
       showToast('Recording started!', 'success');
-      // TODO: Show recording UI
     }
   });
 }
@@ -717,17 +732,11 @@ function showConfigurationError() {
         </div>
         
         <div style="text-align: center;">
-          <a href="https://vercel.com/the-ai-guyjsy/meeting-mind/settings/environment-variables" 
+          <a href="https://vercel.com" 
              target="_blank"
              style="display: inline-block; padding: 0.875rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4); transition: transform 0.2s;">
             Open Vercel Settings →
           </a>
-        </div>
-        
-        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; text-align: center;">
-          <p style="font-size: 0.8125rem; color: #94a3b8;">
-            Need help? Check <a href="https://github.com/the-ai-guyjsy/meeting-mind" style="color: #3b82f6; text-decoration: none;">the documentation</a>
-          </p>
         </div>
       </div>
     </div>

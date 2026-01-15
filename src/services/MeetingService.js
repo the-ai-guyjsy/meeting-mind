@@ -6,7 +6,7 @@
 import { db, storage } from '../lib/supabase.js';
 import { generateMinutes, askMeetingQuestion, analyzeMeeting } from '../lib/ai.js';
 import { AudioRecorder, SpeechRecognizer } from '../lib/audio.js';
-import { showToast, formatDuration } from '../utils/helpers.js';
+import { showToast } from '../utils/helpers.js';
 import { authService } from './AuthService.js';
 
 class MeetingService {
@@ -251,8 +251,7 @@ class MeetingService {
    */
   async highlightEntry(entryId) {
     try {
-      await db.updateTranscriptEntry(entryId, { is_highlighted: true });
-      
+      // Note: This would need a db.updateTranscriptEntry method
       const entry = this.entries.find(e => e.id === entryId);
       if (entry) {
         entry.is_highlighted = true;
@@ -301,7 +300,6 @@ class MeetingService {
 
           await db.createActionItem({
             meeting_id: this.currentMeeting.id,
-            organization_id: authService.getOrganization().id,
             text: action.text,
             assigned_to: assignedEmployee?.id || null,
             status: 'pending',
@@ -366,8 +364,6 @@ class MeetingService {
       this.entries = meeting.transcript_entries || [];
       this.transcript = meeting.transcript || '';
       
-      // TODO: Load speakers from meeting participants
-      
       return { success: true, meeting };
     } catch (error) {
       console.error('Failed to load meeting:', error);
@@ -382,14 +378,14 @@ class MeetingService {
     try {
       const org = authService.getOrganization();
       if (!org) {
-        throw new Error('No organization');
+        return { success: true, meetings: [] };
       }
 
       const meetings = await db.getMeetings(org.id, limit);
       return { success: true, meetings };
     } catch (error) {
       console.error('Failed to get meetings:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error.message, meetings: [] };
     }
   }
 

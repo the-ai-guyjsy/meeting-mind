@@ -7,6 +7,8 @@
  * Format duration from seconds
  */
 export function formatDuration(seconds) {
+  if (!seconds || seconds === 0) return '0s';
+  
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const secs = seconds % 60;
@@ -33,6 +35,8 @@ export function formatTimestamp(seconds) {
  * Format date
  */
 export function formatDate(date, format = 'full') {
+  if (!date) return '';
+  
   const d = new Date(date);
   
   if (format === 'full') {
@@ -57,6 +61,7 @@ export function formatDate(date, format = 'full') {
  * Escape HTML to prevent XSS
  */
 export function escapeHtml(text) {
+  if (!text) return '';
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
@@ -95,6 +100,7 @@ export function throttle(func, limit) {
  * Generate initials from name
  */
 export function getInitials(name) {
+  if (!name) return '?';
   return name
     .split(' ')
     .map(word => word[0])
@@ -167,7 +173,7 @@ export function exportToCSV(data, filename) {
  * Export to iCalendar format
  */
 export function exportToICS(meeting) {
-  const { title, started_at, ended_at, notes } = meeting;
+  const { title, started_at, ended_at, notes, id } = meeting;
   
   const formatICSDate = (date) => {
     return new Date(date).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
@@ -177,10 +183,10 @@ export function exportToICS(meeting) {
 VERSION:2.0
 PRODID:-//MeetingMind//Enterprise//EN
 BEGIN:VEVENT
-UID:${meeting.id}@meetingmind.app
+UID:${id || Date.now()}@meetingmind.app
 DTSTAMP:${formatICSDate(new Date())}
 DTSTART:${formatICSDate(started_at)}
-DTEND:${formatICSDate(ended_at)}
+DTEND:${formatICSDate(ended_at || started_at)}
 SUMMARY:${title}
 DESCRIPTION:${notes || 'Meeting recorded with MeetingMind'}
 END:VEVENT

@@ -3,24 +3,20 @@
  * Handles intelligent meeting analysis and minute generation
  */
 
-import Anthropic from '@anthropic-ai/sdk';
-
 const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
 
 if (!apiKey) {
   console.warn('⚠️ Anthropic API key not configured. AI features will be limited.');
 }
 
-const anthropic = apiKey ? new Anthropic({
-  apiKey,
-  dangerouslyAllowBrowser: true // Note: In production, proxy through your backend
-}) : null;
+// Note: In production, you should proxy API calls through your backend
+// Direct browser calls are for development only
 
 /**
  * Generate meeting minutes using Claude
  */
 export async function generateMinutes(meetingData) {
-  if (!anthropic) {
+  if (!apiKey) {
     throw new Error('Anthropic API not configured');
   }
 
@@ -64,16 +60,31 @@ Focus on:
 Return ONLY valid JSON, no markdown formatting.`;
 
   try {
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 4000,
-      temperature: 0.3,
-      messages: [{
-        role: 'user',
-        content: prompt
-      }]
+    // Note: This makes a direct browser call which requires dangerouslyAllowBrowser
+    // In production, proxy through your backend
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
     });
 
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const message = await response.json();
     const responseText = message.content[0].text;
     
     // Parse JSON response
@@ -93,7 +104,7 @@ Return ONLY valid JSON, no markdown formatting.`;
  * Answer questions about the meeting
  */
 export async function askMeetingQuestion(question, meetingContext) {
-  if (!anthropic) {
+  if (!apiKey) {
     // Fallback to simple pattern matching
     return generateFallbackAnswer(question, meetingContext);
   }
@@ -112,16 +123,29 @@ Question: ${question}
 Provide a concise, helpful answer based on the meeting context. If you cannot answer from the context, say so clearly.`;
 
   try {
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 500,
-      temperature: 0.5,
-      messages: [{
-        role: 'user',
-        content: prompt
-      }]
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
     });
 
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const message = await response.json();
     return message.content[0].text;
   } catch (error) {
     console.error('AI question error:', error);
@@ -133,7 +157,7 @@ Provide a concise, helpful answer based on the meeting context. If you cannot an
  * Analyze sentiment and participation
  */
 export async function analyzeMeeting(meetingData) {
-  if (!anthropic) {
+  if (!apiKey) {
     return generateBasicAnalysis(meetingData);
   }
 
@@ -150,8 +174,10 @@ export async function analyzeMeeting(meetingData) {
 
   entries.forEach(e => {
     const words = e.text.split(' ').length;
-    speakerStats[e.speaker.name].wordCount += words;
-    speakerStats[e.speaker.name].turnCount += 1;
+    if (speakerStats[e.speaker.name]) {
+      speakerStats[e.speaker.name].wordCount += words;
+      speakerStats[e.speaker.name].turnCount += 1;
+    }
   });
 
   const prompt = `Analyze the following meeting participation data and provide insights.
@@ -175,16 +201,29 @@ Provide analysis in JSON format:
 }`;
 
   try {
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      temperature: 0.3,
-      messages: [{
-        role: 'user',
-        content: prompt
-      }]
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
     });
 
+    if (!response.ok) {
+      return generateBasicAnalysis(meetingData);
+    }
+
+    const message = await response.json();
     const responseText = message.content[0].text;
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -261,8 +300,10 @@ function generateBasicAnalysis(meetingData) {
 
   entries.forEach(e => {
     const words = e.text.split(' ').length;
-    speakerStats[e.speaker.name].wordCount += words;
-    speakerStats[e.speaker.name].turnCount += 1;
+    if (speakerStats[e.speaker.name]) {
+      speakerStats[e.speaker.name].wordCount += words;
+      speakerStats[e.speaker.name].turnCount += 1;
+    }
     totalWords += words;
   });
 
