@@ -301,33 +301,11 @@ function renderOnboardingView() {
 
 function renderOnboardingStep() {
   const step = state.onboardingStep;
+  console.log('Rendering onboarding step:', step);
 
-  if (step === 1) {
+  if (step === 2) {
     return `
-      <div class="onboarding-step">
-        <h2>Setup Your Organization</h2>
-        <p class="onboarding-subtitle">Let's get started with your company details</p>
-
-        <form id="orgSetupForm">
-          <div class="form-group">
-            <label>Organization Name</label>
-            <input type="text" name="orgName" required placeholder="Your Company Name" value="La Collette Wholesale Ltd">
-          </div>
-
-          <div class="btn-group">
-            <button type="submit" class="btn btn-primary btn-lg">
-              Continue
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </div>
-        </form>
-      </div>
-    `;
-  } else if (step === 2) {
-    return `
-      <div class="onboarding-step">
+      <div class="onboarding-step active">
         <h2>Add Team Members</h2>
         <p class="onboarding-subtitle">Select who will be in your meetings</p>
 
@@ -358,6 +336,30 @@ function renderOnboardingStep() {
       </div>
     `;
   }
+  
+  // Default to step 1
+  return `
+    <div class="onboarding-step active">
+      <h2>Setup Your Organization</h2>
+      <p class="onboarding-subtitle">Let's get started with your company details</p>
+
+      <form id="orgSetupForm">
+        <div class="form-group">
+          <label>Organization Name</label>
+          <input type="text" name="orgName" required placeholder="Your Company Name" value="${state.organizationName || 'La Collette Wholesale Ltd'}">
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary btn-lg">
+            Continue
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  `;
 }
 
 function attachOnboardingHandlers() {
