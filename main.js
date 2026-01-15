@@ -57,7 +57,7 @@ const PREDEFINED_EMPLOYEES = [
 // ============================================
 
 async function initializeApp() {
-  console.log('ðŸš€ Initializing MeetingMind Enterprise...');
+  console.log('🚀 Initializing MeetingMind Enterprise...');
 
   try {
     // Check if Supabase is configured
@@ -186,7 +186,7 @@ function renderAuthView() {
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+              <input type="password" name="password" required placeholder="••••••••">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </form>
@@ -204,7 +204,7 @@ function renderAuthView() {
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" name="password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" minlength="6">
+              <input type="password" name="password" required placeholder="••••••••" minlength="6">
             </div>
             <button type="submit" class="btn btn-primary btn-block">Create Account</button>
           </form>
@@ -236,8 +236,15 @@ function attachAuthHandlers() {
     if (result.success) {
       state.isAuthenticated = true;
       state.user = result.user;
-      await loadAppData();
-      showView('dashboard');
+      state.profile = authService.getProfile();
+      state.organization = authService.getOrganization();
+      
+      if (!authService.hasCompletedOnboarding()) {
+        showView('onboarding');
+      } else {
+        await loadAppData();
+        showView('dashboard');
+      }
     }
   });
 
@@ -440,7 +447,7 @@ function renderDashboardView() {
         <div class="stats-grid">
           <div class="stat-card gradient-1">
             <div class="stat-header">
-              <div class="stat-icon">ðŸ“Š</div>
+              <div class="stat-icon">📊</div>
               <div class="stat-trend up">+12%</div>
             </div>
             <div class="stat-value">${stats.totalMeetings}</div>
@@ -448,7 +455,7 @@ function renderDashboardView() {
           </div>
           <div class="stat-card gradient-2">
             <div class="stat-header">
-              <div class="stat-icon">â±ï¸</div>
+              <div class="stat-icon">⏱️</div>
               <div class="stat-trend up">+8%</div>
             </div>
             <div class="stat-value">${stats.totalHours}</div>
@@ -456,16 +463,16 @@ function renderDashboardView() {
           </div>
           <div class="stat-card gradient-3">
             <div class="stat-header">
-              <div class="stat-icon">âœ“</div>
-              <div class="stat-trend neutral">â€”</div>
+              <div class="stat-icon">✓</div>
+              <div class="stat-trend neutral">—</div>
             </div>
             <div class="stat-value">${stats.actionItems}</div>
             <div class="stat-label">Action Items</div>
           </div>
           <div class="stat-card gradient-4">
             <div class="stat-header">
-              <div class="stat-icon">ðŸ‘¥</div>
-              <div class="stat-trend neutral">â€”</div>
+              <div class="stat-icon">👥</div>
+              <div class="stat-trend neutral">—</div>
             </div>
             <div class="stat-value">${stats.avgAttendees}</div>
             <div class="stat-label">Avg Attendees</div>
@@ -566,7 +573,7 @@ function renderRecentMeetings() {
       </div>
       <div class="meeting-info">
         <div class="meeting-title">${escapeHtml(meeting.title)}</div>
-        <div class="meeting-meta">${formatDate(meeting.created_at, 'short')} â€¢ ${meeting.type}</div>
+        <div class="meeting-meta">${formatDate(meeting.created_at, 'short')} • ${meeting.type}</div>
       </div>
       <div class="meeting-duration">${formatDuration(meeting.duration_seconds || 0)}</div>
     </div>
@@ -678,27 +685,19 @@ function attachPreferencesHandlers() {}
 
 function hideLoadingScreen() {
   const loading = document.getElementById('loadingScreen');
-  const app = document.getElementById('app');
-  
   if (loading) {
     loading.style.opacity = '0';
     setTimeout(() => loading.style.display = 'none', 300);
-  }
-  
-  // Make app visible
-  if (app) {
-    app.classList.add('visible');
   }
 }
 
 function showConfigurationError() {
   const appContainer = document.getElementById('app');
-  appContainer.classList.add('visible'); // Make visible first
   appContainer.innerHTML = `
     <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
       <div style="background: white; border-radius: 20px; padding: 3rem; max-width: 600px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
         <div style="text-align: center; margin-bottom: 2rem;">
-          <div style="font-size: 4rem; margin-bottom: 1rem;">âš ï¸</div>
+          <div style="font-size: 4rem; margin-bottom: 1rem;">⚠️</div>
           <h1 style="font-size: 2rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Configuration Required</h1>
           <p style="font-size: 1.125rem; color: #64748b; line-height: 1.6;">
             Environment variables are not configured in Vercel.
@@ -708,9 +707,9 @@ function showConfigurationError() {
         <div style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
           <h2 style="font-size: 1rem; font-weight: 700; color: #475569; margin-bottom: 1rem;">Required Variables:</h2>
           <div style="font-family: 'Monaco', 'Courier New', monospace; font-size: 0.875rem; color: #1e293b;">
-            <div style="margin-bottom: 0.5rem;">â€¢ VITE_SUPABASE_URL</div>
-            <div style="margin-bottom: 0.5rem;">â€¢ VITE_SUPABASE_ANON_KEY</div>
-            <div>â€¢ VITE_ANTHROPIC_API_KEY</div>
+            <div style="margin-bottom: 0.5rem;">• VITE_SUPABASE_URL</div>
+            <div style="margin-bottom: 0.5rem;">• VITE_SUPABASE_ANON_KEY</div>
+            <div>• VITE_ANTHROPIC_API_KEY</div>
           </div>
         </div>
         
@@ -725,16 +724,16 @@ function showConfigurationError() {
         </div>
         
         <div style="text-align: center;">
-          <a href="https://vercel.com/the-ai-guyjsy/meeting-mind/settings/environment-variables" 
+          <a href="https://vercel.com" 
              target="_blank"
              style="display: inline-block; padding: 0.875rem 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4); transition: transform 0.2s;">
-            Open Vercel Settings â†’
+            Open Vercel Settings →
           </a>
         </div>
         
         <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; text-align: center;">
           <p style="font-size: 0.8125rem; color: #94a3b8;">
-            Need help? Check <a href="https://github.com/the-ai-guyjsy/meeting-mind" style="color: #3b82f6; text-decoration: none;">the documentation</a>
+            Need help? Check the documentation
           </p>
         </div>
       </div>

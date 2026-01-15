@@ -5,26 +5,25 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Supabase configuration
-// First try environment variables, then fall back to defaults for testing
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://xrvbfnceuuajjwxnccon.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhydmJmbmNldXVhamp3eG5jY29uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzOTE3NzMsImV4cCI6MjA4Mzk2Nzc3M30.ZtFkbuPutpWL2FqVD6s-Wz60Xbm0bvL4TUpGeAqk4KM';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Debug logging
-console.log('Supabase Config:', {
-  url: supabaseUrl,
-  keyLength: supabaseAnonKey.length,
-  envUrlSet: !!import.meta.env.VITE_SUPABASE_URL
-});
+// Check for environment variables
+const hasConfig = supabaseUrl && supabaseAnonKey;
 
-// Create client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+if (!hasConfig) {
+  console.error('⚠️ Missing Supabase environment variables!');
+  console.error('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Vercel');
+}
+
+// Create client even if config missing (will fail gracefully)
+export const supabase = hasConfig ? createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true
   }
-});
+}) : null;
 
 // Auth helpers
 export const auth = {
